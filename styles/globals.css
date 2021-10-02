@@ -1,0 +1,54 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background:#fafafa;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    color:#fff
+}
+
+body{
+  height:100vh;
+  overflow: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.secondary-text-line {
+  color:rgba(0,0,0,.5);
+  font-size: 14px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player-controls-icon-btn{
+  height: 40px;
+  width: 40px;
+  margin: 0 5px;
+  color: #fff !important;
+}
+
+.MuiListItem-gutters {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+.MuiMenu-paper{
+  background: rgb(10,10,10) !important;
+}
+
+.MuiMenu-list, .MuiList-root, .MuiPaper-root {
+  outline: 0;
+  border: 1px #111 solid;
+  margin-right: 30px;
+}
