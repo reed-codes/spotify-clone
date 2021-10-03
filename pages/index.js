@@ -16,7 +16,7 @@ export default function Home() {
         ></link>
       </Head>
 
-      {/* <main
+      <main
         style={{
           background: `url(./demo-img-4.jpg)`,
           backgroundSize: "cover",
@@ -27,7 +27,7 @@ export default function Home() {
 
 
 
-      </main> */}
+      </main>
     </div>
   );
 }

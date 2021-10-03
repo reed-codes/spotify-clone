@@ -1,3 +1,4 @@
+import {useContext} from 'react'
 import styled from "styled-components";
 import { useMediaQuery } from "@material-ui/core";
 import TrackTitleAndArtist from '../TrackTitleAndArtist'
@@ -5,6 +6,7 @@ import PlayerBackgroundEffect from '../PlayerBackgroundEffect'
 import PrevAndPlayAndNextButtonPack  from '../PrevAndPlayAndNextButtonPack'
 import MoreMenuButton  from '../MoreMenuButton'
 import PlayerProgressPack from '../PlayerProgressPack'
+import {PlayerContext} from '../../Player'
 
 
 const SmallScreenPlayerWrapper = styled.div`
@@ -43,6 +45,7 @@ right:0
 
 
 export default function SmallScreenDefaultPlayer(){
+    const {currentTrack} =  useContext(PlayerContext);
     const max_width_560px = useMediaQuery("(max-width:560px)")
   
   
@@ -52,8 +55,8 @@ export default function SmallScreenDefaultPlayer(){
                  
                    <SmallScreenPlayerTopSection>
                               <SmallScreenPlayerTrackTitleAndArtistWrapper>
-                                    <TrackTitleAndArtist  title={"React Marquee Libraries · react"}
-                                                          artist={"The Cranberries"}
+                                    <TrackTitleAndArtist    title={currentTrack.title}
+                                                            artist={currentTrack.artist.name}
                                                           />
                               </SmallScreenPlayerTrackTitleAndArtistWrapper>
   

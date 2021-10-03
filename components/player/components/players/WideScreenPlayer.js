@@ -30,7 +30,7 @@ export default function WideScreenPlayer(){
 
   return (
     <>
-      <PlayerGrid bgColor="green">
+      <PlayerGrid>
         <TrackInfoWrapper
           cover={"./demo-img-5.jpg"}
           title={currentTrack.title}
@@ -38,11 +38,11 @@ export default function WideScreenPlayer(){
         />
       </PlayerGrid>
 
-      <PlayerGrid flexDirection={"column"} bgColor="goldenrod">
+      <PlayerGrid flexDirection={"column"}>
         <PlayerCenterControls />
       </PlayerGrid>
 
-      <PlayerGrid bgColor="green">
+      <PlayerGrid>
         <PlayerRightGridOptions />
       </PlayerGrid>
     </>
@@ -167,7 +167,7 @@ const TrackVolumePack = styled.div`
 `;
 
 export const PlayerRightGridOptions = () => {
-  const {volume, handleVolumeChange} = useContext(PlayerContext)
+  const {volume, isPipOn, handleVolumeChange, handlePipToggle} = useContext(PlayerContext)
 
   return (
     <div
@@ -200,8 +200,11 @@ export const PlayerRightGridOptions = () => {
       <IconButton
         className = "player-controls-icon-btn"
         aria-label="picture in picture"
+        onClick = {handlePipToggle}
       >
-        <PictureInPictureIcon />
+        <PictureInPictureIcon style = {{
+            fill: isPipOn ? 'deeppink' : '#fff'
+        }} />
       </IconButton>
 
 

@@ -4,6 +4,7 @@ import { useMediaQuery } from "@material-ui/core";
 import PlayerBackgroundEffect from './components/PlayerBackgroundEffect'
 import WideScreenPlayer from './components/players/WideScreenPlayer'
 import SmallScreenPlayer from './components/players/SmallScreenDefaultPlayer'
+import PipPlayer from './components/players/PipPlayer'
 
 export const PlayerWrapper = styled.div`
   width: 100%;
@@ -28,9 +29,8 @@ function shuffleArray(trackList) {
 }
 
 
-  
-
 export const PlayerContext = createContext(null);
+
 
 export default function Player(props){
         const max_width_950px = useMediaQuery("(max-width:950px)");
@@ -39,8 +39,9 @@ export default function Player(props){
         const [repeatFlag, setRepeatFlag] = useState(0); // REPEAT-CURRENT, REPEAT-ALL
         const [isShuffling, setIsShuffling] = useState(false);
         const [isPlaying, setIsPlaying] = useState(false);
-        const [isLoading, setIsLoading] = useState(true);
+        const [isLoading, setIsLoading] = useState(false);
         const [volume, setVolume] = useState(1);
+        const [isPipOn, setIsPipOn] = useState(false);
         const [trackProgress, setTrackProgress] = useState({
                                                              time : 0,
                                                              percentage : 0 ,
@@ -52,11 +53,7 @@ export default function Player(props){
                   activeList : [],
                   isPending : false
        })
-     
-
        const repeatType =  (repeatFlag == 0) ? "NO-REPEAT" : (repeatFlag == 1) ? "REPEAT-ALL" : "REPEAT-CURRENT";
-
-
 
 
         useEffect(()=>{
@@ -76,6 +73,8 @@ export default function Player(props){
         },[volume])
 
 
+        
+
         useEffect(()=>{
                 if(playerRef){
                       try{
@@ -94,25 +93,29 @@ export default function Player(props){
 
 
 
-
-
-
-
-
-
       //   HANDLERS START 🪓🪓🪓
 
                   const handlePlay = ()=> setIsPlaying(true)
 
                   const handlePause = ()=> setIsPlaying(false)
 
-                  const handleIsLoading = ()=> setIsLoading(true)
-
-                  const handleCanPlay = (event)=> setIsLoading(false) 
-
                   const handleTrackEnd = ()=> handlePlayNext()
 
+                  const handleTrackBuffering = (e)=> setIsLoading(true);
+
+                  const handlePipToggle = ()=> setIsPipOn(!isPipOn);
+
                   const handleVolumeChange = (event, newVolume)=> setVolume( newVolume/100 )
+
+                  const handleIsLoading = ()=> {
+                         setIsLoading(true)
+                         handlePause();
+                  }
+
+                  const handleCanPlay = (event)=> {
+                        setIsLoading(false)
+                        handlePlay()
+                  } 
 
                   const handlePlayNext = ()=>{
                         if( (currentTrackIndex == (trackList.length - 1)) && ( repeatType == "NO-REPEAT" ) ) {
@@ -189,21 +192,19 @@ export default function Player(props){
                               })
                   }
 
-                  const handleTrackBuffering = (e)=>{
-                           setIsLoading(true)
-                  }
-
       //   HANDLERS END 🪓🪓🪓
 
+              
+      if(max_width_950px && isPipOn) 
+        handlePipToggle() 
 
 
 
 
+        return (
 
-
-
-
-        const PAYLOAD = {
+              
+      <PlayerContext.Provider value = {{
             handlePlay,
             handlePause,
             handlePlayNext,
@@ -213,6 +214,7 @@ export default function Player(props){
             handleTrackTimeUpdateFromSlider,
             handleToggleShuffle,
             handleFullScreenClick,
+            handlePipToggle,
             currentTrackIndex,
             currentTrack: trackList[currentTrackIndex],
             repeatType,
@@ -221,38 +223,34 @@ export default function Player(props){
             trackProgress,
             volume,
             repeatFlag,
-            isShuffling
-        }
-
-
-
-
-
-
-
-
-        return (
-      <PlayerContext.Provider value = {PAYLOAD}>
+            isShuffling,
+            isPipOn
+      }}>
             <PlayerWrapper>
+
+                  <PipPlayer isPipOn = {isPipOn} /> 
+
                   <PlayerBackgroundEffect cover = {"./demo-img-5.jpg"} />
                   {max_width_950px ? <SmallScreenPlayer/> : <WideScreenPlayer/>}
 
-            <audio 
-                  ref = {setPlayerRef}
-                  style = {{display:"none"}}
-                  onLoadStart = {handleIsLoading}
-                  onCanPlay = {handleCanPlay}
-                  onTimeUpdate = {handleTrackTimeUpdateFromAudioElement}
-                  onWaiting = {handleTrackBuffering}
-                  onEnded = {handleTrackEnd}
-                  >
-                        <source src={ trackList[currentTrackIndex].preview } type="audio/ogg" />
-                        <source src={ trackList[currentTrackIndex].preview } type="audio/mpeg"/>
-                        Your browser does not support the audio element.
-            </audio>
+                  <audio 
+                        ref = {setPlayerRef}
+                        style = {{display:"none"}}
+                        onLoadStart = {handleIsLoading}
+                        onCanPlay = {handleCanPlay}
+                        onTimeUpdate = {handleTrackTimeUpdateFromAudioElement}
+                        onWaiting = {handleTrackBuffering}
+                        onEnded = {handleTrackEnd}
+                        >
+                              <source src={ trackList[currentTrackIndex].preview } type="audio/ogg" />
+                              <source src={ trackList[currentTrackIndex].preview } type="audio/mpeg"/>
+                              Your browser does not support the audio element.
+                  </audio>
 
             </PlayerWrapper>
       </PlayerContext.Provider>
+
+
         )
 } 
 
@@ -339,3 +337,4 @@ const trackList = [
       type: "track"
     }
 ]
+

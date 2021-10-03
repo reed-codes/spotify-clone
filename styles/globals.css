@@ -52,3 +52,11 @@ a {
   border: 1px #111 solid;
   margin-right: 30px;
 }
+
+#pip-player:hover{
+  filter:brightness(70%);
+  cursor: grab;
+}
+#pip-player:active{
+  cursor: grabbing;
+}
