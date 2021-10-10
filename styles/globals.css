@@ -60,3 +60,15 @@ a {
 #pip-player:active{
   cursor: grabbing;
 }
+
+.backdrop-blur::before{
+      content: '';
+      height:100%;
+      width:100%;
+      background : rgba(10,10,10, .9);
+      backdrop-filter: blur(20px);
+      position: absolute;
+      top:0px;
+      right: 0;
+      z-index: -1;
+}
