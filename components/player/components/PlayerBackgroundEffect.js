@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import useImageColor from 'use-image-color'
 
 const PlayerBackgroundEffectWrapper = styled.div`
 width: 100%;
@@ -29,9 +28,6 @@ transition : all .3s ease-in;
 
 
 export default function PlayerBackgroundEffect(props){
-  const { colors } = useImageColor( props.cover, { cors: true, colors: 5 })
-
-  console.log(" backkground effect colors ",colors)
   
     return (
       <PlayerBackdrobFilterWrapper>

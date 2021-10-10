@@ -7,26 +7,24 @@ import Head from './Head'
 const MainWrapper = styled.div`
 height: 100vh;
 width: 100%;
-background:purple;
+background:#000;
 display:flex;
 `
 const LeftWideScreenNav = styled.nav`
 height: 100%;
 width:300px;
 min-width:300px;
-background:goldenrod;
-padding-bottom:100px;
+// padding-bottom:100px;
 `
 
 const MainContentContainer = styled.main`
 height: 100%;
 flex:1;
-background:maroon;
+background: linear-gradient(0deg, rgb(10,10,10) 50%, #555 100%);
+background-attachment: local !important;
 overflow-y : auto;
 position:relative;
 transform: translate(0,0);
-padding-bottom:100px;
-background: url('./demo-img-4.jpg');
 `
 
 const Layout = ({children}) => {
@@ -48,14 +46,12 @@ const Layout = ({children}) => {
                     <Nav/>
             </LeftWideScreenNav>
 
-            <MainContentContainer onScroll = {handleMainContentContainerScroll}>
+            <MainContentContainer onScroll = {handleMainContentContainerScroll}
+                                  id ="main-content-container"
+                             >
                             <AppBar appBarOpacity = {appBarOpacity}/>
             
-            <section style = {{
-                                padding:'10px 24px 0 24px',
-                                height:'100%',
-                                width:'100%'
-                                }}>
+            <section style = {{padding:'10px 24px 100px 24px' }}>
                             {children}
             </section>
 

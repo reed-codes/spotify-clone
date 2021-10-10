@@ -5,27 +5,38 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
 import IconButton from '@mui/material/IconButton';
+import useImageColor from 'use-image-color'
 
 
-export default function EditorsPickCard() {
+
+export default function EditorsPickCard(props) {
+ const { colors } = useImageColor( props.cover, { cors: true, colors: 5 })
 
   return (
 
             <Card style={{ 
                             display: 'flex', 
-                            background:'none',
+                            justifyContent:'space-between',
+                            background:'#181818',
                             width:247,
                             minWidth:247,
+                            flex:1,
                             cursor:'pointer',
                             marginBottom:15,
                             marginRight:15,
                             color:'#fff',
                             position:'relative',
-                            zIndex:10
+                            zIndex:10,
+                            border:'1px rgb(30,30,30) solid'
                        }}
-                       className = "backdrop-blur"
+                       className = "editors-pick-card"
+                       onMouseEnter = {()=>{
+                              const mainContentContainer = document.querySelector('#main-content-container');
+                              if(mainContentContainer)
+                                 mainContentContainer.style.background = `linear-gradient(0deg, rgb(10,10,10) 50%, ${colors[0]} 100%)`;
+
+                       }}
                        >
 
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -33,7 +44,7 @@ export default function EditorsPickCard() {
                 <CardContent sx={{ flex: '1 0 auto', padding: '10px !important' }}>
                     <Typography component="div" 
                                 variant="h6"
-                                style = {{fontSize:'1.1rem'}}
+                                style = {{fontSize:'1.1rem', fontWeight:700}}
                                 >
                         Live From Space
                     </Typography>
@@ -48,18 +59,12 @@ export default function EditorsPickCard() {
                     </Typography>
                 </CardContent>
                 
-                {/* <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                 
-                    <IconButton aria-label="play/pause">
-                        <PlayArrowIcon sx={{ height: 38, width: 38 }} />
-                    </IconButton>
-                   
-                </Box> */}
+
             </Box>
 
         <div style = {{
             position:'relative',
-            background:'gold',
+            background:'#333',
             height: 90, 
             width:90
         }}>
@@ -74,21 +79,24 @@ export default function EditorsPickCard() {
                 top:0,
                 left:0
             }}>
-            
+
+                  <div className = 'editors-pick-play-icon'>
                     <IconButton aria-label="play/pause" style = {{
                                                                     borderRadius:'50%', 
-                                                                    background:'limegreen',
-                                                                    transform: "translate(-5px,-5px)"
+                                                                    transform: "translate(-10px,-10px)",
+                                                                    background:'limegreen'
                                                                     }}>
                                 <PlayArrowIcon sx={{ height: 28, width: 28 }} style = {{fontSize:10}}/>
                     </IconButton>
+                  </div>
+
               </div>
 
             <CardMedia
-                component="img"
-                sx={{ height: 90, width:90 }}
-                image="./cover-4.jpg"
-                alt="Live from space album cover"
+                component = "img"
+                sx = {{ height: 90, width:90 }}
+                image = {props.cover}
+                alt = "Live from space album cover"
             />
         </div>
             
