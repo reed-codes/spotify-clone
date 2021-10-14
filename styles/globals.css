@@ -94,6 +94,7 @@ a {
   transform-origin: top;
 }
 
+
 .editors-pick-card:hover .editors-pick-play-icon{
   opacity: 1;
   transform: translateY(-5px);
@@ -105,4 +106,8 @@ a {
 
 .editors-pick-card:hover .editors-pick-play-icon:active{
   filter: brightness(105%);
+}
+
+.editors-pick-card:hover{
+  background: rgba(255,255,255,.5);
 }

@@ -1,5 +1,8 @@
 import styled from 'styled-components'
 import EditorsPickCard from '../components/EditorsPickCard'
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import Button from '@mui/material/Button'
+
 
 const SectionHeader = styled.h2`
     color: #fff;
@@ -15,6 +18,8 @@ const SectionHeader = styled.h2`
     text-transform: none;
     margin-top: 35px;
     margin-bottom: 16px;
+    position:relative;
+    z-index:10;
 `
 
 const CardRow = styled.div`
@@ -35,12 +40,18 @@ padding: 10px;
 margin-right:24px;
 margin-bottom:20px;
 position: relative;
--webkit-transition: background-color .3s ease;
-transition: background-color .3s ease;
-width: 100%;`
+width: 100%;
+cursor:pointer;
+transition: all .2s; linear;
+&:hover{
+      background: #383838;
+}
+`
 
 const InnerCard = styled.div`
 height: 100%;
+position: relative;
+z-index:1;
 `
 
 const CardCoverImageWrapper = styled.div`
@@ -156,6 +167,52 @@ const MediaCard = ()=>{
                  <CardCoverImage src = {'./demo-img-1.jpg'}
                                  alt = ""
                                  />
+
+
+<div style = {{
+             width:'100%',
+             background:'goldenrod',
+             position:'absolute',
+             top:'35%',
+             display:'flex',
+             justifyContent:'center',
+             alignItems:'center'
+       }}>
+
+       <Button style = {{
+              display:'flex',
+              justifyContent:'center',
+              alignItems:'center',
+              height:50,
+              width:50,
+              borderRadius:'50%',
+              margin:3,
+              minWidth:'unset',
+              background:'red',
+              border:'1px gold solid',
+              cursor:'default'
+       }}>
+               <FavoriteIcon/>
+       </Button>
+
+       <Button style = {{
+              display:'flex',
+              justifyContent:'center',
+              alignItems:'center',
+              height:50,
+              width:50,
+              borderRadius:'50%',
+              margin:3,
+              minWidth:'unset',
+              background:'red',
+              border:'1px gold solid',
+              cursor:'default'
+       }}>
+               <FavoriteIcon/>
+       </Button>
+
+</div>
+
             </CardCoverImageWrapper>
 
                   <CardContentWrapper>
@@ -171,6 +228,8 @@ const MediaCard = ()=>{
                   </CardContentWrapper>
 
       </InnerCard>
+
+
     </Card>
      )
 }

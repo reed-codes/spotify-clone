@@ -7,6 +7,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import TextField from '@mui/material/TextField';
 
@@ -133,6 +134,13 @@ const Nav = () => {
                     <Button variant="outlined" startIcon={<LibraryMusicIcon />}  
                             style = {NAV_ROUTE_BTN_STYLE}>
                             Your library
+                    </Button>
+            </Link>
+
+            <Link href = "/">
+                    <Button variant="outlined" startIcon={<FavoriteIcon />}  
+                            style = {NAV_ROUTE_BTN_STYLE}>
+                            Liked songs
                     </Button>
             </Link>
 

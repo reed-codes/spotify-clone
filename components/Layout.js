@@ -14,18 +14,36 @@ const LeftWideScreenNav = styled.nav`
 height: 100%;
 width:300px;
 min-width:300px;
-// padding-bottom:100px;
 `
 
 const MainContentContainer = styled.main`
 height: 100%;
 flex:1;
-background: linear-gradient(0deg, rgb(10,10,10) 50%, #555 100%);
-background-attachment: local !important;
+background: rgb(10,10,10);
 overflow-y : auto;
 position:relative;
 transform: translate(0,0);
 `
+
+
+const BackgroundGradientEffect = styled.main`
+padding:10px 24px 100px 24px;
+background: rgb(10,10,10);
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 60%;
+border-radius: 0.3em;
+background: #555;
+z-index: 2;
+box-shadow: -16px -200px 100px -31px rgba(10,10,10) inset;
+-webkit-box-shadow: -16px -200px 100px -31px rgba(10,10,10) inset;
+-moz-box-shadow: -16px -200px 100px -31px rgba(10,10,10) inset;
+filter:brightness(80%);
+transition: all .2s; linear
+`
+
 
 const Layout = ({children}) => {
     const [appBarOpacity, setAppBarOpacity] = useState(0);
@@ -49,11 +67,12 @@ const Layout = ({children}) => {
             <MainContentContainer onScroll = {handleMainContentContainerScroll}
                                   id ="main-content-container"
                              >
+
+                            <BackgroundGradientEffect id ="background-gradient-effect"/>
                             <AppBar appBarOpacity = {appBarOpacity}/>
-            
-            <section style = {{padding:'10px 24px 100px 24px' }}>
-                            {children}
-            </section>
+                            <section style = {{padding:'10px 24px 100px 24px' }}>
+                                            {children}
+                            </section>
 
             </MainContentContainer>
             

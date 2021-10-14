@@ -9,7 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import useImageColor from 'use-image-color'
 
 
-
 export default function EditorsPickCard(props) {
  const { colors } = useImageColor( props.cover, { cors: true, colors: 5 })
 
@@ -18,7 +17,7 @@ export default function EditorsPickCard(props) {
             <Card style={{ 
                             display: 'flex', 
                             justifyContent:'space-between',
-                            background:'#181818',
+                            background: 'rgba(255,255,255,.1)',
                             width:247,
                             minWidth:247,
                             flex:1,
@@ -28,13 +27,13 @@ export default function EditorsPickCard(props) {
                             color:'#fff',
                             position:'relative',
                             zIndex:10,
-                            border:'1px rgb(30,30,30) solid'
+                            border:'1px rgb(30,30,30,.1) solid',
                        }}
                        className = "editors-pick-card"
                        onMouseEnter = {()=>{
-                              const mainContentContainer = document.querySelector('#main-content-container');
-                              if(mainContentContainer)
-                                 mainContentContainer.style.background = `linear-gradient(0deg, rgb(10,10,10) 50%, ${colors[0]} 100%)`;
+                              const backgrounGradientEffect = document.querySelector('#background-gradient-effect');
+                              if(backgrounGradientEffect)
+                                 backgrounGradientEffect.style.background = colors[0] ;
 
                        }}
                        >
