@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
     <Provider store={store}>
       <Layout>
           <Component {...pageProps} />
-          {/* <Player/> */}
+          <Player/>
        </Layout>
     </Provider>
 
