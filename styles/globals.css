@@ -109,5 +109,14 @@ a {
 }
 
 .editors-pick-card:hover{
-  background: rgba(255,255,255,.5);
+  background: rgba(179, 177, 177, 0.5);
+}
+
+.media-card-on-hover-btn:hover{
+transform:scale(1.15)
+}
+
+.media-card:hover .media-card-on-hover-btn-wrapper{
+ visibility: visible !important;
+  transform: translateY(10px);
 }

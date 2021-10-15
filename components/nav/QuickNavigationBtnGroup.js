@@ -11,15 +11,24 @@ export default function QuickNavigationBtnGroup() {
                    size="small"
                    style = {{
                        color:'#fff',
-                       background:'rgba(0,0,0,.5)'
+                       background:'rgba(0,0,0,.5)',
+                       border:'none'
                    }}
                    >
-         <Button>
-             <NavigateBeforeIcon className = "text-white"/>
+        <Button  style = {{
+                            color:'#fff',
+                            border:'1px rgb(225, 225, 225, .08) solid'
+                            }}>
+             <NavigateBeforeIcon
+                 className = "text-white"/>
          </Button>
 
-         <Button>
-             <NavigateNextIcon className = "text-white"/>
+        <Button  style = {{
+                            color:'#fff',
+                            border:'1px rgb(225, 225, 225, .08) solid'
+                            }}>
+             <NavigateNextIcon
+                 className = "text-white"/>
          </Button>
       </ButtonGroup>
     </>

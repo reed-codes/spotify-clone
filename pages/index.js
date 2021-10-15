@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import EditorsPickCard from '../components/EditorsPickCard'
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
 import Button from '@mui/material/Button'
 
 
@@ -161,7 +163,7 @@ export default function Home() {
 
 const MediaCard = ()=>{
      return (
-      <Card>
+      <Card className = "media-card">
       <InnerCard>
             <CardCoverImageWrapper>
                  <CardCoverImage src = {'./demo-img-1.jpg'}
@@ -171,13 +173,18 @@ const MediaCard = ()=>{
 
 <div style = {{
              width:'100%',
-             background:'goldenrod',
              position:'absolute',
              top:'35%',
              display:'flex',
              justifyContent:'center',
-             alignItems:'center'
-       }}>
+             alignItems:'center',
+             visibility:'hidden',
+             transform: 'translateY(-10px)',
+             transition:'all .2s ease-out',
+
+       }}
+       className = "media-card-on-hover-btn-wrapper"
+       >
 
        <Button style = {{
               display:'flex',
@@ -188,11 +195,13 @@ const MediaCard = ()=>{
               borderRadius:'50%',
               margin:3,
               minWidth:'unset',
-              background:'red',
-              border:'1px gold solid',
-              cursor:'default'
-       }}>
-               <FavoriteIcon/>
+              background:'rgba(0,0,0,.5)',
+              backdropFilter:'blur(30px)',
+              cursor:'default',
+              transition:'transform .1s ease-out',
+              
+       }} className = 'media-card-on-hover-btn'>
+             <PlayArrowOutlinedIcon style = {{color:'#fff'}}/>
        </Button>
 
        <Button style = {{
@@ -202,13 +211,16 @@ const MediaCard = ()=>{
               height:50,
               width:50,
               borderRadius:'50%',
-              margin:3,
+              margin:5,
               minWidth:'unset',
-              background:'red',
-              border:'1px gold solid',
-              cursor:'default'
-       }}>
-               <FavoriteIcon/>
+              background:'rgba(0,0,0,.6)',
+              backdropFilter:'blur(30px)',
+              cursor:'default',
+              transition:'transform .1s ease-out',
+              
+       }} className = 'media-card-on-hover-btn'>
+               <FavoriteBorderIcon style = {{color:'#fff'}}/>
+
        </Button>
 
 </div>
