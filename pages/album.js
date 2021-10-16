@@ -1,24 +1,3 @@
-// import { SectionHeader } from "../styles/utils";
-// import EditorsPickGrid from "../components/EditorsPickGrid";
-// import ContentSliderSection from "../components/common/ContentSliderSection";
-// import { getTitle } from "../utils";
-
-// export default function Home() {
-//   return (
-//     <>
-//       <SectionHeader>Editor's pick</SectionHeader>
-//       <EditorsPickGrid/>
-
-//       <ContentSliderSection title = { getTitle( "top-tracks" ) } q = "top-tracks" />
-//       <ContentSliderSection title = { getTitle( "top-albums" ) } q = "top-albums" />
-//       <ContentSliderSection title = { getTitle( "top-playlists" ) } q = "top-playlists"/>
-//       <ContentSliderSection title = { getTitle( "top-artists" ) } q = "top-artists" />
-//       <ContentSliderSection title = { getTitle( "new-releases" ) } q = "new-releases"/>
-//     </>
-//   );
-
-// }
-
 import { SectionHeader } from "../styles/utils";
 import EditorsPickGrid from "../components/EditorsPickGrid";
 import ContentSliderSection from "../components/common/ContentSliderSection";
@@ -26,14 +5,14 @@ import { getTitle } from "../utils";
 import Link from "next/link";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
-import TrackList from "../components/common/TrackList";
+
 import styled from "styled-components";
+import TrackList from "../components/common/TrackList";
 
 const MusicHeader = styled.div`
   height: 20vh;
   max-height: 500px;
   min-height: 320px;
-
   color: #fff;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -42,7 +21,7 @@ const MusicHeader = styled.div`
   overflow: hidden;
   padding-bottom: 24px;
   position: relative;
-  // background-color: rgb(48, 56, 56);
+  background-color: rgb(48, 56, 56);
 `;
 
 const CoverImage = styled.div`
@@ -66,8 +45,6 @@ const HeaderDetailsWrapper = styled.div`
   -webkit-box-direction: normal;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   -ms-flex: 1;
   flex: 1;
@@ -83,6 +60,7 @@ const MusicHeaderContentTypeText = styled.h2`
   margin-top: 4px;
   text-transform: uppercase;
   line-height: 16px;
+  background: blue;
 `;
 
 const MusicHeaderContentTitle = styled.h1`
@@ -99,6 +77,7 @@ const MusicHeaderContentTitle = styled.h1`
   font-weight: 900;
   letter-spacing: -0.04em;
   text-transform: none;
+  background: orange;
 `;
 
 const ArtistLink = styled.div`
@@ -110,28 +89,34 @@ const ArtistLink = styled.div`
   }
 `;
 
-const MusicHeaderLeftGridWrapper = styled.div`
+const MusicHeaderLeftGrid = styled.div`
+height:  100% ;
+background:  purple ;
+display:  flex ;
+alignItems:  flex-end ;
+`
+
+const MusicHeaderRightGrid = styled.div`
 height: 100%;
+flex: 1;
+background: brown;
 display: flex;
 align-items: flex-end;
 `
 
-const MusicHeaderRightGridWrapper = styled.div`
-height: 100% ;
-flex: 1;
-display: flex ;
-align-items: flex-end ;
-`
-
 export default function album() {
   return (
-    <div>
+    <div
+      style={{
+        background: "red",
+      }}
+    >
       <MusicHeader>
-        <MusicHeaderLeftGridWrapper>
+        <MusicHeaderLeftGrid>
           <CoverImage url={"./cover.jpg"} className="music-header-cover-img" />
-        </MusicHeaderLeftGridWrapper>
+        </MusicHeaderLeftGrid>
 
-        <MusicHeaderRightGridWrapper >
+        <MusicHeaderRightGrid>
           <HeaderDetailsWrapper>
             <MusicHeaderContentTypeText>album</MusicHeaderContentTypeText>
 
@@ -158,22 +143,11 @@ export default function album() {
               <span style={{ color: "rgba(255,255,255,.7)" }}>5 songs</span>
             </Stack>
           </HeaderDetailsWrapper>
-        </MusicHeaderRightGridWrapper>
 
-
+        </MusicHeaderRightGrid>
       </MusicHeader>
 
       <TrackList />
-
-      <div style = {{
-        position:'relative',
-        width:'100%'
-      }}>
-        <ContentSliderSection
-          title={"More like Skepta"}
-          q="similar-artists-hvjvetyiu2y34bn"
-        />
-      </div>
     </div>
   );
 }

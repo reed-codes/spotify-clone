@@ -6,35 +6,44 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import IconButton from '@mui/material/IconButton';
+import styled from 'styled-components'
 import useImageColor from 'use-image-color'
 
+
+const CARD_STYLE = {
+    display: 'flex', 
+    justifyContent:'space-between',
+    background: 'rgba(155,155,155,.1)',
+    width:247,
+    minWidth:247,
+    flex:1,
+    cursor:'pointer',
+    marginBottom:15,
+    marginRight:15,
+    color:'#fff',
+    position:'relative',
+    zIndex:10,
+    border:'1px rgb(30,30,30,.1) solid',
+}
+
+const CardImgWrapper = styled.div`
+position: relative ;
+background: #333 ;
+height: 90px; 
+width:90px
+`
 
 export default function EditorsPickCard(props) {
  const { colors } = useImageColor( props.cover, { cors: true, colors: 5 })
 
   return (
 
-            <Card style={{ 
-                            display: 'flex', 
-                            justifyContent:'space-between',
-                            background: 'rgba(255,255,255,.1)',
-                            width:247,
-                            minWidth:247,
-                            flex:1,
-                            cursor:'pointer',
-                            marginBottom:15,
-                            marginRight:15,
-                            color:'#fff',
-                            position:'relative',
-                            zIndex:10,
-                            border:'1px rgb(30,30,30,.1) solid',
-                       }}
+            <Card style={CARD_STYLE}
                        className = "editors-pick-card"
                        onMouseEnter = {()=>{
                               const backgrounGradientEffect = document.querySelector('#background-gradient-effect');
-                              if(backgrounGradientEffect)
+                              if(backgrounGradientEffect && colors)
                                  backgrounGradientEffect.style.background = colors[0] ;
-
                        }}
                        >
 
@@ -58,15 +67,9 @@ export default function EditorsPickCard(props) {
                     </Typography>
                 </CardContent>
                 
-
             </Box>
 
-        <div style = {{
-            position:'relative',
-            background:'#333',
-            height: 90, 
-            width:90
-        }}>
+        <CardImgWrapper>
 
             <div style = {{
                 height:'100%',
@@ -83,7 +86,7 @@ export default function EditorsPickCard(props) {
                     <IconButton aria-label="play/pause" style = {{
                                                                     borderRadius:'50%', 
                                                                     transform: "translate(-10px,-10px)",
-                                                                    background:'limegreen'
+                                                                    background:'#1db954'
                                                                     }}>
                                 <PlayArrowIcon sx={{ height: 28, width: 28 }} style = {{fontSize:10}}/>
                     </IconButton>
@@ -97,7 +100,7 @@ export default function EditorsPickCard(props) {
                 image = {props.cover}
                 alt = "Live from space album cover"
             />
-        </div>
+        </CardImgWrapper>
             
             </Card>
 

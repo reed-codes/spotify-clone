@@ -116,7 +116,7 @@ const Nav = () => {
                     </Button>
             </Link>
 
-            <Link href = "/">
+            <Link href = "/recent">
                     <Button variant="outlined" startIcon={<HistoryIcon />}  
                             style = {NAV_ROUTE_BTN_STYLE}>
                             Recent plays
