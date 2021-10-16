@@ -149,7 +149,7 @@ export default function album() {
                 sx={{ width: 24, height: 24 }}
               />
 
-              <Link href="/">
+              <Link href="/" passHref = {true}>
                 <ArtistLink>Skepta</ArtistLink>
               </Link>
 

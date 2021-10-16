@@ -166,7 +166,7 @@ const TrackItem = () => {
             Been Like This
           </TrackTitleWrapper>
 
-          <Link href="/">
+          <Link href="/" passHref = {true}>
             <TrackArtistWrapper>Doja Cat</TrackArtistWrapper>
           </Link>
         </TrackDetailsWrapper>

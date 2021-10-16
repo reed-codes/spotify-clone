@@ -109,39 +109,49 @@ const Nav = () => {
 
         <WideScreenRoutesContainer>
 
-            <Link href = "/">
+            <Link href = "/" passHref = {true}>
+                    <a>
                     <Button variant="outlined" startIcon={<HomeIcon />}  
                             style = {NAV_ROUTE_BTN_STYLE}>
                             Home
                     </Button>
+                    </a>
             </Link>
 
-            <Link href = "/recent">
+            <Link href = "/recent" passHref = {true}>
+                    <a>
                     <Button variant="outlined" startIcon={<HistoryIcon />}  
                             style = {NAV_ROUTE_BTN_STYLE}>
                             Recent plays
                     </Button>
+                    </a>
             </Link>
 
-            <Link href = "/">
+            <Link href = "/" passHref = {true}>
+                    <a>
                     <Button variant="outlined" startIcon={<EqualizerIcon />}  
                             style = {NAV_ROUTE_BTN_STYLE}>
                             Now playing
                     </Button>
+                    </a>
             </Link>
 
-            <Link href = "/">
+            <Link href = "/" passHref = {true}>
+                    <a>
                     <Button variant="outlined" startIcon={<LibraryMusicIcon />}  
                             style = {NAV_ROUTE_BTN_STYLE}>
                             Your library
                     </Button>
+                    </a>
             </Link>
 
-            <Link href = "/">
+            <Link href = "/" passHref = {true}>
+                    <a>
                     <Button variant="outlined" startIcon={<FavoriteIcon />}  
                             style = {NAV_ROUTE_BTN_STYLE}>
                             Liked songs
                     </Button>
+                    </a>
             </Link>
 
         </WideScreenRoutesContainer>
