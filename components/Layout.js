@@ -61,38 +61,3 @@ const Layout = ({children}) => {
 
 export default Layout
 
-
-// High Availability Architecture
-// ==============================
-
-// Elastic load balancer
-// ==
-// What is a load balanver
-// - It is a physical or virtual device designed to help you balance the load eg network load accross multiple web servers
-// - You can also use it for applications as it doesn necessarily internet facing load balancers but typically they are internet facing and are primaritly used to balance load accross web servers
-// - with AWS there are 3 different types
-// --Application load balancer
-// --Network load balancer
-// --Classic load balancer
-
-// Application load balancer
-// ==
-// - are best suited for load balancing of HTTP and HTTPS traffic
-// - They operate at layer 7 [the applicaion layer] and are application aware 
-// --eg of you change your language to french on a website , your load balancer is can be made aware of this and go ahead and load balance accross all the franch web servers
-// - The are intelligent, and you can create advanced request routing, sending specified requests to specific web servers
-
-
-// Network load balancers
-// ==
-// - are best suited for load balancing of TCP traffic where extrem performance is required.
-// - Operating at the connection level (layer 4), Network load balancers are capable of handling millions or requests per seconds, while maintaining ultra-low latencies
-// - They are usued for extreme performance
-
-
-// Classic load balancer
-// ==
-// - Are the legacy Elastic load balancers
-// - You can load balance HTTO/HTTPS application and use layer-7 specific features, such as X-Forwarded and sticky session 
-// - You can also use strict Layer 4 load balancing for applications that rely purely on the TCP protocol
-// - Remember though that it is still not application aware it doesnt do it at layer 7

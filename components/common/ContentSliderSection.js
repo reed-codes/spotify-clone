@@ -31,7 +31,7 @@ const ContentSliderSection = (props)=>{
        <div className = "position-relative">
          <SectionHeader>{props.title}</SectionHeader>
          
-         <Link href = {`/more?q=${props.q}`}>
+         <Link href = {`/more?q=${props.q}`} passHref = {true}>
               <SeeAllLink>
                     see all
               </SeeAllLink>
