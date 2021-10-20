@@ -13,6 +13,7 @@ const TrackItemWrapper = styled.div`
   padding: 5px 16px;
   display:flex;
   align-items:center; 
+  cursor:default;
 `;
 
 const TrackNumberWrapper = styled.div`
@@ -66,7 +67,7 @@ line-height: 16px;
 text-transform: none;
 `
 
-const TrackItemsListHead = () => {
+const TrackItemsListHead = ({hideAlbumColumn}) => {
   return (
       <TrackItemWrapper className = 'track-item-wrapper'>
         <TrackNumberWrapper className="d-flex align-items-center">
@@ -79,9 +80,13 @@ const TrackItemsListHead = () => {
             Title
         </TrackDetailsWrapper>
 
-        <TrackAlbumWrapper className="d-flex align-items-center">
-            Album
-        </TrackAlbumWrapper>
+        {
+            !hideAlbumColumn && (
+              <TrackAlbumWrapper className="d-flex align-items-center">
+                  Album
+              </TrackAlbumWrapper>
+            )
+        }
 
         <span style = {{ marginRight: 16 }}>
                     <FavoriteOutlinedIcon style={{ opacity : 0 }} /> 

@@ -21,48 +21,7 @@ const MusicHeader = styled.div`
   overflow: hidden;
   position: relative;
   cursor:default;
-  background-color: ${({accentColor})=> accentColor};
-`;
-
-const CoverImage = styled.div`
-  box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
-  background-image: url(${({ url }) => url});
-  background-color:#111;
-  background-size: contain;
-  background-position: center;
-  user-select: none;
-  -ms-flex-item-align: end;
-  -webkit-margin-end: 24px;
-  align-self: flex-end;
-  height: 192px;
-  margin-inline-end: 24px;
-  min-width: 192px;
-  width: 192px;
-`;
-
-const HeaderDetailsWrapper = styled.div`
-  -webkit-box-flex: 1;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex: 1;
-  flex: 1;
-  -ms-flex-flow: column;
-  flex-flow: column;
-  justify-content: flex-end;
-  z-index: 0;
-`;
-
-const MusicHeaderContentTypeText = styled.h2`
-  font-weight: 700;
-  font-size: 12px;
-  margin-top: 4px;
-  text-transform: uppercase;
-  line-height: 16px;
+  background-color: #111;
 `;
 
 const MusicHeaderContentTitle = styled.h1`
@@ -90,28 +49,26 @@ const ArtistLink = styled.div`
   }
 `;
 
-const MusicHeaderLeftGridWrapper = styled.div`
+const MusicHeaderInnerWrapper = styled.div`
 height: 100%;
+width:100%;
 display: flex;
-align-items: flex-end;
+flex-direction:column;
+justify-content: flex-end;
 background-color:rgba(0,0,0,.4);
-padding-bottom:24px;
-padding-left:24px;
-`
-
-const MusicHeaderRightGridWrapper = styled.div`
-height: 100% ;
-flex: 1;
-display: flex ;
-align-items: flex-end ;
-background-color:rgba(0,0,0,.4);
-padding-bottom:24px;
+padding:24px;
+background-image: url('https://e-cdns-images.dzcdn.net/images/artist/3a58adf62c522732a6d3a7f8806de0c3/1000x1000-000000-80-0-0.jpg');
+background-attachment:fixed;
+background-size:cover;
+background-position:canter;
+background-color:#111;
+border-right:5px #111 solid;
 `
 
 export default function album() {
   let cover = "./cover.jpg";
   const { colors } = useImageColor( cover, { cors: true, colors: 5 })
-  const accentColor = colors ? colors[0] : 'transparent';
+  const accentColor = colors ? colors[0] : 'green';
   const [similarArtistConfig, setSimilarArtistConfig ] = useState({
       link:'',
       titile:''
@@ -138,44 +95,25 @@ export default function album() {
   return (
     <>
       <MusicHeader accentColor = {accentColor}>
-        <MusicHeaderLeftGridWrapper>
-          <CoverImage url={"./cover.jpg"} className="music-header-cover-img" />
-        </MusicHeaderLeftGridWrapper>
+        <MusicHeaderInnerWrapper>
 
-        <MusicHeaderRightGridWrapper >
-          <HeaderDetailsWrapper>
-            <MusicHeaderContentTypeText>album</MusicHeaderContentTypeText>
+        <MusicHeaderContentTitle>All In</MusicHeaderContentTitle>
 
-            <MusicHeaderContentTitle>All In</MusicHeaderContentTitle>
-
-            <Stack
-              direction="row"
-              spacing={1}
-              alignItems="center"
-              style={{ fontSize: 14 }}
-            >
-              <Avatar
-                alt="Remy Sharp"
-                src={"./cover-5.jpg"}
-                sx={{ width: 24, height: 24 }}
-              />
-
-              <Link href="/" passHref = {true}>
-                <ArtistLink>Skepta</ArtistLink>
-              </Link>
-
-              <span>&bull;</span>
-
-              <span style={{ color: "rgba(255,255,255,.8)" }}>5 songs</span>
-            </Stack>
-          </HeaderDetailsWrapper>
-        </MusicHeaderRightGridWrapper>
-
+        <Stack
+        direction="row"
+        spacing={1}
+        alignItems="center"
+        style={{ fontSize: 14 }}
+        >
+        <span style={{ color: "rgba(255,255,255,.8)" }}>1003 451 monthly listeners</span>
+        </Stack>
+            
+        </MusicHeaderInnerWrapper>
 
       </MusicHeader>
 
         <Container>
-            <TrackList hideAlbumColumn = {true}/>
+            <TrackList />
 
             <div style = {{
                 position:'relative',

@@ -23,6 +23,7 @@ background: #101010;
 overflow-y : auto;
 position:relative;
 transform: translate(0,0);
+padding-bottom:130px;
 `
 
 
@@ -48,9 +49,7 @@ const Layout = ({children}) => {
             <MainContentContainer onScroll = {handleMainContentContainerScroll} >
 
                             <AppBar appBarOpacity = {appBarOpacity}/>
-                            <section style = {{padding:'0px 24px 100px 24px' }}>
-                                            {children}
-                            </section>
+                            {children}
 
             </MainContentContainer>
             

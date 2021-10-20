@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import MediaCard from "./MediaCard";
+import ArtistCard from "./ArtistCard";
 import Link from 'next/link'
 import {SectionHeader} from '../../styles/utils'
 
@@ -25,20 +26,19 @@ cursor:pointer;
 }
 `
 
-const ContentSliderSection = (props)=>{
-
+const ContentSliderSection = ({title, url})=>{
     return (
        <div className = "position-relative">
-         <SectionHeader>{props.title}</SectionHeader>
+         <SectionHeader>{title}</SectionHeader>
          
-         <Link href = {`/more?q=${props.q}`} passHref = {true}>
+         <Link href = {url} passHref = {true}>
               <SeeAllLink>
                     see all
               </SeeAllLink>
          </Link>
    
          <CardRow>
-           <MediaCard />
+           <ArtistCard />
            <MediaCard />
            <MediaCard />
            <MediaCard />

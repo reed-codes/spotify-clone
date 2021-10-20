@@ -51,6 +51,7 @@ const CardCoverImage = styled.img`
   width: 100%;
   object-fit: cover;
   object-position: center;
+  border-radius:50%;
 `;
 const CardContentWrapper = styled.div`
   min-height: 62px;
@@ -104,18 +105,18 @@ const MEDIA_CARD_BTN = {
   boxShadow:'0 8px 8px rgb(0 0 0 / 30%)'
 };
 
-const MediaCard = () => {
+const ArtistCard = () => {
   const [isLiked, setIsLiked] = useState(false)
 
   const handleLikeBtnClick = ()=> setIsLiked(!isLiked)
   
   return (
-    <Link href = "/album">
+    <Link href = "/artist">
     <CardWrapper>
     <Card className="media-card">
       <InnerCard>
         <CardCoverImageWrapper>
-          <CardCoverImage src={"https://e-cdns-images.dzcdn.net/images/cover/63af28b4e046c59293eaf313be13f8f7/250x250-000000-80-0-0.jpg"} alt="" />
+          <CardCoverImage src={"https://e-cdns-images.dzcdn.net/images/artist/bd3f01a27e692074ed40bf8755b06afe/250x250-000000-80-0-0.jpg"} alt="" />
 
           <MediaCardOnHoverBtnWrapper className="media-card-on-hover-btn-wrapper">
             <Button
@@ -139,16 +140,16 @@ const MediaCard = () => {
         </CardCoverImageWrapper>
 
         <CardContentWrapper>
-          <CardHeader>Daily Mix 1</CardHeader>
+          <CardHeader>Lana del Rey</CardHeader>
 
-          <CardBody>Doja Cat, Billie Eilish, MARINA and more</CardBody>
+          <CardBody>Artist</CardBody>
         </CardContentWrapper>
       </InnerCard>
     </Card>
-        </CardWrapper>
-        </Link>
+    </CardWrapper>
+    </Link>
   );
 };
 
 
-export default MediaCard
+export default ArtistCard

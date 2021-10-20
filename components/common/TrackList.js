@@ -1,19 +1,15 @@
 import TrackItem from "./TrackItem";
 import TrackItemsListHead from "./TrackItemsListHead";
 
-const TrackList = () => {
+const TrackList = ({hideAlbumColumn}) => {
     
   return (
     <div>
-
-        
-        <TrackItemsListHead/>
-        <TrackItem/>
-        <TrackItem/>
-        <TrackItem/>
-        <TrackItem/>
-
-     
+        <TrackItemsListHead hideAlbumColumn = {hideAlbumColumn}/>
+        <TrackItem hideAlbumColumn = {hideAlbumColumn}/>
+        <TrackItem hideAlbumColumn = {hideAlbumColumn}/>
+        <TrackItem hideAlbumColumn = {hideAlbumColumn}/>
+        <TrackItem hideAlbumColumn = {hideAlbumColumn}/>
     </div>
   );
 };

@@ -20,6 +20,7 @@ const TrackItemWrapper = styled.div`
   background-color: transparent;
   display: flex;
   align-items: center;
+  cursor: pointer;
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
@@ -113,7 +114,7 @@ const TrackDurationWrapper = styled.div`
   text-transform: none;
 `;
 
-const TrackItem = () => {
+const TrackItem = ({hideAlbumColumn}) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -125,80 +126,90 @@ const TrackItem = () => {
   const handlePlayRequest = () => setIsPlaying(!isPlaying);
 
   return (
+    <TrackItemWrapper
+      className="track-item-wrapper"
+      onClick={handlePlayRequest}
+    >
+      <TrackNumberWrapper className="d-flex align-items-center">
+        <span className="track-number-and-wave-animation-wrapper">
+          {isPlaying ? (
+            <WaveSpinner size={9} color="#1db954" />
+          ) : (
+            <span className="ms-1">1</span>
+          )}
+        </span>
 
-      <TrackItemWrapper
-        className="track-item-wrapper"
-        onClick={handlePlayRequest}
-      >
-        <TrackNumberWrapper className="d-flex align-items-center">
-          <span className="track-number-and-wave-animation-wrapper">
-            {isPlaying ? (
-              <WaveSpinner size={9} color="#1db954" />
-            ) : (
-              <span className="ms-1">1</span>
-            )}
-          </span>
-
-          <span className="track-play-icon">
-            <Tooltip title="Play Boogie Wonderladn by Joe" placement="top">
+        <span className="track-play-icon">
+          {isPlaying ? (
+            <Tooltip title="Pause" placement="top">
               <IconButton>
-                {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-              </IconButton>
-            </Tooltip>
-          </span>
-        </TrackNumberWrapper>
-
-        <TrackCoverArtWrapper className="d-flex justify-content-center align-items-center">
-          <img
-            src={"./cover-5.jpg"}
-            alt=""
-            style={{
-              height: "100%",
-              width: "100%",
-              background: "#000",
-              objectFit: "cover",
-            }}
-          />
-        </TrackCoverArtWrapper>
-
-        <TrackDetailsWrapper>
-          <TrackTitleWrapper isPlaying = {isPlaying}>
-            Been Like This
-          </TrackTitleWrapper>
-
-          <Link href="/" passHref = {true}>
-            <TrackArtistWrapper>Doja Cat</TrackArtistWrapper>
-          </Link>
-        </TrackDetailsWrapper>
-
-        <TrackAlbumWrapper>Planet Her (Deluxe)</TrackAlbumWrapper>
-
-        <span style={{ marginRight: 16 }} onClick={handleLikeBtnClick}>
-          {isLiked ? (
-            <Tooltip title="Remove from Your Library" placement="top">
-              <IconButton>
-                <FavoriteOutlinedIcon
-                  style={{ color: "#1db954", opacity: 1 }}
-                  id="like-icon"
-                  className="track-item-show-on-hover-icon"
-                />
+                <PauseIcon />
               </IconButton>
             </Tooltip>
           ) : (
-            <Tooltip title="Save to Your Library" placement="top">
+            <Tooltip title="Play Boogie Wonderladn by Joe" placement="top">
               <IconButton>
-                <FavoriteBorderIcon
-                  style={{ color: "#fff", opacity: 0 }}
-                  id="liked-icon"
-                  className="track-item-show-on-hover-icon"
-                />
+                <PlayArrowIcon />
               </IconButton>
             </Tooltip>
           )}
         </span>
+      </TrackNumberWrapper>
 
-        <TrackDurationWrapper>4:55</TrackDurationWrapper>
-      </TrackItemWrapper>
+      <TrackCoverArtWrapper className="d-flex justify-content-center align-items-center">
+        <img
+          src={"./cover-5.jpg"}
+          alt=""
+          style={{
+            height: "100%",
+            width: "100%",
+            background: "#000",
+            objectFit: "cover",
+          }}
+        />
+      </TrackCoverArtWrapper>
+
+      <TrackDetailsWrapper>
+        <TrackTitleWrapper isPlaying={isPlaying}>
+          Been Like This
+        </TrackTitleWrapper>
+
+        <Link href="/" passHref={true}>
+          <TrackArtistWrapper>Doja Cat</TrackArtistWrapper>
+        </Link>
+      </TrackDetailsWrapper>
+
+
+{
+  !hideAlbumColumn && <TrackAlbumWrapper>Planet Her (Deluxe)</TrackAlbumWrapper>
+}
+
+      <span style={{ marginRight: 16 }} onClick={handleLikeBtnClick}>
+        {isLiked ? (
+          <Tooltip title="Remove from Your Library" placement="top">
+            <IconButton>
+              <FavoriteOutlinedIcon
+                style={{ color: "#1db954", opacity: 1 }}
+                id="like-icon"
+                className="track-item-show-on-hover-icon"
+              />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Tooltip title="Save to Your Library" placement="top">
+            <IconButton>
+              <FavoriteBorderIcon
+                style={{ color: "#fff", opacity: 0 }}
+                id="liked-icon"
+                className="track-item-show-on-hover-icon"
+              />
+            </IconButton>
+          </Tooltip>
+        )}
+      </span>
+
+      <TrackDurationWrapper>4:55</TrackDurationWrapper>
+    </TrackItemWrapper>
   );
 };
 

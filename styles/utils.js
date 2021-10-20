@@ -16,4 +16,9 @@ export const SectionHeader = styled.h2`
     margin-bottom: 16px;
     position:relative;
     z-index:10;
+    cursor:default;
+`
+
+export const Container = styled.div`
+padding:0 24px;
 `
