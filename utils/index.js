@@ -10,6 +10,12 @@ export const getTitle = (id)=>{
                     return "Popular artists"
               case 'new-releases' : 
                     return "Hot new releases"
+              case 'artist-albums' : 
+                    return "Albums by "
+              case 'featured-playlists' : 
+                    return "Featuring "
+              case 'similar-artists' : 
+                    return "Fans also like "
               default : return id
     }
 }

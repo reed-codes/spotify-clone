@@ -7,16 +7,17 @@ export const SectionHeader = styled.h2`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 700;
     letter-spacing: -.04em;
-    line-height: 36px;
+    line-height: 28px;
     text-transform: none;
     margin-top: 20px;
     margin-bottom: 16px;
     position:relative;
     z-index:10;
     cursor:default;
+    width:100%
 `
 
 export const Container = styled.div`

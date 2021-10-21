@@ -1,15 +1,17 @@
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SectionHeader, Container } from "../styles/utils";
-import EditorsPickGrid from "../components/EditorsPickGrid";
 import ContentSliderSection from "../components/common/ContentSliderSection";
 import { getTitle } from "../utils";
-import Link from "next/link";
 import Stack from "@mui/material/Stack";
-import Avatar from "@mui/material/Avatar";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import TrackList from "../components/common/TrackList";
 import styled from "styled-components";
-import useImageColor from 'use-image-color'
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import PauseIcon from "@mui/icons-material/Pause";
+import useImageColor from "use-image-color";
 
 const MusicHeader = styled.div`
   height: 20vh;
@@ -20,7 +22,7 @@ const MusicHeader = styled.div`
   max-width: none;
   overflow: hidden;
   position: relative;
-  cursor:default;
+  cursor: default;
   background-color: #111;
 `;
 
@@ -40,92 +42,136 @@ const MusicHeaderContentTitle = styled.h1`
   text-transform: none;
 `;
 
-const ArtistLink = styled.div`
-  font-weight: 700;
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-    color: rgba(255, 255, 255, 0.7);
-  }
-`;
-
 const MusicHeaderInnerWrapper = styled.div`
-height: 100%;
-width:100%;
-display: flex;
-flex-direction:column;
-justify-content: flex-end;
-background-color:rgba(0,0,0,.4);
-padding:24px;
-background-image: url('https://e-cdns-images.dzcdn.net/images/artist/3a58adf62c522732a6d3a7f8806de0c3/1000x1000-000000-80-0-0.jpg');
-background-attachment:fixed;
-background-size:cover;
-background-position:canter;
-background-color:#111;
-border-right:5px #111 solid;
-`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 24px;
+  background-image: url(${({ imageURL }) => imageURL});
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: canter;
+  background-color: #111;
+  border-right: 5px #111 solid;
+`;
 
 export default function album() {
   let cover = "./cover.jpg";
-  const { colors } = useImageColor( cover, { cors: true, colors: 5 })
-  const accentColor = colors ? colors[0] : 'green';
-  const [similarArtistConfig, setSimilarArtistConfig ] = useState({
-      link:'',
-      titile:''
-  });
-  
+  const { colors } = useImageColor(cover, { cors: true, colors: 5 });
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const accentColor = colors ? colors[0] : "transparent";
+
   const artist = {
-    name : 'MARINA',
-    id : 4576879024
-  } 
- 
+    name: "MARINA",
+    id: 4576879024,
+  };
 
-  useEffect(()=>{
-    const contentSliderSectionHeader = "More like "+artist.name; 
-    const similarArtistsQueryStringValue = btoa( artist.id + 'darth-vader' + contentSliderSectionHeader );
-    const similarArtistsLink = "/similar-artists?q=" + similarArtistsQueryStringValue ;
+  const handlePlayRequest = () => setIsPlaying(!isPlaying);
+  const handleLikeBtnClick = (e) => setIsLiked(!isLiked);
 
-          setSimilarArtistConfig({
-            title : contentSliderSectionHeader,
-            link : similarArtistsLink,
-          })
-
-  },[])
+  const imageURL =
+    "https://e-cdns-images.dzcdn.net/images/artist/3a58adf62c522732a6d3a7f8806de0c3/1000x1000-000000-80-0-0.jpg";
 
   return (
     <>
-      <MusicHeader accentColor = {accentColor}>
-        <MusicHeaderInnerWrapper>
+      <MusicHeader accentColor={accentColor}>
+        <MusicHeaderInnerWrapper imageURL={imageURL}>
+          <MusicHeaderContentTitle>All In</MusicHeaderContentTitle>
 
-        <MusicHeaderContentTitle>All In</MusicHeaderContentTitle>
-
-        <Stack
-        direction="row"
-        spacing={1}
-        alignItems="center"
-        style={{ fontSize: 14 }}
-        >
-        <span style={{ color: "rgba(255,255,255,.8)" }}>1003 451 monthly listeners</span>
-        </Stack>
-            
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            style={{ fontSize: 14 }}
+          >
+            <span style={{ color: "rgba(255,255,255,.8)" }}>
+              103 451 monthly listeners
+            </span>
+          </Stack>
         </MusicHeaderInnerWrapper>
-
       </MusicHeader>
 
+      <div
+        style={{
+          background: `linear-gradient(${accentColor} -20% , #131313 25%, #121212 30%,  transparent 50%)`,
+        }}
+      >
         <Container>
-            <TrackList />
+          <div style={{ padding: "15px 0" }}>
+            <Stack direction="row" spacing={2} alignItems="center">
+              <span onClick={handlePlayRequest}>
+                {isPlaying ? (
+                  <IconButton>
+                    <PauseIcon style={{ color: "#1db954", fontSize: 66 }} />
+                  </IconButton>
+                ) : (
+                  <PlayCircleIcon style={{ color: "#1db954", fontSize: 66 }} />
+                )}
+              </span>
 
-            <div style = {{
-                position:'relative',
-                width:'100%'
-                }}>
-                <ContentSliderSection
-                title = {similarArtistConfig.title}
-                url = {similarArtistConfig.link}
-                />
-            </div>
+              <span
+                style={{
+                  width: 30,
+                  height: 30,
+                  borderRadius: "50%",
+                }}
+                className="d-flex justify-content-center align-items-center"
+                onClick={handleLikeBtnClick}
+              >
+                {isLiked ? (
+                  <Tooltip
+                    title={`Remove Billie from Your Library`}
+                    placement="top"
+                  >
+                    <IconButton>
+                      <FavoriteOutlinedIcon
+                        style={{ color: "#1db954" }}
+                        id="like-icon"
+                        className="track-item-show-on-hover-icon"
+                      />
+                    </IconButton>
+                  </Tooltip>
+                ) : (
+                  <Tooltip title="Add to Your Library" placement="top">
+                    <IconButton>
+                      <FavoriteBorderIcon
+                        style={{ color: "#fff" }}
+                        id="liked-icon"
+                        className="track-item-show-on-hover-icon"
+                      />
+                    </IconButton>
+                  </Tooltip>
+                )}
+              </span>
+            </Stack>
+          </div>
+
+          <SectionHeader>Popular</SectionHeader>
+
+          <TrackList />
+
+          <div>
+            <ContentSliderSection
+              title={getTitle("artist-albums") + artist.name}
+              url={"/more/artist-albums?q=123&artist=Billie&type=album"}
+            />
+
+            <ContentSliderSection
+              title={getTitle("similar-artists")}
+              url={"/more/similar-artists?q=456&type=artist"}
+            />
+
+            <ContentSliderSection
+              title={getTitle("featured-playlists") + artist.name}
+              url={"/more/featured-playlists?q=789&artist=Billie&type=playlist"}
+            />
+          </div>
         </Container>
-
+      </div>
     </>
   );
 }

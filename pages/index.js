@@ -10,19 +10,19 @@ export default function Home() {
       <EditorsPickGrid/>
 
       <ContentSliderSection title = { getTitle( "top-tracks" ) } 
-                            url = "/more?q=top-tracks"
+                            url = "/more/top-tracks?q=098&type=track"
                               />
       <ContentSliderSection title = { getTitle( "top-albums" ) } 
-                            url = "/more?q=top-albums"
+                            url = "/more/top-albums?q=876&type=album"
                               />
       <ContentSliderSection title = { getTitle( "top-playlists" ) } 
-                            url = "/more?q=top-playlists"
+                            url = "/more/top-playlists?q=654&type=playlist"
                              />
       <ContentSliderSection title = { getTitle( "top-artists" ) } 
-                            url = "/more?q=top-artists"
+                            url = "/more/top-artists?q=321&type=artist"
                               />
       <ContentSliderSection title = { getTitle( "new-releases" ) } 
-                            url = "/more?q=new-releases"
+                            url = "/more/new-releases?q=632&type=track"
                              />
     </div>
   );
