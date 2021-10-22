@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SectionHeader, Container } from "../styles/utils";
 import ContentSliderSection from "../components/common/ContentSliderSection";
-import { getTitle } from "../utils";
+import { getTitle, scrollTop } from "../utils";
 import Stack from "@mui/material/Stack";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
@@ -71,10 +71,14 @@ export default function album() {
   };
 
   const handlePlayRequest = () => setIsPlaying(!isPlaying);
-  const handleLikeBtnClick = (e) => setIsLiked(!isLiked);
+  const handleLikeBtnClick = () => setIsLiked(!isLiked);
 
   const imageURL =
     "https://e-cdns-images.dzcdn.net/images/artist/3a58adf62c522732a6d3a7f8806de0c3/1000x1000-000000-80-0-0.jpg";
+
+  // useEffect(()=>{
+  //     scrollTop()
+  // },[])
 
   return (
     <>
@@ -97,7 +101,7 @@ export default function album() {
 
       <div
         style={{
-          background: `linear-gradient(${accentColor} -20% , #131313 25%, #121212 30%,  transparent 50%)`,
+          background: `linear-gradient(${accentColor} -25%, rgb(19, 19, 19) 15%, rgb(18, 18, 18) 30%, transparent 50%)`,
         }}
       >
         <Container>

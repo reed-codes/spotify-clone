@@ -10,11 +10,6 @@ width: 100%;
 background:#000;
 display:flex;
 `
-const LeftWideScreenNav = styled.nav`
-height: 100%;
-width:300px;
-min-width:300px;
-`
 
 const MainContentContainer = styled.main`
 height: 100%;
@@ -42,11 +37,11 @@ const Layout = ({children}) => {
         <Head/>
         <MainWrapper>
 
-            <LeftWideScreenNav>
-                    <Nav/>
-            </LeftWideScreenNav>
+            <Nav/>
 
-            <MainContentContainer onScroll = {handleMainContentContainerScroll} >
+            <MainContentContainer onScroll = {handleMainContentContainerScroll}
+                                  className = 'main-content-container'
+                                  >
 
                             <AppBar appBarOpacity = {appBarOpacity}/>
                             {children}

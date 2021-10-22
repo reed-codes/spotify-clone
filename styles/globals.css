@@ -146,6 +146,21 @@ transform:scale(1.15)
   display:block;   
 }
 
+#search-input{
+  background:rgb(17, 17, 17);
+  color:#fff;
+}
+
+#search-input-label{
+  color:#fff;
+  opacity: .7;
+}
+
+#search-input:hover{
+  background:rgb(25, 25, 25);
+  color:#fff;
+}
+
 
 @media (min-width: 1280px)
 {

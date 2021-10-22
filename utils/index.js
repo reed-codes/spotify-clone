@@ -19,3 +19,9 @@ export const getTitle = (id)=>{
               default : return id
     }
 }
+
+export const scrollTop = ()=>{
+      const mainContentComtainer = document.querySelector('.main-content-container');
+      if(mainContentComtainer)
+        mainContentComtainer.scrollTo(0,0)
+} 

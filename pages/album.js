@@ -6,10 +6,16 @@ import ContentSliderSection from "../components/common/ContentSliderSection";
 import { getTitle } from "../utils";
 import Link from "next/link";
 import Stack from "@mui/material/Stack";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import Avatar from "@mui/material/Avatar";
 import TrackList from "../components/common/TrackList";
 import styled from "styled-components";
 import useImageColor from 'use-image-color'
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import PauseIcon from "@mui/icons-material/Pause";
 
 const MusicHeader = styled.div`
   height: 20vh;
@@ -112,28 +118,17 @@ export default function album() {
   let cover = "./cover.jpg";
   const { colors } = useImageColor( cover, { cors: true, colors: 5 })
   const accentColor = colors ? colors[0] : 'transparent';
-  const [similarArtistConfig, setSimilarArtistConfig ] = useState({
-      link:'',
-      titile:''
-  });
-  
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+
   const artist = {
     name : 'MARINA',
     id : 4576879024
   } 
  
+  const handlePlayRequest = () => setIsPlaying(!isPlaying);
+  const handleLikeBtnClick = () => setIsLiked(!isLiked);
 
-  useEffect(()=>{
-    const contentSliderSectionHeader = "More like "+artist.name; 
-    const similarArtistsQueryStringValue = btoa( artist.id + 'darth-vader' + contentSliderSectionHeader );
-    const similarArtistsLink = "/similar-artists?q=" + similarArtistsQueryStringValue ;
-
-          setSimilarArtistConfig({
-            title : contentSliderSectionHeader,
-            link : similarArtistsLink,
-          })
-
-  },[])
 
   return (
     <>
@@ -175,17 +170,67 @@ export default function album() {
       </MusicHeader>
 
         <Container>
+
+        <div style={{ padding: "15px 0" }}>
+            <Stack direction="row" spacing={2} alignItems="center">
+              <span onClick={handlePlayRequest}>
+                {isPlaying ? (
+                  <IconButton>
+                    <PauseIcon style={{ color: "#1db954", fontSize: 66, cursor:'pointer' }} />
+                  </IconButton>
+                ) : (
+                  <PlayCircleIcon style={{ color: "#1db954", fontSize: 66, cursor:'pointer' }} />
+                )}
+              </span>
+
+              <span
+                style={{
+                  width: 30,
+                  height: 30,
+                  borderRadius: "50%",
+                }}
+                className="d-flex justify-content-center align-items-center"
+                onClick={handleLikeBtnClick}
+              >
+                {isLiked ? (
+                  <Tooltip
+                    title={`Remove Billie from Your Library`}
+                    placement="top"
+                  >
+                    <IconButton>
+                      <FavoriteOutlinedIcon
+                        style={{ color: "#1db954" }}
+                        id="like-icon"
+                        className="track-item-show-on-hover-icon"
+                      />
+                    </IconButton>
+                  </Tooltip>
+                ) : (
+                  <Tooltip title="Add to Your Library" placement="top">
+                    <IconButton>
+                      <FavoriteBorderIcon
+                        style={{ color: "#fff" }}
+                        id="liked-icon"
+                        className="track-item-show-on-hover-icon"
+                      />
+                    </IconButton>
+                  </Tooltip>
+                )}
+              </span>
+            </Stack>
+          </div>
+
             <TrackList hideAlbumColumn = {true}/>
 
-            <div style = {{
-                position:'relative',
-                width:'100%'
-                }}>
+            <div>
+
                 <ContentSliderSection
-                title = {similarArtistConfig.title}
-                url = {similarArtistConfig.link}
+                  title={'More Albums by ' + artist.name}
+                  url={"/more/artist-albums?q=123&artist=Billie&type=album"}
                 />
+
             </div>
+
         </Container>
 
     </>

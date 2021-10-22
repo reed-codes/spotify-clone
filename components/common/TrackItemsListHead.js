@@ -8,12 +8,13 @@ import Tooltip from '@mui/material/Tooltip';
 
 const TrackItemWrapper = styled.div`
   border: 1px solid transparent;
-  border-radius: 4px;
   height: 60px;
   padding: 5px 16px;
+  margin-bottom:10px;
   display:flex;
   align-items:center; 
   cursor:default;
+  border-bottom:1px rgba(225, 225, 255,.1) solid;
 `;
 
 const TrackNumberWrapper = styled.div`
