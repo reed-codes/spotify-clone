@@ -87,13 +87,8 @@ const MusicHeaderContentTitle = styled.h1`
   text-transform: none;
 `;
 
-const ArtistLink = styled.div`
+const Username = styled.div`
   font-weight: 700;
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-    color: rgba(255, 255, 255, 0.7);
-  }
 `;
 
 const MusicHeaderLeftGridWrapper = styled.div`
@@ -115,7 +110,7 @@ padding-bottom:24px;
 `
 
 export default function album() {
-  let cover = "./cover.jpg";
+  let cover = "./liked-songs.png";
   const { colors } = useImageColor( cover, { cors: true, colors: 5 })
   const accentColor = colors ? colors[0] : 'transparent';
   const [isPlaying, setIsPlaying] = useState(false);
@@ -134,14 +129,14 @@ export default function album() {
     <>
       <MusicHeader accentColor = {accentColor}>
         <MusicHeaderLeftGridWrapper>
-          <CoverImage url={"./cover.jpg"} className="music-header-cover-img" />
+          <CoverImage url={"./liked-songs.png"} className="music-header-cover-img" />
         </MusicHeaderLeftGridWrapper>
 
         <MusicHeaderRightGridWrapper >
           <HeaderDetailsWrapper>
-            <MusicHeaderContentTypeText>album</MusicHeaderContentTypeText>
+            <MusicHeaderContentTypeText>playlist</MusicHeaderContentTypeText>
 
-            <MusicHeaderContentTitle>All In</MusicHeaderContentTitle>
+            <MusicHeaderContentTitle>Liked Songs</MusicHeaderContentTitle>
 
             <Stack
               direction="row"
@@ -151,17 +146,17 @@ export default function album() {
             >
               <Avatar
                 alt="Remy Sharp"
-                src={"./cover-5.jpg"}
+                src={"/demo-img-4.jpg"}
                 sx={{ width: 24, height: 24 }}
               />
 
-              <Link href="/" passHref = {true}>
-                <ArtistLink>Skepta</ArtistLink>
-              </Link>
+              {/* <Link href="/" passHref = {true}> */}
+                <Username>Reedemer</Username>
+              {/* </Link> */}
 
               <span>&bull;</span>
 
-              <span style={{ color: "rgba(255,255,255,.8)" }}>5 songs</span>
+              <span style={{ color: "rgba(255,255,255,.8)" }}>58 songs</span>
             </Stack>
           </HeaderDetailsWrapper>
         </MusicHeaderRightGridWrapper>
@@ -220,7 +215,7 @@ export default function album() {
             </Stack>
           </div>
 
-            <TrackList hideAlbumColumn = {true}/>
+            <TrackList showDateAdded = {true}/>
 
             <div>
 

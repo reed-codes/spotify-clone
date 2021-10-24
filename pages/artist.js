@@ -37,7 +37,7 @@ const MusicHeaderContentTitle = styled.h1`
   width: 100%;
   font-size: 96px;
   line-height: 96px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: -0.04em;
   text-transform: none;
 `;

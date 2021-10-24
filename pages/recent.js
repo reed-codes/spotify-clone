@@ -1,36 +1,22 @@
-import MediaCard from '../components/common/MediaCard'
-import {SectionHeader} from '../styles/utils'
+import RenderTrackCards from '../components/common/RenderTrackCards'
+import {SectionHeader, Container} from '../styles/utils'
 
-const More = () => {
+const rencent = () => {
 
   return (
  
     <>
-        <SectionHeader>Recent plays</SectionHeader>
+        <Container>
+            <SectionHeader>Recent plays</SectionHeader>
+        </Container>
 
-        <div className="d-flex flex-wrap">
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-        </div>
+        <Container className="d-flex flex-wrap">
+                 <RenderTrackCards/>         
+        </Container>
     </>
 
 
   )
 }
 
-export default More
+export default rencent
