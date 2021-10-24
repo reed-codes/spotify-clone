@@ -2,14 +2,14 @@ html,
 body {
   padding: 0;
   margin: 0;
-  background:#fafafa;
+  background: #fafafa;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    color:#fff
+  color: #fff;
 }
 
-body{
-  height:100vh;
+body {
+  height: 100vh;
   overflow: hidden;
 }
 
@@ -22,23 +22,22 @@ a {
   box-sizing: border-box;
 }
 
-*::-webkit-scrollbar{
+*::-webkit-scrollbar {
   height: 10px;
   width: 10px;
-  background: rgba(0,0,0,.3);
+  background: rgba(0, 0, 0, 0.3);
 }
 
-*::-webkit-scrollbar-thumb{
+*::-webkit-scrollbar-thumb {
   background: #2b2a2a;
 }
 
-*::-webkit-scrollbar-thumb:hover{
+*::-webkit-scrollbar-thumb:hover {
   background: #353535;
 }
 
-
 .secondary-text-line {
-  color:rgba(0,0,0,.5);
+  color: rgba(0, 0, 0, 0.5);
   font-size: 14px;
   display: block;
   overflow: hidden;
@@ -46,7 +45,7 @@ a {
   white-space: nowrap;
 }
 
-.player-controls-icon-btn{
+.player-controls-icon-btn {
   height: 40px;
   width: 40px;
   margin: 0 5px;
@@ -58,116 +57,117 @@ a {
   padding-right: 10px !important;
 }
 
-.MuiMenu-paper{
-  background: rgb(10,10,10) !important;
+.MuiMenu-paper {
+  background: rgb(10, 10, 10) !important;
 }
 
-.MuiMenu-list, .MuiList-root, .MuiPaper-root {
+.MuiMenu-list,
+.MuiList-root,
+.MuiPaper-root {
   outline: 0;
   border: 1px #111 solid;
   margin-right: 30px;
 }
 
-#pip-player:hover{
-  filter:brightness(70%);
+#pip-player:hover {
+  filter: brightness(70%);
   cursor: grab;
 }
-#pip-player:active{
+#pip-player:active {
   cursor: grabbing;
 }
 
-.backdrop-blur::before{
-      content: '';
-      height:100%;
-      width:100%;
-      background : rgba(10,10,10, .9);
-      backdrop-filter: blur(20px);
-      position: absolute;
-      top:0px;
-      right: 0;
-      z-index: -1;
+.backdrop-blur::before {
+  content: "";
+  height: 100%;
+  width: 100%;
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(20px);
+  position: absolute;
+  top: 0px;
+  right: 0;
+  z-index: -1;
 }
 
-.editors-pick-play-icon{
+.editors-pick-play-icon {
   opacity: 0;
-  transition:all .2s;
+  transition: all 0.2s;
   transform-origin: top;
 }
 
-
-.editors-pick-card:hover .editors-pick-play-icon{
+.editors-pick-card:hover .editors-pick-play-icon {
   opacity: 1;
   transform: translateY(-5px);
 }
 
-.editors-pick-card:hover .editors-pick-play-icon:hover{
+.editors-pick-card:hover .editors-pick-play-icon:hover {
   filter: brightness(90%);
 }
 
-.editors-pick-card:hover .editors-pick-play-icon:active{
+.editors-pick-card:hover .editors-pick-play-icon:active {
   filter: brightness(105%);
 }
 
-.editors-pick-card:hover{
+.editors-pick-card:hover {
   background: rgba(179, 177, 177, 0.5);
 }
 
-.media-card-on-hover-btn:hover{
-transform:scale(1.15)
+.media-card-on-hover-btn:hover {
+  transform: scale(1.15);
 }
 
-.media-card-on-hover-like-btn{
+.media-card-on-hover-like-btn {
   opacity: 0;
-  background: rgba(0,0,0,.5) !important;
+  background: rgba(0, 0, 0, 0.5) !important;
   backdrop-filter: blur(10px);
   transform: translateY(3px);
-  transition: all .1s linear !important;
+  transition: all 0.1s linear !important;
 }
 
-.media-card:hover .media-card-on-hover-like-btn{
-  opacity:1;
+.media-card:hover .media-card-on-hover-like-btn {
+  opacity: 1;
   transform: translateY(0px);
 }
 
-
-.track-item-wrapper:hover .track-item-show-on-hover-icon{
-    opacity: 1 !important;
+.track-item-wrapper:hover .track-item-show-on-hover-icon {
+  opacity: 1 !important;
 }
 
-.track-play-icon{
+.track-play-icon {
   display: none;
 }
 
-.track-item-wrapper:hover .track-number-and-wave-animation-wrapper{
-  display :none;   
+.track-item-wrapper:hover .track-number-and-wave-animation-wrapper {
+  display: none;
 }
 
-.track-item-wrapper:hover .track-play-icon{
-  display:block;   
+.track-item-wrapper:hover .track-play-icon {
+  display: block;
 }
 
-#search-input{
-  background:rgb(17, 17, 17);
-  color:#fff;
+#search-input {
+  background: rgb(17, 17, 17);
+  color: #fff;
 }
 
-#search-input-label{
-  color:#fff;
-  opacity: .7;
+#search-input-label {
+  color: #fff;
+  opacity: 0.7;
 }
 
-#search-input:hover{
-  background:rgb(25, 25, 25);
-  color:#fff;
+#search-input:hover {
+  background: rgb(25, 25, 25);
+  color: #fff;
 }
 
+.MuiPaper-root {
+  border: none !important;
+}
 
-@media (min-width: 1280px)
-{
-    .music-header-cover-img{
-      height: 232px !important;
-      min-width: 232px !important;
-      width: 232px !important;
-    }
-
+@media (min-width: 1280px) {
+  .music-header-cover-img {
+    height: 232px !important;
+    min-width: 232px !important;
+    width: 232px !important;
+  }
 }

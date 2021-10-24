@@ -1,9 +1,8 @@
-import { combineReducers } from 'redux'
-import playerReducer from  './playerReducer'
+import { combineReducers } from "redux";
+import menuDrawerReducer from "./menu-drawer-reducer";
 
 const reducers = combineReducers({
-      player : playerReducer 
-})
+  menuState: menuDrawerReducer,
+});
 
-
-export default reducers
+export default reducers;

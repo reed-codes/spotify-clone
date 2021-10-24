@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Button, useMediaQuery } from "@material-ui/core";
 import HomeIcon from "@mui/icons-material/Home";
@@ -8,6 +9,11 @@ import EqualizerIcon from "@mui/icons-material/Equalizer";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useDispatch } from "react-redux";
+import {
+  openMenuDrawer,
+  openMenuDrawerForSearch,
+} from "../../state/actions/menu-drawer-actions";
 
 import TextField from "@mui/material/TextField";
 
@@ -17,8 +23,7 @@ const LeftWideScreenNav = styled.nav`
   height: 100%;
   width: ${({ width }) => (width ? width : "300px")};
   min-width: ${({ width }) => (width ? width : "300px")};
-
-  
+  display: ${({ hide }) => (hide ? "none" : "block")};
 `;
 
 const NavContentWrapper = styled.div`
@@ -54,7 +59,7 @@ const SeachIconContainer = styled.div`
 `;
 
 const NavRoutesContainer = styled.div`
-  padding-top: 30px;
+  padding-top: 10px;
   border-top: 1px rgba(225, 225, 225, 0.1) solid;
 `;
 
@@ -73,10 +78,11 @@ const NAV_ROUTE_BTN_STYLE = {
   paddingTop: 10,
   paddingBottom: 10,
   color: "#fff",
+  fontWeight: 700,
 };
 
 const SMALLSCREEN_NAV_ROUTE_BTN_STYLE = {
-  width: "100%",
+  width: "95%",
   justifyContent: "flex-start",
   paddingTop: 10,
   paddingBottom: 10,
@@ -84,49 +90,72 @@ const SMALLSCREEN_NAV_ROUTE_BTN_STYLE = {
   minWidth: "unset",
 };
 
-const Nav = () => {  
-  const maxWidth890px = useMediaQuery('(max-width:890px)');
+const Nav = (props) => {
+  const maxWidth890px = useMediaQuery("(max-width:890px)");
+  const [viewSmallScreenNav, setViewSmallScreenNav] = useState(false);
+
+  const toggleViewedNav = () => setViewSmallScreenNav(!viewSmallScreenNav);
 
   return (
-        <>
-         {
-                maxWidth890px ? (
-                        <SmallScreenNav maxWidth890px = {maxWidth890px}  />
-                ) : (
-                        <WideScreenNav maxWidth890px = {maxWidth890px} />
-                )
-         }
-        </>
-  )
- 
+    <>{getMenu(maxWidth890px, viewSmallScreenNav, toggleViewedNav, props)}</>
+  );
 };
 
 export default Nav;
 
-export const WideScreenNav = () => {
+const getMenu = (maxWidth890px, viewSmallScreenNav, toggleViewedNav, props) => {
+  if (maxWidth890px)
+    return (
+      <SmallScreenNav
+        {...props}
+        maxWidth890px={maxWidth890px}
+        toggleViewedNav={toggleViewedNav}
+      />
+    );
+  else if (!maxWidth890px && viewSmallScreenNav)
+    return (
+      <SmallScreenNav
+        {...props}
+        maxWidth890px={maxWidth890px}
+        toggleViewedNav={toggleViewedNav}
+      />
+    );
+  else if (!maxWidth890px && !viewSmallScreenNav)
+    return <WideScreenNav toggleViewedNav={toggleViewedNav} />;
+  else return <WideScreenNav toggleViewedNav={toggleViewedNav} />;
+};
+
+export const WideScreenNav = ({ toggleViewedNav }) => {
+  const router = useRouter();
+
   return (
     <LeftWideScreenNav>
       <NavContentWrapper>
         <LogoContainer>
-          <img
-            src={"./logo-and-brand.png"}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-            }}
-          />
+          <Link href="/" passHref={true}>
+            <a>
+              <img
+                src={"./logo-and-brand.png"}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                }}
+              />
+            </a>
+          </Link>
         </LogoContainer>
 
         <Button
           variant="outlined"
           startIcon={<MenuIcon />}
           style={MENU_BTN_STYLE}
+          onClick={() => toggleViewedNav()}
         ></Button>
 
         <SeachInputAndIconContainer>
           <SeachInputContainer>
-            <TextField id="search-input" label="Filled" variant="filled" />
+            <TextField id="search-input" label="Search" variant="filled" />
           </SeachInputContainer>
 
           <SeachIconContainer>
@@ -150,7 +179,12 @@ export const WideScreenNav = () => {
               <Button
                 variant="outlined"
                 startIcon={<HomeIcon />}
-                style={NAV_ROUTE_BTN_STYLE}
+                style={{
+                  ...NAV_ROUTE_BTN_STYLE,
+                  color: router.pathname == "/" ? "#fff" : "#b3b3b3",
+                  background:
+                    router.pathname == "/" ? "#282828" : "transparent",
+                }}
               >
                 Home
               </Button>
@@ -162,43 +196,67 @@ export const WideScreenNav = () => {
               <Button
                 variant="outlined"
                 startIcon={<HistoryIcon />}
-                style={NAV_ROUTE_BTN_STYLE}
+                style={{
+                  ...NAV_ROUTE_BTN_STYLE,
+                  color: router.pathname == "/recent" ? "#fff" : "#b3b3b3",
+                  background:
+                    router.pathname == "/recent" ? "#282828" : "transparent",
+                }}
               >
                 Recent plays
               </Button>
             </a>
           </Link>
 
-          <Link href="/" passHref={true}>
+          <Link href="/now-playing" passHref={true}>
             <a>
               <Button
                 variant="outlined"
                 startIcon={<EqualizerIcon />}
-                style={NAV_ROUTE_BTN_STYLE}
+                style={{
+                  ...NAV_ROUTE_BTN_STYLE,
+                  color: router.pathname == "now-playing" ? "#fff" : "#b3b3b3",
+                  background:
+                    router.pathname == "now-playing"
+                      ? "#282828"
+                      : "transparent",
+                }}
               >
                 Now playing
               </Button>
             </a>
           </Link>
 
-          <Link href="/" passHref={true}>
+          <Link href="/library" passHref={true}>
             <a>
               <Button
                 variant="outlined"
                 startIcon={<LibraryMusicIcon />}
-                style={NAV_ROUTE_BTN_STYLE}
+                style={{
+                  ...NAV_ROUTE_BTN_STYLE,
+                  color: router.pathname == "/library" ? "#fff" : "#b3b3b3",
+                  background:
+                    router.pathname == "/library" ? "#282828" : "transparent",
+                }}
               >
                 Your library
               </Button>
             </a>
           </Link>
 
-          <Link href="/" passHref={true}>
+          <Link href="/liked-songs" passHref={true}>
             <a>
               <Button
                 variant="outlined"
                 startIcon={<FavoriteIcon />}
-                style={NAV_ROUTE_BTN_STYLE}
+                style={{
+                  ...NAV_ROUTE_BTN_STYLE,
+                  color: router.pathname == "/liked-songs" ? "#fff" : "#b3b3b3",
+                  background:
+                    router.pathname == "/liked-songs"
+                      ? "#282828"
+                      : "transparent",
+                }}
               >
                 Liked songs
               </Button>
@@ -210,19 +268,27 @@ export const WideScreenNav = () => {
   );
 };
 
-export const SmallScreenNav = () => {
+export const SmallScreenNav = ({ toggleViewedNav, maxWidth890px }) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const maxWidth600px = useMediaQuery("(max-width:600px)");
+
   return (
-    <LeftWideScreenNav width={"65px"}>
+    <LeftWideScreenNav width={"65px"} hide={maxWidth600px}>
       <NavContentWrapper>
         <LogoContainer>
-          <img
-            src={"./logo.png"}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-            }}
-          />
+          <Link href="/" passHref={true}>
+            <a>
+              <img
+                src={"./logo.png"}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                }}
+              />
+            </a>
+          </Link>
         </LogoContainer>
 
         <Button
@@ -232,17 +298,32 @@ export const SmallScreenNav = () => {
             ...MENU_BTN_STYLE,
             marginLeft: -2,
             minWidth: "unset",
+            color: "#fff",
+          }}
+          onClick={() => {
+            if (maxWidth890px) dispatch(openMenuDrawer());
+            else toggleViewedNav();
           }}
         ></Button>
 
         <NavRoutesContainer>
-          <Button style={SMALLSCREEN_NAV_ROUTE_BTN_STYLE}>
+          <Button
+            style={SMALLSCREEN_NAV_ROUTE_BTN_STYLE}
+            onClick={() => dispatch(openMenuDrawerForSearch())}
+          >
             <SearchIcon style={{ color: "#fff", fontSize: 25 }} />
           </Button>
 
           <Link href="/" passHref={true}>
             <a>
-              <Button style={SMALLSCREEN_NAV_ROUTE_BTN_STYLE}>
+              <Button
+                style={{
+                  ...SMALLSCREEN_NAV_ROUTE_BTN_STYLE,
+                  color: router.pathname == "/" ? "#fff" : "#b3b3b3",
+                  background:
+                    router.pathname == "/" ? "#282828" : "transparent",
+                }}
+              >
                 <HomeIcon />
               </Button>
             </a>
@@ -250,31 +331,63 @@ export const SmallScreenNav = () => {
 
           <Link href="/recent" passHref={true}>
             <a>
-              <Button style={SMALLSCREEN_NAV_ROUTE_BTN_STYLE}>
+              <Button
+                style={{
+                  ...SMALLSCREEN_NAV_ROUTE_BTN_STYLE,
+                  color: router.pathname == "/recent" ? "#fff" : "#b3b3b3",
+                  background:
+                    router.pathname == "/recent" ? "#282828" : "transparent",
+                }}
+              >
                 <HistoryIcon />
               </Button>
             </a>
           </Link>
 
-          <Link href="/" passHref={true}>
+          <Link href="/now-playing" passHref={true}>
             <a>
-              <Button style={SMALLSCREEN_NAV_ROUTE_BTN_STYLE}>
+              <Button
+                style={{
+                  ...SMALLSCREEN_NAV_ROUTE_BTN_STYLE,
+                  color: router.pathname == "/now-playing" ? "#fff" : "#b3b3b3",
+                  background:
+                    router.pathname == "/now-playing"
+                      ? "#282828"
+                      : "transparent",
+                }}
+              >
                 <EqualizerIcon />
               </Button>
             </a>
           </Link>
 
-          <Link href="/" passHref={true}>
+          <Link href="/library" passHref={true}>
             <a>
-              <Button style={SMALLSCREEN_NAV_ROUTE_BTN_STYLE}>
+              <Button
+                style={{
+                  ...SMALLSCREEN_NAV_ROUTE_BTN_STYLE,
+                  color: router.pathname == "/library" ? "#fff" : "#b3b3b3",
+                  background:
+                    router.pathname == "/library" ? "#282828" : "transparent",
+                }}
+              >
                 <LibraryMusicIcon />
               </Button>
             </a>
           </Link>
 
-          <Link href="/" passHref={true}>
+          <Link href="/liked-songs" passHref={true}>
             <a>
-              <Button style={SMALLSCREEN_NAV_ROUTE_BTN_STYLE}>
+              <Button
+                style={{
+                  ...SMALLSCREEN_NAV_ROUTE_BTN_STYLE,
+                  color: router.pathname == "/liked-songs" ? "#fff" : "#b3b3b3",
+                  background:
+                    router.pathname == "/liked-songs"
+                      ? "#282828"
+                      : "transparent",
+                }}
+              >
                 <FavoriteIcon />
               </Button>
             </a>
