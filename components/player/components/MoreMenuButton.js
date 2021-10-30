@@ -8,6 +8,7 @@ import RepeatIcon from "@material-ui/icons/Repeat";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import CloseIcon from '@mui/icons-material/Close';
 import {PlayerContext} from '../Player'
 
 const MENU_ITEM_STYLE = {
@@ -122,6 +123,23 @@ export default function MoreMenuButton(){
                                         aria-label="more"
                                         >
                               <OpenInFullIcon />
+                            </IconButton>
+  
+  
+                    </MenuItem>
+  
+   
+  
+  
+          <MenuItem onClick={handleClose}
+                    style = {MENU_ITEM_STYLE}
+                     > 
+
+                              Close menu
+                              <IconButton className = "player-controls-icon-btn" 
+                                        aria-label="more"
+                                        >
+                              <CloseIcon />
                             </IconButton>
   
   

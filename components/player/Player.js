@@ -1,7 +1,8 @@
 import {useState, useEffect, createContext} from 'react'
 import styled from "styled-components";
 import { useMediaQuery } from "@material-ui/core";
-import PlayerBackgroundEffect from './components/PlayerBackgroundEffect'
+import useImageColor from "use-image-color";
+import BackgroundEffect from '../common/BackgroundEffect';
 import WideScreenPlayer from './components/players/WideScreenPlayer'
 import SmallScreenPlayer from './components/players/SmallScreenDefaultPlayer'
 import PipPlayer from './components/players/PipPlayer'
@@ -10,11 +11,12 @@ export const PlayerWrapper = styled.div`
   width: 100%;
   height: 100px;
   position: fixed;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   display: flex;
   cursor: default; 
   user-select: none;
+  z-index:100;
 `;
 
 
@@ -33,6 +35,8 @@ export const PlayerContext = createContext(null);
 
 
 export default function Player(props){
+        const cover = './cover-2.jpg'
+        const { colors } = useImageColor(cover, { cors: true, colors: 5 });
         const max_width_950px = useMediaQuery("(max-width:950px)");
         const [playerRef, setPlayerRef] = useState(null);
         const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
@@ -56,10 +60,28 @@ export default function Player(props){
        const repeatType =  (repeatFlag == 0) ? "NO-REPEAT" : (repeatFlag == 1) ? "REPEAT-ALL" : "REPEAT-CURRENT";
 
 
+       useEffect(()=>{
+            const localStoragePlayStateFlag = localStorage.getItem('player-play-state') ? Boolean(Number(localStorage.getItem('player-play-state'))) : null;
+            const localStorageVolume = localStorage.getItem('player-volume') ? Number(localStorage.getItem('player-volume')) : 1;
+            const playState = localStoragePlayStateFlag ? true : false;
+            const playerVolume = localStorageVolume;
+                  setIsPlaying(playState)
+                  setVolume(playerVolume)
+
+       },[])
+
+
         useEffect(()=>{
+
               try{
-                    if(playerRef && !isPlaying)  playerRef.pause()
-                    else if(playerRef && isPlaying) playerRef.play()
+                    if(playerRef && !isPlaying)  {
+                          playerRef.pause()
+                          localStorage.setItem('player-play-state', 0)
+                    }
+                    else if(playerRef && isPlaying) { 
+                          playerRef.play()
+                          localStorage.setItem('player-play-state', 1)
+                    }
               }catch(err){
                     console.log(err.message)
               }
@@ -68,6 +90,7 @@ export default function Player(props){
 
 
         useEffect(()=>{
+                localStorage.setItem('player-volume', volume)
                 if(playerRef)
                    playerRef.volume = volume;
         },[volume])
@@ -226,12 +249,13 @@ export default function Player(props){
             isShuffling,
             isPipOn
       }}>
-            <PlayerWrapper>
+            <PlayerWrapper accentColor = { colors ? colors[0] : ''} >
 
-                  <PipPlayer isPipOn = {isPipOn} /> 
+                  { isPipOn &&  <PipPlayer constraintsRef = {props.config.constraintsRef}/> }
 
-                  <PlayerBackgroundEffect cover = {"./demo-img-5.jpg"} />
-                  {max_width_950px ? <SmallScreenPlayer/> : <WideScreenPlayer/>}
+                  <BackgroundEffect accentColor = { colors ? colors[0] : ''} />
+
+                  {max_width_950px ? <SmallScreenPlayer/> : <WideScreenPlayer cover = {cover}/>}
 
                   <audio 
                         ref = {setPlayerRef}

@@ -2,7 +2,7 @@ import {useContext} from 'react'
 import styled from "styled-components";
 import { useMediaQuery } from "@material-ui/core";
 import TrackTitleAndArtist from '../TrackTitleAndArtist'
-import PlayerBackgroundEffect from '../PlayerBackgroundEffect'
+import BackgroundEffect from '../../../common/BackgroundEffect'
 import PrevAndPlayAndNextButtonPack  from '../PrevAndPlayAndNextButtonPack'
 import MoreMenuButton  from '../MoreMenuButton'
 import PlayerProgressPack from '../PlayerProgressPack'
@@ -63,7 +63,7 @@ export default function SmallScreenDefaultPlayer(){
   
                               <SmallScreenPlayerLeftControlsWrapper max_width_560px = {max_width_560px}>
 
-                                              <PlayerBackgroundEffect cover={"./demo-img-5.jpg"} />
+                                              <BackgroundEffect cover={"./demo-img-5.jpg"} />
   
                                               <PrevAndPlayAndNextButtonPack/>
   

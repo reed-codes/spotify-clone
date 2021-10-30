@@ -9,6 +9,7 @@ import EqualizerIcon from "@mui/icons-material/Equalizer";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import Tooltip from '@mui/material/Tooltip';
 import { useDispatch } from "react-redux";
 import {
   openMenuDrawer,
@@ -21,8 +22,8 @@ import Link from "next/link";
 
 const LeftWideScreenNav = styled.nav`
   height: 100%;
-  width: ${({ width }) => (width ? width : "300px")};
-  min-width: ${({ width }) => (width ? width : "300px")};
+  width: ${({ width }) => (width ? width : "270px")};
+  min-width: ${({ width }) => (width ? width : "270px")};
   display: ${({ hide }) => (hide ? "none" : "block")};
 `;
 
@@ -60,7 +61,6 @@ const SeachIconContainer = styled.div`
 
 const NavRoutesContainer = styled.div`
   padding-top: 10px;
-  border-top: 1px rgba(225, 225, 225, 0.1) solid;
 `;
 
 const MENU_BTN_STYLE = {
@@ -153,7 +153,7 @@ export const WideScreenNav = ({ toggleViewedNav }) => {
           onClick={() => toggleViewedNav()}
         ></Button>
 
-        <SeachInputAndIconContainer>
+        {/* <SeachInputAndIconContainer>
           <SeachInputContainer>
             <TextField id="search-input" label="Search" variant="filled" />
           </SeachInputContainer>
@@ -171,7 +171,7 @@ export const WideScreenNav = ({ toggleViewedNav }) => {
               <SearchIcon style={{ color: "#fff" }} />
             </Button>
           </SeachIconContainer>
-        </SeachInputAndIconContainer>
+        </SeachInputAndIconContainer> */}
 
         <NavRoutesContainer>
           <Link href="/" passHref={true}>
@@ -307,15 +307,18 @@ export const SmallScreenNav = ({ toggleViewedNav, maxWidth890px }) => {
         ></Button>
 
         <NavRoutesContainer>
+        {/* <Tooltip title="SEARCH">
           <Button
             style={SMALLSCREEN_NAV_ROUTE_BTN_STYLE}
             onClick={() => dispatch(openMenuDrawerForSearch())}
           >
             <SearchIcon style={{ color: "#fff", fontSize: 25 }} />
           </Button>
+          </Tooltip> */}
 
           <Link href="/" passHref={true}>
             <a>
+            <Tooltip title="HOME">
               <Button
                 style={{
                   ...SMALLSCREEN_NAV_ROUTE_BTN_STYLE,
@@ -326,11 +329,13 @@ export const SmallScreenNav = ({ toggleViewedNav, maxWidth890px }) => {
               >
                 <HomeIcon />
               </Button>
+            </Tooltip>
             </a>
           </Link>
 
           <Link href="/recent" passHref={true}>
             <a>
+            <Tooltip title="RECENTS">
               <Button
                 style={{
                   ...SMALLSCREEN_NAV_ROUTE_BTN_STYLE,
@@ -341,11 +346,13 @@ export const SmallScreenNav = ({ toggleViewedNav, maxWidth890px }) => {
               >
                 <HistoryIcon />
               </Button>
+              </Tooltip>
             </a>
           </Link>
 
           <Link href="/now-playing" passHref={true}>
             <a>
+            <Tooltip title="NOW-PLAYING">
               <Button
                 style={{
                   ...SMALLSCREEN_NAV_ROUTE_BTN_STYLE,
@@ -358,11 +365,13 @@ export const SmallScreenNav = ({ toggleViewedNav, maxWidth890px }) => {
               >
                 <EqualizerIcon />
               </Button>
+              </Tooltip>
             </a>
           </Link>
 
           <Link href="/library" passHref={true}>
             <a>
+            <Tooltip title="YOUR LIBRARY">
               <Button
                 style={{
                   ...SMALLSCREEN_NAV_ROUTE_BTN_STYLE,
@@ -373,11 +382,13 @@ export const SmallScreenNav = ({ toggleViewedNav, maxWidth890px }) => {
               >
                 <LibraryMusicIcon />
               </Button>
+              </Tooltip>
             </a>
           </Link>
 
           <Link href="/liked-songs" passHref={true}>
             <a>
+            <Tooltip title="LIKED SONGS">
               <Button
                 style={{
                   ...SMALLSCREEN_NAV_ROUTE_BTN_STYLE,
@@ -390,6 +401,7 @@ export const SmallScreenNav = ({ toggleViewedNav, maxWidth890px }) => {
               >
                 <FavoriteIcon />
               </Button>
+              </Tooltip>
             </a>
           </Link>
         </NavRoutesContainer>

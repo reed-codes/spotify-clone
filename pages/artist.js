@@ -5,6 +5,7 @@ import { getTitle, scrollTop } from "../utils";
 import Stack from "@mui/material/Stack";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import TrackList from "../components/common/TrackList";
 import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
@@ -35,7 +36,7 @@ const MusicHeaderContentTitle = styled.h1`
   padding: 0.08em 0px;
   visibility: visible;
   width: 100%;
-  font-size: 96px;
+  font-size : ${({smallScreen}) => smallScreen ? '55px' : '96px'  };
   line-height: 96px;
   font-weight: 700;
   letter-spacing: -0.04em;
@@ -63,6 +64,7 @@ export default function album() {
   const { colors } = useImageColor(cover, { cors: true, colors: 5 });
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const maxWidth750px = useMediaQuery('(max-width:750px)');
   const accentColor = colors ? colors[0] : "transparent";
 
   const artist = {
@@ -84,7 +86,7 @@ export default function album() {
     <>
       <MusicHeader accentColor={accentColor}>
         <MusicHeaderInnerWrapper imageURL={imageURL}>
-          <MusicHeaderContentTitle>All In</MusicHeaderContentTitle>
+          <MusicHeaderContentTitle smallScreen = {maxWidth750px}>All In</MusicHeaderContentTitle>
 
           <Stack
             direction="row"
@@ -104,7 +106,7 @@ export default function album() {
           background: `linear-gradient(${accentColor} -25%, rgb(19, 19, 19) 15%, rgb(18, 18, 18) 30%, transparent 50%)`,
         }}
       >
-        <Container>
+        <Container className = "content-wrapper" >
           <div style={{ padding: "15px 0" }}>
             <Stack direction="row" spacing={2} alignItems="center">
               <span onClick={handlePlayRequest}>
@@ -169,10 +171,6 @@ export default function album() {
               url={"/more/similar-artists?q=456&type=artist"}
             />
 
-            <ContentSliderSection
-              title={getTitle("featured-playlists") + artist.name}
-              url={"/more/featured-playlists?q=789&artist=Billie&type=playlist"}
-            />
           </div>
         </Container>
       </div>

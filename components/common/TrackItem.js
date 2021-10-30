@@ -5,7 +5,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import { Button } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import { WaveSpinner } from "react-spinners-kit";
@@ -65,11 +64,23 @@ const TrackTitleWrapper = styled.div`
 `;
 
 const TrackArtistWrapper = styled.div`
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  display: inline;
-  white-space: unset;
-  word-break: break-all;
+grid-area: title;
+justify-self: start;
+-webkit-line-clamp: 1;
+-webkit-box-orient: vertical;
+display: -webkit-box;
+white-space: unset;
+word-break: break-all;
+overflow: hidden;
+text-overflow: ellipsis;
+font-size: 16px;
+font-weight: 400;
+letter-spacing: normal;
+line-height: 24px;
+text-transform: none;
+  
+  
+  
   color: #b3b3b3;
   font-size: 11px;
   cursor: pointer;
@@ -114,7 +125,7 @@ const TrackDurationWrapper = styled.div`
   text-transform: none;
 `;
 
-const TrackItem = ({hideAlbumColumn}) => {
+const TrackItem = ({hideAlbumColumn, maxWidth780px}) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -142,14 +153,14 @@ const TrackItem = ({hideAlbumColumn}) => {
         <span className="track-play-icon">
           {isPlaying ? (
             <Tooltip title="Pause" placement="top">
-              <IconButton>
-                <PauseIcon />
+              <IconButton style = {{padding : 0}}>
+                <PauseIcon style = {{color:'#fff'}}/>
               </IconButton>
             </Tooltip>
           ) : (
-            <Tooltip title="Play Boogie Wonderladn by Joe" placement="top">
-              <IconButton>
-                <PlayArrowIcon />
+            <Tooltip title="Play Boogie Wonderland by Joe" placement="top">
+              <IconButton style = {{padding : 0}}>
+                <PlayArrowIcon style = {{color:'#fff'}}/>
               </IconButton>
             </Tooltip>
           )}
@@ -175,13 +186,17 @@ const TrackItem = ({hideAlbumColumn}) => {
         </TrackTitleWrapper>
 
         <Link href="/" passHref={true}>
+        <a>
           <TrackArtistWrapper>Doja Cat</TrackArtistWrapper>
+          </a>
         </Link>
       </TrackDetailsWrapper>
 
 
 {
-  !hideAlbumColumn && <TrackAlbumWrapper>Planet Her (Deluxe)</TrackAlbumWrapper>
+  !hideAlbumColumn && (
+                !maxWidth780px && <TrackAlbumWrapper>Planet Her (Deluxe)</TrackAlbumWrapper>
+                      )
 }
 
       <span style={{ marginRight: 16 }} onClick={handleLikeBtnClick}>

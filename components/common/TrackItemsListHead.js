@@ -68,7 +68,7 @@ line-height: 16px;
 text-transform: none;
 `
 
-const TrackItemsListHead = ({hideAlbumColumn}) => {
+const TrackItemsListHead = ({hideAlbumColumn, maxWidth780px}) => {
   return (
       <TrackItemWrapper className = 'track-item-wrapper'>
         <TrackNumberWrapper className="d-flex align-items-center">
@@ -83,9 +83,11 @@ const TrackItemsListHead = ({hideAlbumColumn}) => {
 
         {
             !hideAlbumColumn && (
-              <TrackAlbumWrapper className="d-flex align-items-center">
-                  Album
-              </TrackAlbumWrapper>
+                !maxWidth780px && (
+                    <TrackAlbumWrapper className="d-flex align-items-center">
+                      Album
+                  </TrackAlbumWrapper>
+                )
             )
         }
 
@@ -96,7 +98,7 @@ const TrackItemsListHead = ({hideAlbumColumn}) => {
         <TrackDurationWrapper >
              <Tooltip title = "duration" placement="top">
               <IconButton>
-                <AccessTimeIcon />
+                <AccessTimeIcon style = {{color :'#fff'}}/>
               </IconButton>
             </Tooltip>
         </TrackDurationWrapper>

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import MediaCard from '../components/common/MediaCard'
-import {SectionHeader} from '../styles/utils'
+import Box from '@mui/material/Box';
+import RenderPlaylists from '../components/common/RenderPlaylists'
+import {SectionHeader, Container} from '../styles/utils'
 
 const SimilarArtists = () => {
   const router = useRouter();
@@ -32,30 +33,18 @@ const SimilarArtists = () => {
   },[])
 
   return (
- 
-    <>
-        <SectionHeader>{pageInfo.title}</SectionHeader>
 
-        <div className="d-flex flex-wrap">
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-            <MediaCard/>
-        </div>
-    </>
+<Container className = "content-wrapper" >
+<SectionHeader>{pageInfo.title}</SectionHeader>
+
+<Box
+  component="div"
+  sx={{ display: 'flex', flexWrap:'wrap', gap: 2 }}
+>
+     <RenderPlaylists/>         
+</Box>
+
+</Container>
 
 
   )

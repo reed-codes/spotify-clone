@@ -13,12 +13,9 @@ const CARD_STYLE = {
   display: "flex",
   justifyContent: "space-between",
   background: "rgba(155,155,155,.1)",
-  width: 247,
   minWidth: 247,
-  flex: 1,
   cursor: "pointer",
-  marginBottom: 15,
-  marginRight: 15,
+  margin:0,
   color: "#fff",
   position: "relative",
   zIndex: 10,
@@ -87,11 +84,14 @@ export default function EditorsPickCard(props) {
               aria-label="play/pause"
               style={{
                 borderRadius: "50%",
-                transform: "translate(-10px,-10px)",
+                transform: "translate(-10px,0px)",
                 background: "#1db954",
+                width:40,
+                height:40,
+                minWidth: 'unset'
               }}
             >
-              <PlayArrowIcon style={{ fontSize: 30 }} />
+              <PlayArrowIcon style={{ fontSize: 18, color:'#fff' }} />
             </IconButton>
           </div>
         </div>

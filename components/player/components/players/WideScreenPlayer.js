@@ -25,14 +25,14 @@ const PlayerGrid = styled.div`
     flexDirection == "column" ? flexDirection : "row"};
 `;
 
-export default function WideScreenPlayer(){
+export default function WideScreenPlayer(props){
   const {currentTrack} =  useContext(PlayerContext);
 
   return (
     <>
       <PlayerGrid>
         <TrackInfoWrapper
-          cover={"./demo-img-5.jpg"}
+          cover={props.cover}
           title={currentTrack.title}
           artist={currentTrack.artist.name}
         />

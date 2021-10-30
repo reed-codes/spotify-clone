@@ -1,5 +1,6 @@
 import Marquee from "react-fast-marquee";
 import { useMediaQuery } from "@material-ui/core";
+import Box from '@mui/material/Box';
 
 
 export default function TrackTitleAndArtist(props){
@@ -16,29 +17,26 @@ export default function TrackTitleAndArtist(props){
                       max_width_680px ? (
                               <>
 
-                              <Marquee style={{ fontSize: 17 }} gradient={false} delay={2}>
+                              <Marquee style={{ fontSize: 20 }} gradient={false} delay={2}>
                                     {props.title}
                               </Marquee>
 
                               <div title={ props.artist }>
-                                    <Marquee
+                                    <Box
                                       style={{
-                                        fontSize: 14,
+                                        fontSize: 13,
                                         fontWeight: 700,
                                         display: "block",
                                         textOverflow: "ellipsis",
                                         whiteSpace: "nowrap",
                                         overflow: "hidden",
+                                        paddingBottom:3
                                       }}
-                                      gradient={false}
-                                      loop={max_width_560px ? 100 : 1 }
-                                      speed={max_width_560px ? 35 :  25}
-                                      delay={max_width_560px ? 0 : 2}
                                     >
 
                                       <div>{props.artist}</div>
                                       
-                                    </Marquee>
+                                    </Box>
                                   </div>
                                 </>
                       )  :  (
@@ -49,15 +47,15 @@ export default function TrackTitleAndArtist(props){
                       {
                           max_width_950px ? (
 
-                            <div style={{ fontSize: 17 }}>
+                              <Box component="div" sx={{ textOverflow: 'ellipsis', fontSize: 18 }}>
                                 {props.title}
-                            </div>
+                              </Box>
 
                           ) : (
 
-                            <Marquee style={{ fontSize: 17 }} gradient={false} delay={2}>
-                            {props.title}
-                           </Marquee>
+                              <Box component="div" sx={{ textOverflow: 'ellipsis', fontSize: 20 }}>
+                                {props.title}
+                              </Box>
 
                           )
                            
@@ -67,6 +65,7 @@ export default function TrackTitleAndArtist(props){
                       <div  style={{
                             fontSize: 14,
                             fontWeight: 700,
+                            width:'100%',
                             display: "block",
                             textOverflow: "ellipsis",
                             whiteSpace: "nowrap",

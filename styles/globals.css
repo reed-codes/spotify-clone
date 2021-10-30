@@ -30,10 +30,15 @@ a {
 
 *::-webkit-scrollbar-thumb {
   background: #2b2a2a;
+  border-radius: 20px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
   background: #353535;
+}
+
+.secondary-text{
+  opacity: .7;
 }
 
 .secondary-text-line {
@@ -93,6 +98,10 @@ a {
   opacity: 0;
   transition: all 0.2s;
   transform-origin: top;
+}
+
+.editors-pick-play-ico:hover{
+  transform: scale(1.1);
 }
 
 .editors-pick-card:hover .editors-pick-play-icon {
@@ -160,14 +169,31 @@ a {
   color: #fff;
 }
 
+.media-card-wrapper{
+  flex: 1 ;
+  min-width: 160px;
+  max-width : 215px; 
+  margin-bottom:5px;
+  transition: all .2s linear
+}
+
 .MuiPaper-root {
   border: none !important;
 }
+
+
 
 @media (min-width: 1280px) {
   .music-header-cover-img {
     height: 232px !important;
     min-width: 232px !important;
     width: 232px !important;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .content-wrapper {
+     padding: 0 10px !important;
   }
 }

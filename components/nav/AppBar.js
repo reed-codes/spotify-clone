@@ -19,6 +19,10 @@ import EqualizerIcon from "@mui/icons-material/Equalizer";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
+import useImageColor from "use-image-color";
+
+import BackgroundEffect from "../common/BackgroundEffect";
+
 import { useSelector, useDispatch } from "react-redux";
 import {
   openMenuDrawer,
@@ -33,7 +37,7 @@ const AppBarWrapper = styled.div`
   position: sticky;
   height: 66px;
   width: 100%;
-  top: 0;
+  top: -1px;
   left: 0;
   right: 0;
   z-index: 100;
@@ -74,7 +78,6 @@ const SeachIconContainer = styled.div`
 
 const NavRoutesContainer = styled.div`
   padding-top: 30px;
-  border-top: 1px rgba(225, 225, 225, 0.1) solid;
 `;
 
 const MENU_BTN_STYLE = {
@@ -105,18 +108,24 @@ const LeftWideScreenNav = styled.nav`
 
 export default function ButtonAppBar(props) {
   const dispatch = useDispatch();
+  const cover = './cover-2.jpg'
+  const { colors } = useImageColor(cover, { cors: true, colors: 5 });
   const { menuDrawerIsOpen } = useSelector((state) => state.menuState);
   const maxWidth600px = useMediaQuery("(max-width:600px)");
 
   return (
-    <AppBarWrapper opacity={props.appBarOpacity} className="backdrop-blur">
+    <AppBarWrapper>
+      { props.showAppBarBackground && (
+            <BackgroundEffect accentColor = { colors ? colors[0] : ''}/>
+          ) } 
+
       <Box sx={{ flexGrow: 1 }}>
         <SwipeableMenuDrawer
           toggleDrawer={props.toggleDrawer}
           menuDrawerIsOpen={menuDrawerIsOpen}
         />
 
-        <AppBar position="static" style={{ background: "none" }}>
+        <AppBar position="static" style={{ background: "none", boxShadow : 'none'}}>
           <Toolbar>
             {maxWidth600px && (
               <Button
@@ -150,7 +159,7 @@ export default function ButtonAppBar(props) {
               )}
             </Typography>
 
-            <Button color="inherit">Login</Button>
+            <Button style = {{color:'#fff', fontWeight:700, background : '#080808'}}>Login</Button>
           </Toolbar>
         </AppBar>
       </Box>
@@ -201,7 +210,7 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
                 style={MENU_BTN_STYLE}
                 onClick={() => dispatch(toggleMenuDrawer())}
               ></Button>
-
+{/* 
               <SeachInputAndIconContainer>
                 <SeachInputContainer>
                   <TextField
@@ -224,7 +233,7 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
                     <SearchIcon style={{ color: "#fff" }} />
                   </Button>
                 </SeachIconContainer>
-              </SeachInputAndIconContainer>
+              </SeachInputAndIconContainer> */}
 
               <NavRoutesContainer>
                 <Link href="/" passHref={true}>

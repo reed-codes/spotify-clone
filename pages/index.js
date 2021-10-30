@@ -2,10 +2,11 @@ import { SectionHeader } from "../styles/utils";
 import EditorsPickGrid from "../components/EditorsPickGrid";
 import ContentSliderSection from "../components/common/ContentSliderSection";
 import { getTitle } from "../utils";
+import {Container} from '../styles/utils'
 
 export default function Home() {
   return (
-    <div style = {{padding:'0 24px'}}>
+    <Container className = "content-wrapper" >
       <SectionHeader>Editor's pick</SectionHeader>
       <EditorsPickGrid/>
 
@@ -24,7 +25,7 @@ export default function Home() {
       <ContentSliderSection title = { getTitle( "new-releases" ) } 
                             url = "/more/new-releases?q=632&type=track"
                              />
-    </div>
+    </Container>
   );
 
 }

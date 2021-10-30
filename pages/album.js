@@ -1,11 +1,10 @@
 
-import { useEffect, useState } from "react";
-import { SectionHeader, Container } from "../styles/utils";
-import EditorsPickGrid from "../components/EditorsPickGrid";
+import { useState } from "react";
+import { Container } from "../styles/utils";
 import ContentSliderSection from "../components/common/ContentSliderSection";
-import { getTitle } from "../utils";
 import Link from "next/link";
 import Stack from "@mui/material/Stack";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import Avatar from "@mui/material/Avatar";
@@ -18,11 +17,13 @@ import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import PauseIcon from "@mui/icons-material/Pause";
 
 const MusicHeader = styled.div`
-  height: 20vh;
-  max-height: 500px;
+  height: ${({smallScreen})=> smallScreen ? '40vh' : '20vh'};
+  max-height: ${({smallScreen})=> smallScreen ? '700px' : '500px'};
   min-height: 320px;
   color: #fff;
   display: flex;
+  flex-direction : ${({smallScreen})=> smallScreen ? 'column' : 'row'};
+  text-align : ${({smallScreen})=> smallScreen ? 'center' : 'left'};
   max-width: none;
   overflow: hidden;
   position: relative;
@@ -40,24 +41,15 @@ const CoverImage = styled.div`
   -ms-flex-item-align: end;
   -webkit-margin-end: 24px;
   align-self: flex-end;
-  height: 192px;
-  margin-inline-end: 24px;
-  min-width: 192px;
-  width: 192px;
+  height: ${({smallScreen}) => smallScreen ? '120px' : '192px'  };
+  width: ${({smallScreen}) => smallScreen ? '120px' : '192px'  };
+  min-width: ${({smallScreen}) => smallScreen ? '120px' : '192px'  };
+  margin-inline-end: ${({smallScreen}) => smallScreen ? '0' : '24px'  };
 `;
 
 const HeaderDetailsWrapper = styled.div`
-  -webkit-box-flex: 1;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex: 1;
   flex: 1;
-  -ms-flex-flow: column;
   flex-flow: column;
   justify-content: flex-end;
   z-index: 0;
@@ -73,15 +65,15 @@ const MusicHeaderContentTypeText = styled.h2`
 
 const MusicHeaderContentTitle = styled.h1`
   overflow: hidden;
-  text-align: left;
+  text-align: ${({smallScreen}) => smallScreen ? 'text' : 'left'  };
   width: 100%;
   word-break: break-word;
   user-select: none;
   padding: 0.08em 0px;
   visibility: visible;
   width: 100%;
-  font-size: 96px;
-  line-height: 96px;
+  line-height : ${({smallScreen}) => smallScreen ? 'unset' : '96px'  };
+  font-size : ${({smallScreen}) => smallScreen ? '40px' : '96px'  };
   font-weight: 700;
   letter-spacing: -0.04em;
   text-transform: none;
@@ -99,14 +91,20 @@ const ArtistLink = styled.div`
 const MusicHeaderLeftGridWrapper = styled.div`
 height: 100%;
 display: flex;
+width: ${({smallScreen})=> smallScreen ? '100%' : 'unset' };
+justify-content: ${({smallScreen})=> smallScreen ? 'center' : 'flex-start' };
+justify-items: ${({smallScreen})=> smallScreen ? 'center' : 'flex-start' };
 align-items: flex-end;
 background-color:rgba(0,0,0,.4);
-padding-bottom:24px;
-padding-left:24px;
+padding-bottom: ${({smallScreen})=> smallScreen ? '0' : '24px' };
+padding-left: ${({smallScreen})=> smallScreen ? '0' : '24px' };
 `
 
 const MusicHeaderRightGridWrapper = styled.div`
 height: 100% ;
+width: ${({smallScreen})=> smallScreen ? '100%' : 'unset' };
+justify-content: ${({smallScreen})=> smallScreen ? 'center' : 'flex-start' };
+justify-items: ${({smallScreen})=> smallScreen ? 'center' : 'flex-start' };
 flex: 1;
 display: flex ;
 align-items: flex-end ;
@@ -117,9 +115,11 @@ padding-bottom:24px;
 export default function album() {
   let cover = "./cover.jpg";
   const { colors } = useImageColor( cover, { cors: true, colors: 5 })
-  const accentColor = colors ? colors[0] : 'transparent';
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const maxWidth750px = useMediaQuery('(max-width:750px)');
+  const accentColor = colors ? colors[0] : 'transparent';
+
 
   const artist = {
     name : 'MARINA',
@@ -132,21 +132,22 @@ export default function album() {
 
   return (
     <>
-      <MusicHeader accentColor = {accentColor}>
-        <MusicHeaderLeftGridWrapper>
-          <CoverImage url={"./cover.jpg"} className="music-header-cover-img" />
+      <MusicHeader smallScreen = {maxWidth750px} accentColor = {accentColor}>
+        <MusicHeaderLeftGridWrapper smallScreen = {maxWidth750px}>
+          <CoverImage url={"./cover.jpg"}  smallScreen = {maxWidth750px} className="music-header-cover-img" />
         </MusicHeaderLeftGridWrapper>
 
-        <MusicHeaderRightGridWrapper >
+        <MusicHeaderRightGridWrapper smallScreen = {maxWidth750px}>
           <HeaderDetailsWrapper>
             <MusicHeaderContentTypeText>album</MusicHeaderContentTypeText>
 
-            <MusicHeaderContentTitle>All In</MusicHeaderContentTitle>
+            <MusicHeaderContentTitle smallScreen = {maxWidth750px}>All In</MusicHeaderContentTitle>
 
             <Stack
               direction="row"
               spacing={1}
               alignItems="center"
+              justifyContent  = { maxWidth750px ? "center" : 'left' }
               style={{ fontSize: 14 }}
             >
               <Avatar
@@ -156,7 +157,9 @@ export default function album() {
               />
 
               <Link href="/" passHref = {true}>
+              <a>
                 <ArtistLink>Skepta</ArtistLink>
+                </a>
               </Link>
 
               <span>&bull;</span>
@@ -169,7 +172,7 @@ export default function album() {
 
       </MusicHeader>
 
-        <Container>
+        <Container className = "content-wrapper" >
 
         <div style={{ padding: "15px 0" }}>
             <Stack direction="row" spacing={2} alignItems="center">
@@ -225,7 +228,7 @@ export default function album() {
             <div>
 
                 <ContentSliderSection
-                  title={'More Albums by ' + artist.name}
+                  title={'More by ' + artist.name}
                   url={"/more/artist-albums?q=123&artist=Billie&type=album"}
                 />
 

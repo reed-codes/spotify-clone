@@ -1,44 +1,28 @@
 import {useState} from 'react'
 import styled from "styled-components";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Button from "@mui/material/Button";
 import Link from 'next/link'
+import Box from '@mui/material/Box';
 
-const CardWrapper = styled.a`
-width:185px;
-min-width:185px;
-max-width:185px;
-isolation: isolate;
-margin-right:1.6%;
-margin-bottom:20px;
-transition: all .2s; linear;
-`;
 
 const Card = styled.div`
--webkit-box-flex: 1;
 background: #181818;
 border-radius: 4px;
--ms-flex: 1;
 flex: 1;
-padding: 10px;
+padding: 20px 15px;
 position: relative;
 width: 100%;
-transition: all .2s; linear;
+transition: all .2s linear;
+box-shadow: 0 8px 24px rgb(0 0 0 / 10%);
 &:hover{
       background: #383838;
       color:#fff
 }
 `;
 
-const InnerCard = styled.div`
-  height: 100%;
-  position: relative;
-  z-index: 1;
-  cursor:pointer
-`;
 
 const CardCoverImageWrapper = styled.div`
   margin-bottom: 16px;
@@ -46,12 +30,15 @@ const CardCoverImageWrapper = styled.div`
 `;
 
 const CardCoverImage = styled.img`
+ background-color: #333;
   border-radius: 2px;
-  height: 165px;
   width: 100%;
   object-fit: cover;
   object-position: center;
+  min-height:130px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 50%);
 `;
+
 const CardContentWrapper = styled.div`
   min-height: 62px;
 `;
@@ -68,8 +55,6 @@ const CardHeader = styled.div`
 
 const CardBody = styled.div`
   color: rgb(179, 179, 179);
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
   display: -webkit-box;
   margin-top: 4px;
   overflow: hidden;
@@ -101,7 +86,7 @@ const MEDIA_CARD_BTN = {
   minWidth: "unset",
   background: "#1db954",
   cursor: "default",
-  boxShadow:'0 8px 8px rgb(0 0 0 / 30%)'
+  boxShadow:'5px 5px 5px rgba(0,0,0,.4)'
 };
 
 const MediaCard = () => {
@@ -111,9 +96,16 @@ const MediaCard = () => {
   
   return (
     <Link href = "/album">
-    <CardWrapper>
+        <a>
+      <Box  className = "media-card-wrapper" >
+
     <Card className="media-card">
-      <InnerCard>
+      <Box sx = {{
+          height: '100%',
+          position: 'relative',
+          zIndex: 1,
+          cursor:'pointer'
+      }}>
         <CardCoverImageWrapper>
           <CardCoverImage src={"https://e-cdns-images.dzcdn.net/images/cover/63af28b4e046c59293eaf313be13f8f7/250x250-000000-80-0-0.jpg"} alt="" />
 
@@ -143,9 +135,10 @@ const MediaCard = () => {
 
           <CardBody>Doja Cat, Billie Eilish, MARINA and more</CardBody>
         </CardContentWrapper>
-      </InnerCard>
+      </Box>
     </Card>
-        </CardWrapper>
+        </Box>
+        </a>
         </Link>
   );
 };

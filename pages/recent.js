@@ -1,3 +1,4 @@
+import Box from '@mui/material/Box';
 import RenderTrackCards from '../components/common/RenderTrackCards'
 import {SectionHeader, Container} from '../styles/utils'
 
@@ -5,16 +6,17 @@ const rencent = () => {
 
   return (
  
-    <>
-        <Container>
+        <Container className = "content-wrapper" >
             <SectionHeader>Recent plays</SectionHeader>
-        </Container>
 
-        <Container className="d-flex flex-wrap">
+        <Box
+              component="div"
+              sx={{ display: 'flex', flexWrap:'wrap', gap: 2 }}
+            >
                  <RenderTrackCards/>         
-        </Container>
-    </>
+        </Box>
 
+        </Container>
 
   )
 }

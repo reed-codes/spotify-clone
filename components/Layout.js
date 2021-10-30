@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Nav from "./nav/Nav";
 import AppBar from "./nav/AppBar";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import Player from './player/Player'
 import { toggleMenuDrawer } from "../state/actions/menu-drawer-actions";
 import Head from "./Head";
 
@@ -25,7 +26,8 @@ const MainContentContainer = styled.main`
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
-  const [appBarOpacity, setAppBarOpacity] = useState(0);
+  const mainWrapperRef = useRef(null)
+  const [showAppBarBackground, setShowAppBarBackground] = useState(false);
 
   const toggleDrawer = () => (event) => {
     if (
@@ -40,27 +42,28 @@ const Layout = ({ children }) => {
   };
 
   const handleMainContentContainerScroll = (event) => {
-    let IS_INTEGER = event.target.scrollTop % 1 == 0;
-
-    if (IS_INTEGER && event.target.scrollTop <= 100)
-      setAppBarOpacity(event.target.scrollTop / 100 + 0.1);
+    if( (event.target.scrollTop >= 20) && !showAppBarBackground ) setShowAppBarBackground(true)
+    else if( (event.target.scrollTop < 20) && showAppBarBackground) setShowAppBarBackground(false)
   };
 
   return (
     <>
       <Head />
-      <MainWrapper>
-        <Nav appBarOpacity={appBarOpacity} toggleDrawer={toggleDrawer} />
+      <MainWrapper ref = {mainWrapperRef}>
+        <Nav toggleDrawer={toggleDrawer} />
 
         <MainContentContainer
           onScroll={handleMainContentContainerScroll}
           className="main-content-container"
         >
-          <AppBar appBarOpacity={appBarOpacity} toggleDrawer={toggleDrawer} />
+          <AppBar showAppBarBackground = { showAppBarBackground }  toggleDrawer={toggleDrawer} />
 
           {children}
         </MainContentContainer>
       </MainWrapper>
+      <Player config = {{
+            constraintsRef : mainWrapperRef
+      }}/>
     </>
   );
 };

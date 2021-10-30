@@ -8,8 +8,8 @@ import {PlayerContext} from '../../Player'
 const PIP_PLAYER_STYLE = {
     height:250,
     width: 250,
-    bottom:110,
-    right:10,
+    bottom:0,
+    right:30,
     padding:20,
     background: '#111',
     position: 'fixed',
@@ -28,19 +28,21 @@ const CLOSE_PIP_BTN = {
     color:'#fff'
 }
 
-const PipPlayer = ({isPipOn}) => {
+const PipPlayer = ({constraintsRef}) => {
     const {handlePipToggle} =  useContext(PlayerContext);
 
-    
     return (
         <motion.div
             style = {{
                 ...PIP_PLAYER_STYLE,
-                zIndex: isPipOn ? 100000 : -100000,
+                zIndex: 100,
             }}
             drag
-            // dragConstraints={constraintsRef}
+            dragConstraints={constraintsRef}
             dragElastic={30}
+            animate={{ y: -110 }}
+            initial={{ y: 0 }}
+            transition={{ type: "spring", stiffness: 100 }}
             id="pip-player"
            >
           
