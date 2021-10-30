@@ -1,8 +1,9 @@
+import React from "react";
 import Box from '@mui/material/Box';
 import RenderTrackCards from '../components/common/RenderTrackCards'
 import {SectionHeader, Container} from '../styles/utils'
 
-const rencent = () => {
+export default function Rencent(){
 
   return (
  
@@ -20,5 +21,3 @@ const rencent = () => {
 
   )
 }
-
-export default rencent

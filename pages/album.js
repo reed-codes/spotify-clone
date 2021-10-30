@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import React,{ useState } from "react";
 import { Container } from "../styles/utils";
 import ContentSliderSection from "../components/common/ContentSliderSection";
 import Link from "next/link";
@@ -112,7 +112,7 @@ background-color:rgba(0,0,0,.4);
 padding-bottom:24px;
 `
 
-export default function album() {
+export default function Album() {
   let cover = "./cover.jpg";
   const { colors } = useImageColor( cover, { cors: true, colors: 5 })
   const [isPlaying, setIsPlaying] = useState(false);

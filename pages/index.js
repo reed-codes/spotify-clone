@@ -1,3 +1,4 @@
+import React from "react";
 import { SectionHeader } from "../styles/utils";
 import EditorsPickGrid from "../components/EditorsPickGrid";
 import ContentSliderSection from "../components/common/ContentSliderSection";

@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Box from '@mui/material/Box';
 import RenderPlaylists from '../components/common/RenderPlaylists'
 import {SectionHeader, Container} from '../styles/utils'
 
-const SimilarArtists = () => {
+export default function SimilarArtists(){
   const router = useRouter();
   const q = router.query.q;
   const [pageInfo, setPageInfo] = useState({
@@ -49,5 +49,3 @@ const SimilarArtists = () => {
 
   )
 }
-
-export default SimilarArtists

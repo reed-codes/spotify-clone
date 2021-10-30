@@ -7,7 +7,7 @@ const RenderArtist
     676, 768, 8, 688678, 66, 68, 68, 687868, 786, 786, 786, 786, 768, 786,
   ];
 
-    return  testArr.map(() => <PlaylistCard />)
+    return  testArr.map(( _ , index ) => <PlaylistCard key = {index} />)
 };
 
 export default RenderArtist

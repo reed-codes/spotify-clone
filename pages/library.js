@@ -98,7 +98,7 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default function FullWidthTabs() {
+export default function Library() {
   const theme = useTheme();
   const maxWidth890px = useMediaQuery("(max-width: 890px)");
   const [value, setValue] = React.useState(0);

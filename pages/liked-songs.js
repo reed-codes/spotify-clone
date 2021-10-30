@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import React,{ useState } from "react";
 import { Container } from "../styles/utils";
 import ContentSliderSection from "../components/common/ContentSliderSection";
 import Stack from "@mui/material/Stack";
@@ -108,7 +108,7 @@ background-color:rgba(0,0,0,.4);
 padding-bottom:24px;
 `
 
-export default function album() {
+export default function LikedSongs() {
   let cover = "./liked-songs.png";
   const { colors } = useImageColor( cover, { cors: true, colors: 5 })
   const accentColor = colors ? colors[0] : 'transparent';

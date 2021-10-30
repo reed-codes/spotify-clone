@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect } from "react";
 import { SectionHeader, Container } from "../styles/utils";
 import ContentSliderSection from "../components/common/ContentSliderSection";
 import { getTitle, scrollTop } from "../utils";
@@ -59,7 +59,7 @@ const MusicHeaderInnerWrapper = styled.div`
   border-right: 5px #111 solid;
 `;
 
-export default function album() {
+export default function Artist() {
   let cover = "./cover.jpg";
   const { colors } = useImageColor(cover, { cors: true, colors: 5 });
   const [isPlaying, setIsPlaying] = useState(false);
