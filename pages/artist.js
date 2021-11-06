@@ -78,9 +78,6 @@ export default function Artist() {
   const imageURL =
     "https://e-cdns-images.dzcdn.net/images/artist/3a58adf62c522732a6d3a7f8806de0c3/1000x1000-000000-80-0-0.jpg";
 
-  // useEffect(()=>{
-  //     scrollTop()
-  // },[])
 
   return (
     <>

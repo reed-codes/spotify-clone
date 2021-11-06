@@ -41,14 +41,6 @@ a {
   opacity: .7;
 }
 
-.secondary-text-line {
-  color: rgba(0, 0, 0, 0.5);
-  font-size: 14px;
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 
 .player-controls-icon-btn {
   height: 40px;

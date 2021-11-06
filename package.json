@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.0.3",
     "@mui/material": "^5.0.3",
     "@reduxjs/toolkit": "^1.6.1",
+    "class-name-prop": "^3.0.0",
     "colorthief": "^2.3.2",
     "framer-motion": "^4.1.17",
     "moment": "^2.29.1",
