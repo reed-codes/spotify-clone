@@ -18,6 +18,10 @@ a {
   text-decoration: none;
 }
 
+a:hover{
+  color: #fff;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -147,7 +151,8 @@ a {
 }
 
 #search-input {
-  background: rgb(17, 17, 17);
+  background: rgb(17, 17,
+   17);
   color: #fff;
 }
 
@@ -164,10 +169,11 @@ a {
 .media-card-wrapper{
   flex: 1 ;
   min-width: 160px;
-  max-width : 215px; 
+  width : 200px; 
   margin-bottom:5px;
   transition: all .2s linear
 }
+
 
 .MuiPaper-root {
   border: none !important;

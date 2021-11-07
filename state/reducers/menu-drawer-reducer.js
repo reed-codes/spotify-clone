@@ -4,12 +4,12 @@ import {
   OPEN_MENU_DRAWER,
 } from "../action-types";
 
-const INITIAL_NAV_STATE = {
+const INITIAL_STATE = {
   menuDrawerIsOpen: false,
   menuDrawerIsOpenForSearch: false,
 };
 
-const reducer = (state = INITIAL_NAV_STATE, action) => {
+const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case TOGGLE_MENU_DRAWER:
       return {

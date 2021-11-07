@@ -1,4 +1,4 @@
-import * as React from "react";
+import {useState} from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -7,7 +7,9 @@ import Typography from "@mui/material/Typography";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import IconButton from "@mui/material/IconButton";
 import styled from "styled-components";
+import Tooltip from "@mui/material/Tooltip";
 import useImageColor from "use-image-color";
+import MediaPlayBtn from "./common/MediaPlayBtn";
 
 const CARD_STYLE = {
   display: "flex",
@@ -30,9 +32,13 @@ const CardImgWrapper = styled.div`
 `;
 
 export default function EditorsPickCard(props) {
-  const { colors } = useImageColor(props.cover, { cors: true, colors: 5 });
+  const {cover_medium : cover, title, artist, id } = props.album;
+  const { colors } = useImageColor(cover, { cors: true, colors: 5 });
+  const [showPlayBtn, setShowPlayBtn] = useState(false)
+
 
   return (
+    <Tooltip title="click to open" placement="bottom" arrow>
     <Card
       style={CARD_STYLE}
       className="editors-pick-card"
@@ -42,7 +48,11 @@ export default function EditorsPickCard(props) {
         );
         if (backgrounGradientEffect && colors)
           backgrounGradientEffect.style.background = colors[0];
+
+        setShowPlayBtn(true)
       }}
+
+      onMouseLeave = {()=>{setShowPlayBtn(false)}}
     >
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <CardContent sx={{ flex: "1 0 auto", padding: "10px !important" }}>
@@ -51,7 +61,7 @@ export default function EditorsPickCard(props) {
             variant="h6"
             style={{ fontSize: "1.1rem", fontWeight: 700 }}
           >
-            Live From Space
+           { title }
           </Typography>
 
           <Typography
@@ -61,7 +71,7 @@ export default function EditorsPickCard(props) {
               opacity: 0.6,
             }}
           >
-            Mac Miller
+            {artist.name}
           </Typography>
         </CardContent>
       </Box>
@@ -78,31 +88,19 @@ export default function EditorsPickCard(props) {
             top: 0,
             left: 0,
           }}
+
         >
-          <div className="editors-pick-play-icon">
-            <IconButton
-              aria-label="play/pause"
-              style={{
-                borderRadius: "50%",
-                transform: "translate(-10px,0px)",
-                background: "#1db954",
-                width:40,
-                height:40,
-                minWidth: 'unset'
-              }}
-            >
-              <PlayArrowIcon style={{ fontSize: 18, color:'#fff' }} />
-            </IconButton>
-          </div>
+              { showPlayBtn && <MediaPlayBtn/> }
         </div>
 
         <CardMedia
           component="img"
           sx={{ height: 90, width: 90 }}
-          image={props.cover}
-          alt="Live from space album cover"
+          image={cover}
+          alt= {title}
         />
       </CardImgWrapper>
     </Card>
+    </Tooltip>
   );
 }

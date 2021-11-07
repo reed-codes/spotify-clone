@@ -140,6 +140,7 @@ export const WideScreenNav = ({ toggleViewedNav }) => {
                   width: "100%",
                   height: "100%",
                   objectFit: "contain",
+                  objectPosition : 'left'
                 }}
               />
             </a>
@@ -285,6 +286,7 @@ export const SmallScreenNav = ({ toggleViewedNav, maxWidth890px }) => {
                   width: "100%",
                   height: "100%",
                   objectFit: "contain",
+                  objectPosition : 'left'
                 }}
               />
             </a>

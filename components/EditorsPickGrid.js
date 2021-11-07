@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import EditorsPickCard from "./EditorsPickCard";
 import Box from '@mui/material/Box';
 import {useMediaQuery} from '@material-ui/core'
+import { useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 
 const BackgroundAccentColorGradientEffect = styled.main`
 padding:10px 24px 100px 24px;
@@ -20,9 +22,13 @@ transition: all 1s linear;
 `
 
 const EditorsPickGrid = () => {
+  const editorialState = useSelector(state => state.musicData.editorial)
   const maxWidth1095px = useMediaQuery('(max-width:1095px)');
   const maxWidth950px = useMediaQuery('(max-width:950px)');
   const maxWidth650px = useMediaQuery('(max-width:650px)');
+  const albums = editorialState.albums.data ? editorialState.albums.data : [];
+  const albumsPickedByEditors = albums.slice(0,6);
+  
     return (
       <>
 
@@ -36,12 +42,17 @@ const EditorsPickGrid = () => {
           }}
         >
  
-        <EditorsPickCard cover={"./cover.jpg"} />
-        <EditorsPickCard cover={"./demo-img-1.jpg"} />
-        <EditorsPickCard cover={"./cover-2.jpg"} />
-        <EditorsPickCard cover={"./cover-3.jpg"} />
-        <EditorsPickCard cover={"./cover-4.jpg"} />
-        <EditorsPickCard cover={"./cover-5.jpg"} />
+        {
+          albumsPickedByEditors.map( album =>{
+                  return (
+                    <EditorsPickCard  
+                           key = {uuidv4()}
+                           album = {album}
+                          />
+                  )
+          })
+           
+        }
   
      </Box>
 

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import MediaCard from "./MediaCard";
 import ArtistCard from "./ArtistCard";
 import Link from "next/link";
 import Box from "@mui/material/Box";
@@ -22,7 +21,7 @@ const SeeAllLink = styled.div`
   }
 `;
 
-const ContentSliderSection = ({ title, url }) => {
+const ContentSliderSection = ({ title, url, children }) => {
   return (
     <Box sx = {{ position:'relative', mt: 3 }}>
       <SectionHeader>{title}</SectionHeader>
@@ -33,13 +32,16 @@ const ContentSliderSection = ({ title, url }) => {
 
       <Box
         component="div"
-        sx={{ overflow: "auto", my: 2, display: "flex", gap: 2, marginBottom:'10px' }}
+        sx={{ overflow: "auto", my: 2, display: "flex", gap: 2, marginBottom:'10px', alignItems:'stretch' }}
       >
-        <ArtistCard />
+        {/* <ArtistCard />
         <MediaCard />
         <MediaCard />
         <MediaCard />
-        <MediaCard />
+        <MediaCard /> */}
+
+        { children }
+
       </Box>
     </Box>
   );

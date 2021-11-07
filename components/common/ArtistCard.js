@@ -1,11 +1,8 @@
 import {useState} from 'react'
 import styled from "styled-components";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import Button from "@mui/material/Button";
 import Link from 'next/link'
 import Box from '@mui/material/Box';
+import MediaPlayBtn from './MediaPlayBtn';
 
 
 const Card = styled.div`
@@ -73,6 +70,7 @@ const MediaCardOnHoverBtnWrapper = styled.div`
   bottom: 0px;
   left: 0px;
   display: flex;
+  justify-content:flex-end
 `;
 
 const MEDIA_CARD_BTN = {
@@ -89,17 +87,26 @@ const MEDIA_CARD_BTN = {
   boxShadow:'5px 5px 5px rgba(0,0,0,.4)'
 };
 
-const MediaCard = () => {
-  const [isLiked, setIsLiked] = useState(false)
-
-  const handleLikeBtnClick = ()=> setIsLiked(!isLiked)
+const MediaCard = ({artist}) => {
+  const [showPlayBtn, setShowPlayBtn] = useState(false)
+  const artistName = artist.name;
+  const artistId = artist.id;
+  const artistAvatar = artist.picture_small;
+  const title = artist.title;
+  const id = artist.id;
+  const cover = artist.picture_medium
+  const type = artist.type
   
   return (
-    <Link href = "/artist">
+    <Link href = {`/artist?q=${id}`}>
         <a>
       <Box className = "media-card-wrapper">
 
-    <Card className="media-card">
+    <Card className="media-card"
+    
+     onMouseEnter={() => {setShowPlayBtn(true)}}
+     onMouseLeave = {()=>{setShowPlayBtn(false)}}
+        >
       <Box sx = {{
           height: '100%',
           position: 'relative',
@@ -107,34 +114,20 @@ const MediaCard = () => {
           cursor:'pointer'
       }}>
         <CardCoverImageWrapper>
-<CardCoverImage src={"https://e-cdns-images.dzcdn.net/images/artist/bd3f01a27e692074ed40bf8755b06afe/250x250-000000-80-0-0.jpg"} alt="" />
 
+           <CardCoverImage src={cover} alt="" />
 
           <MediaCardOnHoverBtnWrapper className="media-card-on-hover-btn-wrapper">
-            <Button
-              style={MEDIA_CARD_BTN}
-            >
-              <PlayArrowIcon style={{ color: "#fff" }} />
-            </Button>
-
-            <Button
-              style={MEDIA_CARD_BTN}
-              className="media-card-on-hover-like-btn"
-              onClick = {handleLikeBtnClick}
-            >
-
-              {
-                isLiked ? <FavoriteOutlinedIcon style={{ color: "#1db954" }} />  : <FavoriteBorderIcon style={{ color: "#fff" }} />
-              }
-
-            </Button>
+              { showPlayBtn && <MediaPlayBtn/> }
           </MediaCardOnHoverBtnWrapper>
         </CardCoverImageWrapper>
 
         <CardContentWrapper>
-          <CardHeader>Lana del Rey</CardHeader>
+          <CardHeader>{artistName}</CardHeader>
 
-          <CardBody>Artist</CardBody>
+          <CardBody>
+               {type}
+          </CardBody>
         </CardContentWrapper>
       </Box>
     </Card>

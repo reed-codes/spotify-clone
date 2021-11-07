@@ -16,6 +16,8 @@ export const getTitle = (id)=>{
                     return "Featuring "
               case 'similar-artists' : 
                     return "Fans also like "
+              case 'episodes-for-you' : 
+                    return "Episodes for you "
               default : return id
     }
 }
@@ -25,3 +27,10 @@ export const scrollTop = ()=>{
       if(mainContentComtainer)
         mainContentComtainer.scrollTo(0,0)
 } 
+
+export const trimText = (txt, limit = 35)=>{
+          if(!txt) return txt
+           
+          if(txt.length > 45) return txt.substring(0, limit )+"..."
+          else return txt
+}

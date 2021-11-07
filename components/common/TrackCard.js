@@ -1,11 +1,8 @@
 import {useState} from 'react'
 import styled from "styled-components";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import Button from "@mui/material/Button";
 import Link from 'next/link'
 import Box from '@mui/material/Box';
+import MediaPlayBtn from './MediaPlayBtn';
 
 
 const Card = styled.div`
@@ -72,33 +69,27 @@ const MediaCardOnHoverBtnWrapper = styled.div`
   bottom: 0px;
   left: 0px;
   display: flex;
+  justify-content:flex-end
 `;
 
-const MEDIA_CARD_BTN = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  height: 40,
-  width: 40,
-  borderRadius: "50%",
-  margin: 3,
-  minWidth: "unset",
-  background: "#1db954",
-  cursor: "default",
-  boxShadow:'5px 5px 5px rgba(0,0,0,.4)'
-};
-
-const MediaCard = () => {
-  const [isLiked, setIsLiked] = useState(false)
-
-  const handleLikeBtnClick = ()=> setIsLiked(!isLiked)
+const MediaCard = ({track}) => {
+  const [showPlayBtn, setShowPlayBtn] = useState(false)
+  const artistName = track.artist.name;
+  const artistId = track.artist.id;
+  const artistAvatar = track.artist.picture_small;
+  const title = track.title;
+  const id = track.album.id;
+  const cover = track.album.cover_medium
   
   return (
-    <Link href = "/album">
+    <Link href = {`/album?q=${id}`}>
         <a>
       <Box  className = "media-card-wrapper" >
 
-    <Card className="media-card">
+    <Card className="media-card"
+          onMouseEnter={() => {setShowPlayBtn(true)}}
+          onMouseLeave = {()=>{setShowPlayBtn(false)}}
+        >
       <Box sx = {{
           height: '100%',
           position: 'relative',
@@ -106,33 +97,17 @@ const MediaCard = () => {
           cursor:'pointer'
       }}>
         <CardCoverImageWrapper>
-          <CardCoverImage src={"https://e-cdns-images.dzcdn.net/images/cover/63af28b4e046c59293eaf313be13f8f7/250x250-000000-80-0-0.jpg"} alt="" />
+          <CardCoverImage src={cover} alt={title} />
 
           <MediaCardOnHoverBtnWrapper className="media-card-on-hover-btn-wrapper">
-            <Button
-              style={MEDIA_CARD_BTN}
-            >
-              <PlayArrowIcon style={{ color: "#fff" }} />
-            </Button>
-
-            <Button
-              style={MEDIA_CARD_BTN}
-              className="media-card-on-hover-like-btn"
-              onClick = {handleLikeBtnClick}
-            >
-
-              {
-                isLiked ? <FavoriteOutlinedIcon style={{ color: "#1db954" }} />  : <FavoriteBorderIcon style={{ color: "#fff" }} />
-              }
-
-            </Button>
+          { showPlayBtn && <MediaPlayBtn/> }
           </MediaCardOnHoverBtnWrapper>
         </CardCoverImageWrapper>
 
         <CardContentWrapper>
-          <CardHeader>Daily Mix 1</CardHeader>
+          <CardHeader>{title}</CardHeader>
 
-          <CardBody>Doja Cat, Billie Eilish, MARINA and more</CardBody>
+          <CardBody> {artistName} </CardBody>
         </CardContentWrapper>
       </Box>
     </Card>

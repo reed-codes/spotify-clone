@@ -55,26 +55,26 @@ const LogoContainer = styled.div`
   padding: 15px 0;
 `;
 
-const SeachInputAndIconContainer = styled.div`
-  width: 100%;
-  height: 56px;
-  display: flex;
-  color: #fff;
-`;
+// const SeachInputAndIconContainer = styled.div`
+//   width: 100%;
+//   height: 56px;
+//   display: flex;
+//   color: #fff;
+// `;
 
-const SeachInputContainer = styled.div`
-  flex: 1;
-  height: 100%;
-`;
+// const SeachInputContainer = styled.div`
+//   flex: 1;
+//   height: 100%;
+// `;
 
-const SeachIconContainer = styled.div`
-  min-width: 60px;
-  width: 60px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+// const SeachIconContainer = styled.div`
+//   min-width: 60px;
+//   width: 60px;
+//   height: 100%;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// `;
 
 const NavRoutesContainer = styled.div`
   padding-top: 30px;
@@ -151,6 +151,7 @@ export default function ButtonAppBar(props) {
                     width: 40,
                     height: 40,
                     objectFit: "contain",
+                    objectPosition:'left',
                     marginBottom: -3,
                   }}
                 />
@@ -197,6 +198,7 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
                         width: "100%",
                         height: "100%",
                         objectFit: "contain",
+                        objectPosition:'left',
                       }}
                       onClick={() => dispatch(toggleMenuDrawer())}
                     />

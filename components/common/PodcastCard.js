@@ -1,8 +1,7 @@
-import {useState} from 'react'
 import styled from "styled-components";
 import Link from 'next/link'
 import Box from '@mui/material/Box';
-import MediaPlayBtn from './MediaPlayBtn';
+import { trimText } from '../../utils';
 
 
 const Card = styled.div`
@@ -63,48 +62,19 @@ const CardBody = styled.div`
   text-transform: none;
 `;
 
-const MediaCardOnHoverBtnWrapper = styled.div`
-  width: 100%;
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  display: flex;
-  justify-content:flex-end
-`;
 
-const MEDIA_CARD_BTN = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  height: 40,
-  width: 40,
-  borderRadius: "50%",
-  margin: 3,
-  minWidth: "unset",
-  background: "#1db954",
-  cursor: "default",
-  boxShadow:'5px 5px 5px rgba(0,0,0,.4)'
-};
-
-const MediaCard = ({album}) => {
-  const [showPlayBtn, setShowPlayBtn] = useState(false)
-  const artistName = album.artist.name;
-  const artistId = album.artist.id;
-  const artistAvatar = album.artist.picture_small;
-  const title = album.title;
-  const id = album.id;
-  const cover = album.cover_medium
-
+const MediaCard = ({podcast}) => {
+  const title = podcast.title;
+  const description = podcast.description;
+  const cover = podcast.picture_medium
+  const link = podcast.link
   
   return (
-    <Link href = {`/album?q=${id}`}>
-      <a>
+    <Link href = {link}>
+      <a target = "_blank">
       <Box  className = "media-card-wrapper" >
 
-    <Card className="media-card"
-          onMouseEnter={() => {setShowPlayBtn(true)}}
-          onMouseLeave = {()=>{setShowPlayBtn(false)}}
-          >
+    <Card className="media-card">
       <Box sx = {{
           height: '100%',
           position: 'relative',
@@ -113,16 +83,12 @@ const MediaCard = ({album}) => {
       }}>
         <CardCoverImageWrapper>
           <CardCoverImage src={cover} alt="" />
-
-          <MediaCardOnHoverBtnWrapper className="media-card-on-hover-btn-wrapper">
-          { showPlayBtn && <MediaPlayBtn/> }
-          </MediaCardOnHoverBtnWrapper>
         </CardCoverImageWrapper>
 
         <CardContentWrapper>
           <CardHeader>{title}</CardHeader>
 
-          <CardBody>{artistName}</CardBody>
+          <CardBody>{ trimText(description, 35) }</CardBody>
         </CardContentWrapper>
       </Box>
     </Card>
