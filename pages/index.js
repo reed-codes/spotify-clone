@@ -31,11 +31,11 @@ export default function Home(props) {
 
   return (
     <Container className = "content-wrapper" >
-      <SectionHeader>Editor's pick</SectionHeader>
+      <SectionHeader>Editor's picks</SectionHeader>
       <EditorsPickGrid/>
 
       <ContentSliderSection title = { getTitle( "top-tracks" ) } 
-                            url = { "/more/top-tracks?type=track&q=098" }
+                            url = { "/more/top-tracks" }
                             >
                           {
                               top6Charting.tracks.map(track => {
@@ -49,7 +49,7 @@ export default function Home(props) {
 
 
       <ContentSliderSection title = { getTitle( "top-albums" ) } 
-                            url = { "/more/top-albums?type=album&q=876" }
+                            url = { "/more/top-albums" }
                             >
                           {
                               top6Charting.albums.map(album => {
@@ -62,7 +62,7 @@ export default function Home(props) {
 
 
       <ContentSliderSection title = { getTitle( "top-playlists" ) } 
-                            url = { "/more/top-playlists?type=playlist&q=654" }
+                            url = { "/more/top-playlists" }
                             >
                           {
                               top6Charting.playlists.map(playlist => {
@@ -76,7 +76,7 @@ export default function Home(props) {
 
 
       <ContentSliderSection title = { getTitle( "top-artists" ) } 
-                            url = { "/more/top-artists?type=playlist&q=321" }
+                            url = { "/more/top-artists" }
                             >
                           {
                               top6Charting.artists.map(artist => {
@@ -90,7 +90,7 @@ export default function Home(props) {
 
 
       <ContentSliderSection title = { getTitle( `new-releases` ) } 
-                            url = { "/more/new-releases?type=album&q=632" }
+                            url = { "/more/new-releases" }
                             >
                           {
                               top6Charting.newReleases.map(album => {
@@ -103,7 +103,7 @@ export default function Home(props) {
 
 
       <ContentSliderSection title = { getTitle( `episodes-for-you` ) } 
-                            url = { "/more/episodes-for-you?type=album&q=632" }
+                            url = { "/more/episodes-for-you" }
                             >
                           {
                               top6Charting.podcasts.map(podcast => {
@@ -115,15 +115,6 @@ export default function Home(props) {
       </ContentSliderSection>
 
 
-      {/* <ContentSliderSection title = { getTitle( "top-playlists" ) } 
-                            url = { "/more/top-playlists?type=playlist&q=654" } */}
-                             {/* /> */}
-      {/* <ContentSliderSection title = { getTitle( "top-artists" ) } 
-                            url = { "/more/top-artists?type=playlist&q=321" }
-                              /> */}
-      {/* <ContentSliderSection title = { getTitle( `new-releases` ) } 
-                            url = { "/more/new-releases?type=playlist&q=632" }
-                             /> */}
     </Container>
   );
 
