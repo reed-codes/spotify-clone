@@ -13,13 +13,13 @@ const More = () => {
   const router = useRouter();
   const { slug, artist } = router.query;
   const title = artist ? getTitle(slug) + artist : getTitle(slug);
-  const {charting, hotNewReleases} = useSelector(state => state.musicData)
+  const {tracks, albums, playlists, artists, podcasts} = useSelector(state => state.musicData)
 
   let content = [];
 
   if(slug == "top-tracks")
    {
-        content = charting.tracks.data.map(track => {
+        content = tracks.map(track => {
           return <TrackCard key = {track.id}
                             track = {track} 
                              />
@@ -27,7 +27,7 @@ const More = () => {
    }
    else if(slug == "top-albums")
    {
-        content = charting.albums.data.map(album => {
+        content = albums.map(album => {
           return <AlbumCard key = {album.id}
                             album = {album} 
                             />
@@ -35,7 +35,7 @@ const More = () => {
    }
    else if(slug == "top-playlists")
    {
-    content = charting.playlists.data.map(playlist => {
+    content = playlists.map(playlist => {
           return <PlaylistCard key = {playlist.id}
                               playlist = {playlist} 
                               />
@@ -43,29 +43,21 @@ const More = () => {
    }
    else if(slug == "top-artists")
    {
-    content = charting.artists.data.map(artist => {
+    content = artists.map(artist => {
       return <ArtistCard   key = {artist.id}
                            artist = {artist} 
                           />
   })
    }
-   else if(slug == "new-releases"){
-    content = hotNewReleases.data.map(album => {
-      return <AlbumCard   key = {album.id}
-                           album = {album} 
-                          />
-  })
-   }
+
    else if(slug == "episodes-for-you"){
-    content =  charting.podcasts.data.map(podcast => {
+    content =  podcasts.map(podcast => {
       return <PodcastCard   key = {podcast.id}
                             podcast = {podcast} 
                           />
   })
    }
 
-
-console.log(charting, hotNewReleases)
 
   return (
     <Container className = "content-wrapper" >
