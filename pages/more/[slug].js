@@ -9,65 +9,72 @@ import { SectionHeader, Container } from "../../styles/utils";
 import { getTitle } from "../../utils";
 import { useSelector } from 'react-redux'
 
-const More = () => {
+export default function More(){
   const router = useRouter();
   const { slug, artist } = router.query;
   const title = artist ? getTitle(slug) + artist : getTitle(slug);
-  const {tracks, albums, playlists, artists, podcasts} = useSelector(state => state.musicData)
-
-  let content = [];
-
-  if(slug == "top-tracks")
-   {
-        content = tracks.map(track => {
-          return <TrackCard key = {track.id}
-                            track = {track} 
-                             />
-         })
-   }
-   else if(slug == "top-albums")
-   {
-        content = albums.map(album => {
-          return <AlbumCard key = {album.id}
-                            album = {album} 
-                            />
-        })
-   }
-   else if(slug == "top-playlists")
-   {
-    content = playlists.map(playlist => {
-          return <PlaylistCard key = {playlist.id}
-                              playlist = {playlist} 
-                              />
-      })
-   }
-   else if(slug == "top-artists")
-   {
-    content = artists.map(artist => {
-      return <ArtistCard   key = {artist.id}
-                           artist = {artist} 
-                          />
-  })
-   }
-
-   else if(slug == "episodes-for-you"){
-    content =  podcasts.map(podcast => {
-      return <PodcastCard   key = {podcast.id}
-                            podcast = {podcast} 
-                          />
-  })
-   }
-
+  const musicData = useSelector(state => state.musicData)
 
   return (
     <Container className = "content-wrapper" >
       <SectionHeader>{title}</SectionHeader>
 
-      <Box component="div" sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
-           {content.map(mediaItem => mediaItem )}
-      </Box>
+      <div style ={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+          { renderContent(slug, musicData)}
+      </div>
+
     </Container>
   );
 };
 
-export default More;
+const renderContent = (slug, data)=>{
+          switch(slug){
+            case "top-tracks" : 
+   
+            return(  data.tracks.map(track => {
+             return <TrackCard key = {track.id}
+                               track = {track} 
+                                />
+            })
+            )
+      
+      case "top-albums" : 
+      
+            return(  data.albums.map(album => {
+             return <AlbumCard key = {album.id}
+                               album = {album} 
+                               />
+           })
+           )
+      
+      case "top-playlists" : 
+      
+        return(  data.playlists.map(playlist => {
+             return <PlaylistCard key = {playlist.id}
+                                 playlist = {playlist} 
+                                 />
+         })
+         )
+      
+      case "top-artists" : 
+      
+        return(  data.artists.map(artist => {
+         return <ArtistCard   key = {artist.id}
+                              artist = {artist} 
+                             />
+     })
+     )
+      
+   
+      case "episodes-for-you" : 
+        return(  data. podcasts.map(podcast => {
+         return <PodcastCard   key = {podcast.id}
+                               podcast = {podcast} 
+                             />
+     })
+     )
+    default : return "EISH"   
+          }
+  
+
+}

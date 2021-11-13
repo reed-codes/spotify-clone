@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -10,6 +10,7 @@ import styled from "styled-components";
 import Tooltip from "@mui/material/Tooltip";
 import useImageColor from "use-image-color";
 import MediaPlayBtn from "./common/MediaPlayBtn";
+import { motion } from "framer-motion";
 
 const CARD_STYLE = {
   display: "flex",
@@ -17,7 +18,7 @@ const CARD_STYLE = {
   background: "rgba(155,155,155,.1)",
   minWidth: 247,
   cursor: "pointer",
-  margin:0,
+  margin: 0,
   color: "#fff",
   position: "relative",
   zIndex: 10,
@@ -32,75 +33,81 @@ const CardImgWrapper = styled.div`
 `;
 
 export default function EditorsPickCard(props) {
-  const {cover_medium : cover, title, artist, id } = props.album;
+  const { cover_medium: cover, title, artist, id } = props.album;
   const { colors } = useImageColor(cover, { cors: true, colors: 5 });
   const [showPlayBtn, setShowPlayBtn] = useState(false)
 
 
   return (
     <Tooltip title="click to open" placement="bottom" arrow>
-    <Card
-      style={CARD_STYLE}
-      className="editors-pick-card"
-      onMouseEnter={() => {
-        const backgrounGradientEffect = document.querySelector(
-          "#background-gradient-effect"
-        );
-        if (backgrounGradientEffect && colors)
-          backgrounGradientEffect.style.background = colors[0];
+      <motion.div
+        animate={{ y: 0 }}
+        initial={{ y: 3 }}
+        transition={{ type: "spring", stiffness: 100 }}
+      >
+        <Card
+          style={CARD_STYLE}
+          className="editors-pick-card"
+          onMouseEnter={() => {
+            const backgrounGradientEffect = document.querySelector(
+              "#background-gradient-effect"
+            );
+            if (backgrounGradientEffect && colors)
+              backgrounGradientEffect.style.background = colors[0];
 
-        setShowPlayBtn(true)
-      }}
-
-      onMouseLeave = {()=>{setShowPlayBtn(false)}}
-    >
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <CardContent sx={{ flex: "1 0 auto", padding: "10px !important" }}>
-          <Typography
-            component="div"
-            variant="h6"
-            style={{ fontSize: "1.1rem", fontWeight: 700 }}
-          >
-           { title }
-          </Typography>
-
-          <Typography
-            component="small"
-            style={{
-              fontSize: 13,
-              opacity: 0.6,
-            }}
-          >
-            {artist.name}
-          </Typography>
-        </CardContent>
-      </Box>
-
-      <CardImgWrapper>
-        <div
-          style={{
-            height: "100%",
-            width: "100%",
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "flex-end",
-            position: "absolute",
-            top: 0,
-            left: 0,
+            setShowPlayBtn(true)
           }}
 
+          onMouseLeave={() => { setShowPlayBtn(false) }}
         >
-              { showPlayBtn && <MediaPlayBtn/> }
-        </div>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <CardContent sx={{ flex: "1 0 auto", padding: "10px !important" }}>
+              <Typography
+                component="div"
+                variant="h6"
+                style={{ fontSize: "1.1rem", fontWeight: 700 }}
+              >
+                {title}
+              </Typography>
 
-        <CardMedia
-          component="img"
-          sx={{ height: 90, width: 90 }}
-          image={cover}
-          alt= {title}
-        />
-      </CardImgWrapper>
-    </Card>
+              <Typography
+                component="small"
+                style={{
+                  fontSize: 13,
+                  opacity: 0.6,
+                }}
+              >
+                {artist.name}
+              </Typography>
+            </CardContent>
+          </Box>
+
+          <CardImgWrapper>
+            <div
+              style={{
+                height: "100%",
+                width: "100%",
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "flex-end",
+                position: "absolute",
+                top: 0,
+                left: 0,
+              }}
+
+            >
+              {showPlayBtn && <MediaPlayBtn />}
+            </div>
+
+            <CardMedia
+              component="img"
+              sx={{ height: 90, width: 90 }}
+              image={cover}
+              alt={title}
+            />
+          </CardImgWrapper>
+        </Card>
+      </motion.div>
     </Tooltip>
   );
 }

@@ -63,38 +63,38 @@ const CardBody = styled.div`
 `;
 
 
-const MediaCard = ({podcast}) => {
+const MediaCard = ({ podcast }) => {
   const title = podcast.title;
   const description = podcast.description;
   const cover = podcast.picture_medium
   const link = podcast.link
-  
+
   return (
-    <Link href = {link}>
-      <a target = "_blank">
-      <Box  className = "media-card-wrapper" >
+    <Link href={link}>
+      <a target="_blank">
+        <Box className="media-card-wrapper" >
 
-    <Card className="media-card">
-      <Box sx = {{
-          height: '100%',
-          position: 'relative',
-          zIndex: 1,
-          cursor:'pointer'
-      }}>
-        <CardCoverImageWrapper>
-          <CardCoverImage src={cover} alt="" />
-        </CardCoverImageWrapper>
+          <Card className="media-card">
+            <Box sx={{
+              height: '100%',
+              position: 'relative',
+              zIndex: 1,
+              cursor: 'pointer'
+            }}>
+              <CardCoverImageWrapper>
+                <CardCoverImage src={cover} alt="" />
+              </CardCoverImageWrapper>
 
-        <CardContentWrapper>
-          <CardHeader>{title}</CardHeader>
+              <CardContentWrapper>
+                <CardHeader>{title}</CardHeader>
 
-          <CardBody>{ trimText(description, 35) }</CardBody>
-        </CardContentWrapper>
-      </Box>
-    </Card>
+                <CardBody>{trimText(description, 35)}</CardBody>
+              </CardContentWrapper>
+            </Box>
+          </Card>
         </Box>
-        </a>
-        </Link>
+      </a>
+    </Link>
   );
 };
 

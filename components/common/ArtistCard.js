@@ -1,9 +1,9 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import styled from "styled-components";
 import Link from 'next/link'
 import Box from '@mui/material/Box';
 import MediaPlayBtn from './MediaPlayBtn';
-
+import { motion } from 'framer-motion';
 
 const Card = styled.div`
 background: #181818;
@@ -73,21 +73,7 @@ const MediaCardOnHoverBtnWrapper = styled.div`
   justify-content:flex-end
 `;
 
-const MEDIA_CARD_BTN = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  height: 40,
-  width: 40,
-  borderRadius: "50%",
-  margin: 3,
-  minWidth: "unset",
-  background: "#1db954",
-  cursor: "default",
-  boxShadow:'5px 5px 5px rgba(0,0,0,.4)'
-};
-
-const MediaCard = ({artist}) => {
+const MediaCard = ({ artist }) => {
   const [showPlayBtn, setShowPlayBtn] = useState(false)
   const artistName = artist.name;
   const artistId = artist.id;
@@ -96,44 +82,50 @@ const MediaCard = ({artist}) => {
   const id = artist.id;
   const cover = artist.picture_medium
   const type = artist.type
-  
+
   return (
-    <Link href = {`/artist?q=${id}`}>
+    <motion.div
+    animate={{ y: 0 }}
+    initial={{ y: 10 }}
+    transition={{ type: "spring", stiffness: 100 }}
+    >
+      <Link href={`/artist?q=${id}`}>
         <a>
-      <Box className = "media-card-wrapper">
+          <Box className="media-card-wrapper">
 
-    <Card className="media-card"
-    
-     onMouseEnter={() => {setShowPlayBtn(true)}}
-     onMouseLeave = {()=>{setShowPlayBtn(false)}}
-        >
-      <Box sx = {{
-          height: '100%',
-          position: 'relative',
-          zIndex: 1,
-          cursor:'pointer'
-      }}>
-        <CardCoverImageWrapper>
+            <Card className="media-card"
 
-           <CardCoverImage src={cover} alt="" />
+              onMouseEnter={() => { setShowPlayBtn(true) }}
+              onMouseLeave={() => { setShowPlayBtn(false) }}
+            >
+              <Box sx={{
+                height: '100%',
+                position: 'relative',
+                zIndex: 1,
+                cursor: 'pointer'
+              }}>
+                <CardCoverImageWrapper>
 
-          <MediaCardOnHoverBtnWrapper className="media-card-on-hover-btn-wrapper">
-              { showPlayBtn && <MediaPlayBtn/> }
-          </MediaCardOnHoverBtnWrapper>
-        </CardCoverImageWrapper>
+                  <CardCoverImage src={cover} alt="" />
 
-        <CardContentWrapper>
-          <CardHeader>{artistName}</CardHeader>
+                  <MediaCardOnHoverBtnWrapper className="media-card-on-hover-btn-wrapper">
+                    {showPlayBtn && <MediaPlayBtn />}
+                  </MediaCardOnHoverBtnWrapper>
+                </CardCoverImageWrapper>
 
-          <CardBody>
-               {type}
-          </CardBody>
-        </CardContentWrapper>
-      </Box>
-    </Card>
-        </Box>
+                <CardContentWrapper>
+                  <CardHeader>{artistName}</CardHeader>
+
+                  <CardBody>
+                    {type}
+                  </CardBody>
+                </CardContentWrapper>
+              </Box>
+            </Card>
+          </Box>
         </a>
-        </Link>
+      </Link>
+    </motion.div>
   );
 };
 

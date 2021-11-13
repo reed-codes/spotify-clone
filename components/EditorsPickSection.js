@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import EditorsPickCard from "./EditorsPickCard";
 import Box from '@mui/material/Box';
-import {useMediaQuery} from '@material-ui/core'
+import { useMediaQuery } from '@material-ui/core'
 import { v4 as uuidv4 } from 'uuid';
 
 const BackgroundAccentColorGradientEffect = styled.main`
@@ -20,40 +20,40 @@ box-shadow: -16px -200px 100px -31px #101010 inset;
 transition: all 1s linear; 
 `
 
-const EditorsPickSection = ({data}) => {
+const EditorsPickSection = ({ data }) => {
   const maxWidth1095px = useMediaQuery('(max-width:1095px)');
   const maxWidth950px = useMediaQuery('(max-width:950px)');
   const maxWidth650px = useMediaQuery('(max-width:650px)');
-  
-    return (
-      <>
 
-      <BackgroundAccentColorGradientEffect id ="background-gradient-effect"/>
-      
+  return (
+    <>
+
+      <BackgroundAccentColorGradientEffect id="background-gradient-effect" />
+
       <Box
-          sx={{
-            display: 'grid',
-            gap:2,
-            gridTemplateColumns: `repeat(${ maxWidth650px ? 1 : (maxWidth1095px && maxWidth950px) ? 2 : (maxWidth1095px && !maxWidth950px) ? 2 : 3 }, 1fr)`,
-          }}
-        >
- 
-        {
-          data.map( album =>{
-                  return (
-                    <EditorsPickCard  
-                           key = {uuidv4()}
-                           album = {album}
-                          />
-                  )
-          })
-           
-        }
-  
-     </Box>
+        sx={{
+          display: 'grid',
+          gap: 2,
+          gridTemplateColumns: `repeat(${maxWidth650px ? 1 : (maxWidth1095px && maxWidth950px) ? 2 : (maxWidth1095px && !maxWidth950px) ? 2 : 3}, 1fr)`,
+        }}
+      >
 
-      </>
-    )
+        {
+          data.map(album => {
+            return (
+              <EditorsPickCard
+                key={uuidv4()}
+                album={album}
+              />
+            )
+          })
+
+        }
+
+      </Box>
+
+    </>
+  )
 }
 
 export default EditorsPickSection

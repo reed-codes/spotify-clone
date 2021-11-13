@@ -23,7 +23,7 @@ const SeeAllLink = styled.div`
 
 const ContentSliderSection = ({ title, url, children }) => {
   return (
-    <Box sx = {{ position:'relative', mt: 3 }}>
+    <Box sx={{ position: 'relative', mt: 3 }}>
       <SectionHeader>{title}</SectionHeader>
 
       <Link href={url} passHref={true}>
@@ -32,15 +32,10 @@ const ContentSliderSection = ({ title, url, children }) => {
 
       <Box
         component="div"
-        sx={{ overflow: "auto", my: 2, display: "flex", gap: 2, marginBottom:'10px', alignItems:'stretch' }}
+        sx={{ overflow: "auto", my: 2, display: "flex", gap: 2, marginBottom: '10px', alignItems: 'stretch' }}
       >
-        {/* <ArtistCard />
-        <MediaCard />
-        <MediaCard />
-        <MediaCard />
-        <MediaCard /> */}
 
-        { children }
+        {children}
 
       </Box>
     </Box>

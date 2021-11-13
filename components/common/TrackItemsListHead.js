@@ -68,43 +68,43 @@ line-height: 16px;
 text-transform: none;
 `
 
-const TrackItemsListHead = ({hideAlbumColumn, maxWidth780px}) => {
+const TrackItemsListHead = ({ hideAlbumColumn, maxWidth780px }) => {
   return (
-      <TrackItemWrapper className = 'track-item-wrapper'>
-        <TrackNumberWrapper className="d-flex align-items-center">
-             #
-        </TrackNumberWrapper>
+    <TrackItemWrapper className='track-item-wrapper'>
+      <TrackNumberWrapper className="d-flex align-items-center">
+        #
+      </TrackNumberWrapper>
 
-       <TrackCoverArtWrapper/>
+      <TrackCoverArtWrapper />
 
-        <TrackDetailsWrapper className="d-flex align-items-center">
-            Title
-        </TrackDetailsWrapper>
+      <TrackDetailsWrapper className="d-flex align-items-center">
+        Title
+      </TrackDetailsWrapper>
 
-        {
-            !hideAlbumColumn && (
-                !maxWidth780px && (
-                    <TrackAlbumWrapper className="d-flex align-items-center">
-                      Album
-                  </TrackAlbumWrapper>
-                )
-            )
-        }
+      {
+        !hideAlbumColumn && (
+          !maxWidth780px && (
+            <TrackAlbumWrapper className="d-flex align-items-center">
+              Album
+            </TrackAlbumWrapper>
+          )
+        )
+      }
 
-        <span style = {{ marginRight: 16 }}>
-                    <FavoriteOutlinedIcon style={{ opacity : 0 }} /> 
-        </span>
+      <span style={{ marginRight: 16 }}>
+        <FavoriteOutlinedIcon style={{ opacity: 0 }} />
+      </span>
 
-        <TrackDurationWrapper >
-             <Tooltip title = "duration" placement="top">
-              <IconButton>
-                <AccessTimeIcon style = {{color :'#fff'}}/>
-              </IconButton>
-            </Tooltip>
-        </TrackDurationWrapper>
+      <TrackDurationWrapper >
+        <Tooltip title="duration" placement="top">
+          <IconButton>
+            <AccessTimeIcon style={{ color: '#fff' }} />
+          </IconButton>
+        </Tooltip>
+      </TrackDurationWrapper>
 
 
-      </TrackItemWrapper>
+    </TrackItemWrapper>
   );
 };
 

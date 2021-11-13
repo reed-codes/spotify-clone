@@ -1,3 +1,5 @@
+import CardSkeleton from "../components/common/CardSkeleton"
+
 export const getTitle = (id)=>{
     switch(id){
               case 'top-tracks' : 
@@ -8,8 +10,6 @@ export const getTitle = (id)=>{
                     return "Top playlists"
               case 'top-artists' : 
                     return "Popular artists"
-              case 'new-releases' : 
-                    return "Hot new releases"
               case 'artist-albums' : 
                     return "Albums by "
               case 'featured-playlists' : 
@@ -33,4 +33,11 @@ export const trimText = (txt, limit = 35)=>{
            
           if(txt.length > 45) return txt.substring(0, limit )+"..."
           else return txt
+}
+
+export const getMediaCardPlaceholders = (count = 6) => {
+       let demo_arr = []
+       for(let i = 0; i < count; i++) demo_arr = [...demo_arr, i]
+
+       return demo_arr.map( (_, i) => <CardSkeleton key = {i}/>)
 }

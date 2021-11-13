@@ -125,7 +125,7 @@ const TrackDurationWrapper = styled.div`
   text-transform: none;
 `;
 
-const TrackItem = ({hideAlbumColumn, maxWidth780px}) => {
+const TrackItem = ({ hideAlbumColumn, maxWidth780px }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -153,14 +153,14 @@ const TrackItem = ({hideAlbumColumn, maxWidth780px}) => {
         <span className="track-play-icon">
           {isPlaying ? (
             <Tooltip title="Pause" placement="top">
-              <IconButton style = {{padding : 0}}>
-                <PauseIcon style = {{color:'#fff'}}/>
+              <IconButton style={{ padding: 0 }}>
+                <PauseIcon style={{ color: '#fff' }} />
               </IconButton>
             </Tooltip>
           ) : (
             <Tooltip title="Play Boogie Wonderland by Joe" placement="top">
-              <IconButton style = {{padding : 0}}>
-                <PlayArrowIcon style = {{color:'#fff'}}/>
+              <IconButton style={{ padding: 0 }}>
+                <PlayArrowIcon style={{ color: '#fff' }} />
               </IconButton>
             </Tooltip>
           )}
@@ -186,18 +186,18 @@ const TrackItem = ({hideAlbumColumn, maxWidth780px}) => {
         </TrackTitleWrapper>
 
         <Link href="/" passHref={true}>
-        <a>
-          <TrackArtistWrapper>Doja Cat</TrackArtistWrapper>
+          <a>
+            <TrackArtistWrapper>Doja Cat</TrackArtistWrapper>
           </a>
         </Link>
       </TrackDetailsWrapper>
 
 
-{
-  !hideAlbumColumn && (
-                !maxWidth780px && <TrackAlbumWrapper>Planet Her (Deluxe)</TrackAlbumWrapper>
-                      )
-}
+      {
+        !hideAlbumColumn && (
+          !maxWidth780px && <TrackAlbumWrapper>Planet Her (Deluxe)</TrackAlbumWrapper>
+        )
+      }
 
       <span style={{ marginRight: 16 }} onClick={handleLikeBtnClick}>
         {isLiked ? (

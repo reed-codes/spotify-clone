@@ -42,28 +42,28 @@ const Layout = ({ children }) => {
   };
 
   const handleMainContentContainerScroll = (event) => {
-    if( (event.target.scrollTop >= 20) && !showAppBarBackground ) setShowAppBarBackground(true)
-    else if( (event.target.scrollTop < 20) && showAppBarBackground) setShowAppBarBackground(false)
+    if ((event.target.scrollTop >= 20) && !showAppBarBackground) setShowAppBarBackground(true)
+    else if ((event.target.scrollTop < 20) && showAppBarBackground) setShowAppBarBackground(false)
   };
 
   return (
     <>
       <Head />
-      <MainWrapper ref = {mainWrapperRef}>
+      <MainWrapper ref={mainWrapperRef}>
         <Nav toggleDrawer={toggleDrawer} />
 
         <MainContentContainer
           onScroll={handleMainContentContainerScroll}
           className="main-content-container"
         >
-          <AppBar showAppBarBackground = { showAppBarBackground }  toggleDrawer={toggleDrawer} />
+          <AppBar showAppBarBackground={showAppBarBackground} toggleDrawer={toggleDrawer} />
 
           {children}
         </MainContentContainer>
       </MainWrapper>
-      <Player config = {{
-            constraintsRef : mainWrapperRef
-      }}/>
+      <Player config={{
+        constraintsRef: mainWrapperRef
+      }} />
     </>
   );
 };
