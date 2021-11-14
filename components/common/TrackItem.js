@@ -78,9 +78,6 @@ font-weight: 400;
 letter-spacing: normal;
 line-height: 24px;
 text-transform: none;
-  
-  
-  
   color: #b3b3b3;
   font-size: 11px;
   cursor: pointer;

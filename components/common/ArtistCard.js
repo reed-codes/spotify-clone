@@ -86,7 +86,7 @@ const MediaCard = ({ artist }) => {
   return (
     <motion.div
     animate={{ y: 0 }}
-    initial={{ y: 10 }}
+    initial={{ y: 5 }}
     transition={{ type: "spring", stiffness: 100 }}
     >
       <Link href={`/artist?q=${id}`}>

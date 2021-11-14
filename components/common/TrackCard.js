@@ -84,7 +84,7 @@ const MediaCard = ({ track }) => {
   return (
     <motion.div
       animate={{ y: 0 }}
-      initial={{ y: 10 }}
+      initial={{ y: 5 }}
       transition={{ type: "spring", stiffness: 100 }}
     >
       <Link href={`/album?q=${id}&type=track`}>

@@ -2,6 +2,7 @@ import React from "react";
 import Box from '@mui/material/Box';
 import RenderTrackCards from '../components/common/RenderTrackCards'
 import {SectionHeader, Container} from '../styles/utils'
+import { getMediaCardPlaceholders } from "../utils";
 
 export default function Rencent(){
 
@@ -14,7 +15,9 @@ export default function Rencent(){
               component="div"
               sx={{ display: 'flex', flexWrap:'wrap', gap: 2 }}
             >
-                 <RenderTrackCards/>         
+                {
+                  getMediaCardPlaceholders(30)
+                }    
         </Box>
 
         </Container>

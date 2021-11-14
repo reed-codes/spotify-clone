@@ -14,6 +14,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import PauseIcon from "@mui/icons-material/Pause";
+import { getTrackItemPlaceholders } from "../utils";
 
 const MusicHeader = styled.div`
   height: ${({smallScreen})=> smallScreen ? '40vh' : '20vh'};
@@ -214,16 +215,19 @@ export default function LikedSongs() {
             </Stack>
           </div>
 
-            <TrackList showDateAdded = {true}/>
+            {/* <TrackList showDateAdded = {true}/> */}
+            {
+              getTrackItemPlaceholders(4)
+            }
 
-            <div>
+            {/* <div>
 
                 <ContentSliderSection
                   title={'More by ' + artist.name}
                   url={"/more/artist-albums?q=123&artist=Billie&type=album"}
                 />
 
-            </div>
+            </div> */}
 
         </Container>
 

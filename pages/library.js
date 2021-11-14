@@ -8,10 +8,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useMediaQuery } from "@mui/material";
 import styled from "styled-components";
+import { getMediaCardPlaceholders } from "../utils";
 
-import RenderPlaylists from "../components/common/RenderPlaylists";
-import RenderAlbums from "../components/common/RenderAlbums";
-import RenderArtists from "../components/common/RenderArtists";
 
 import { Container } from "../styles/utils";
 
@@ -21,7 +19,8 @@ const LikedSongsJumbotronWrapper = styled.div`
   padding: 20px;
   position: relative;
   transition: background-color 0.3s ease;
-  width: ${({ fullWidth }) => (fullWidth ? "100%" : "360px")};
+  // width: ${({ fullWidth }) => (fullWidth ? "100%" : "40%")};
+  flex:3;
   color: #fff;
   font-size: 16px;
   line-height: 24px;
@@ -150,7 +149,8 @@ export default function Library() {
             </JumbotronBottomHeaderWrapper>
           </LikedSongsJumbotronWrapper>
 
-          <RenderPlaylists />
+         {getMediaCardPlaceholders(20)}
+
         </Box>
       </TabPanel>
 
@@ -159,7 +159,8 @@ export default function Library() {
               component="div"
               sx={{ display: 'flex', flexWrap:'wrap', gap: 2 , justifyContent:'space-between'}}
             > 
-          <RenderArtists />
+          {getMediaCardPlaceholders(20)}
+
         </Box>
       </TabPanel>
 
@@ -168,7 +169,8 @@ export default function Library() {
               component="div"
               sx={{ display: 'flex', flexWrap:'wrap', gap: 2, justifyContent:'space-between' }}
             > 
-          <RenderAlbums />
+          {getMediaCardPlaceholders(20)}
+
         </Box>
       </TabPanel>
     </Container>
