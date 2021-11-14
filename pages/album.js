@@ -155,7 +155,7 @@ export default function Album(props) {
                       src={props.data.artist_image}
                       sx={{ width: 24, height: 24 }}
                     />
-                    <Link href="/" passHref={true}>
+                    <Link href={`artist?q=${props.data.artist_id}`} passHref={true}>
                       <a>
                         <ArtistLink>{props.data.artist_name}</ArtistLink>
                       </a>
@@ -271,6 +271,7 @@ export async function getServerSideProps(context) {
             type: info.type,
             artist_name: info.artist.name,
             artist_image: info.artist.picture_small,
+            artist_id:info.artist.id,
             tracklist_url: info.tracklist,
             track_count: info.tracks.data.length,
             type: info.type,
@@ -313,6 +314,7 @@ export async function getServerSideProps(context) {
             type: info.type,
             artist_name: info.artist.name,
             artist_image: info.artist.picture_small,
+            artist_id:info.artist.id,
             tracklist_url: info.album.tracklist,
             track_count: 1,
             tracks: [info],
