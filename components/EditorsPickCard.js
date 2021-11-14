@@ -1,11 +1,10 @@
 import { useState } from "react";
+import { useRouter } from "next/dist/client/router";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import IconButton from "@mui/material/IconButton";
 import styled from "styled-components";
 import Tooltip from "@mui/material/Tooltip";
 import useImageColor from "use-image-color";
@@ -33,6 +32,7 @@ const CardImgWrapper = styled.div`
 `;
 
 export default function EditorsPickCard(props) {
+  const router = useRouter()
   const { cover_medium: cover, title, artist, id } = props.album;
   const { colors } = useImageColor(cover, { cors: true, colors: 5 });
   const [showPlayBtn, setShowPlayBtn] = useState(false)
@@ -48,7 +48,10 @@ export default function EditorsPickCard(props) {
         <Card
           style={CARD_STYLE}
           className="editors-pick-card"
-          onMouseEnter={() => {
+          onClick = {()=>{
+              router.push(`/album?q=${id}&type=album`)
+          }}
+          onMouseEnter = {() => {
             const backgrounGradientEffect = document.querySelector(
               "#background-gradient-effect"
             );
@@ -58,7 +61,7 @@ export default function EditorsPickCard(props) {
             setShowPlayBtn(true)
           }}
 
-          onMouseLeave={() => { setShowPlayBtn(false) }}
+          onMouseLeave = {() => { setShowPlayBtn(false) }}
         >
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <CardContent sx={{ flex: "1 0 auto", padding: "10px !important" }}>

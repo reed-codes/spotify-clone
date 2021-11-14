@@ -314,7 +314,7 @@ export async function getServerSideProps(context) {
             artist_name: info.artist.name,
             artist_image: info.artist.picture_small,
             tracklist_url: info.album.tracklist,
-            track_count: info.album.tracklist.length,
+            track_count: 1,
             tracks: [info],
             type: info.type,
             data: info,
