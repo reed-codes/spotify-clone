@@ -1,4 +1,6 @@
 import CardSkeleton from "../components/common/CardSkeleton"
+import TrackItemSkeleton from "../components/common/TrackItemSkeleton"
+
 
 export const getTitle = (id)=>{
     switch(id){
@@ -40,4 +42,12 @@ export const getMediaCardPlaceholders = (count = 6) => {
        for(let i = 0; i < count; i++) demo_arr = [...demo_arr, i]
 
        return demo_arr.map( (_, i) => <CardSkeleton key = {i}/>)
+}
+
+
+export const getTrackItemPlaceholders = (count = 6) => {
+      let demo_arr = []
+      for(let i = 0; i < count; i++) demo_arr = [...demo_arr, i]
+
+      return demo_arr.map( (_, i) => <TrackItemSkeleton key = {i}/>)
 }

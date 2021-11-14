@@ -8,6 +8,8 @@ import Tooltip from "@mui/material/Tooltip";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import { WaveSpinner } from "react-spinners-kit";
+import moment from 'moment';
+
 
 const TrackItemWrapper = styled.div`
   border: 1px solid transparent;
@@ -125,14 +127,17 @@ const TrackDurationWrapper = styled.div`
   text-transform: none;
 `;
 
-const TrackItem = ({ hideAlbumColumn, maxWidth780px }) => {
+const TrackItem = ({ hideAlbumColumn, maxWidth780px, track, position }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const duration = moment.utc(track.duration*1000).format('mm:ss');
 
   const handleLikeBtnClick = (e) => {
     e.stopPropagation();
     setIsLiked(!isLiked);
   };
+
+  console.log(track)
 
   const handlePlayRequest = () => setIsPlaying(!isPlaying);
 
@@ -146,7 +151,7 @@ const TrackItem = ({ hideAlbumColumn, maxWidth780px }) => {
           {isPlaying ? (
             <WaveSpinner size={9} color="#1db954" />
           ) : (
-            <span className="ms-1">1</span>
+            <span className="ms-1">{position}</span>
           )}
         </span>
 
@@ -158,7 +163,7 @@ const TrackItem = ({ hideAlbumColumn, maxWidth780px }) => {
               </IconButton>
             </Tooltip>
           ) : (
-            <Tooltip title="Play Boogie Wonderland by Joe" placement="top">
+            <Tooltip title={`Play ${track.title} by ${track.artist.name}`} placement="top">
               <IconButton style={{ padding: 0 }}>
                 <PlayArrowIcon style={{ color: '#fff' }} />
               </IconButton>
@@ -169,8 +174,8 @@ const TrackItem = ({ hideAlbumColumn, maxWidth780px }) => {
 
       <TrackCoverArtWrapper className="d-flex justify-content-center align-items-center">
         <img
-          src={"./cover-5.jpg"}
-          alt=""
+          src={track.album.cover_small}
+          alt={track.title}
           style={{
             height: "100%",
             width: "100%",
@@ -182,12 +187,12 @@ const TrackItem = ({ hideAlbumColumn, maxWidth780px }) => {
 
       <TrackDetailsWrapper>
         <TrackTitleWrapper isPlaying={isPlaying}>
-          Been Like This
+        {track.title}
         </TrackTitleWrapper>
 
         <Link href="/" passHref={true}>
           <a>
-            <TrackArtistWrapper>Doja Cat</TrackArtistWrapper>
+            <TrackArtistWrapper>{track.artist.name}</TrackArtistWrapper>
           </a>
         </Link>
       </TrackDetailsWrapper>
@@ -195,7 +200,7 @@ const TrackItem = ({ hideAlbumColumn, maxWidth780px }) => {
 
       {
         !hideAlbumColumn && (
-          !maxWidth780px && <TrackAlbumWrapper>Planet Her (Deluxe)</TrackAlbumWrapper>
+          !maxWidth780px && <TrackAlbumWrapper>{track.album.title}</TrackAlbumWrapper>
         )
       }
 
@@ -223,7 +228,7 @@ const TrackItem = ({ hideAlbumColumn, maxWidth780px }) => {
         )}
       </span>
 
-      <TrackDurationWrapper>4:55</TrackDurationWrapper>
+      <TrackDurationWrapper>{duration}</TrackDurationWrapper>
     </TrackItemWrapper>
   );
 };

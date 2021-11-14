@@ -75,7 +75,7 @@ const MusicHeaderContentTitle = styled.h1`
   visibility: visible;
   width: 100%;
   line-height : ${({ smallScreen }) => smallScreen ? 'unset' : '96px'};
-  font-size : ${({ smallScreen }) => smallScreen ? '40px' : '70px'};
+  font-size : ${({ smallScreen }) => smallScreen ? '40px' : '60px'};
   font-weight: 700;
   letter-spacing: -0.04em;
   text-transform: none;
@@ -161,7 +161,11 @@ export default function Album(props) {
 
               <span>&bull;</span>
 
-              <span style={{ color: "rgba(255,255,255,.8)" }}>{`${props.data.tracks ? props.data.tracks.length : 0} songs`} </span>
+              <span style={{ color: "rgba(255,255,255,.8)" }}>{`${props.data.track_count} songs`} </span>
+
+              <span>&bull;</span>
+
+              <span style={{ color: "rgba(255,255,255,.8)" }}>{props.data.release_date} </span>
             </Stack>
           </HeaderDetailsWrapper>
         </MusicHeaderRightGridWrapper>
@@ -220,7 +224,12 @@ export default function Album(props) {
           </Stack>
         </div>
 
-        <TrackList hideAlbumColumn={true} tracks = {props.data.tracks}/>
+        <TrackList hideAlbumColumn={true} 
+                   tracklist_url = {props.data.tracklist_url}
+                   tracks = {props.data.tracks}
+                   type = {props.data.type}
+                   album = {(props.data.type == "album") ? props.data.data : null}
+                   />
 
         <div>
 
@@ -248,8 +257,6 @@ export async function getServerSideProps(context) {
     const query_id = (((url.split("&type="))[0]).split("q="))[1];
     const { data: info } = await axios.get(`https://api.deezer.com/${queried_type}/${query_id}`);
 
-    // console.log(data.type)
-
     if (info.type === "album") {
 
       return {
@@ -260,9 +267,11 @@ export async function getServerSideProps(context) {
             type: info.type,
             artist_name: info.artist.name,
             artist_image: info.artist.picture_small,
-            tracks: info.tracks.data,
+            tracklist_url: info.tracklist,
+            track_count:info.tracks.data.length,
             type: info.type,
             data: info,
+            release_date : info.release_date,
             query_id
           },
           err: null
@@ -279,9 +288,12 @@ export async function getServerSideProps(context) {
             type: info.type,
             artist_name: info.artist.name,
             artist_image: info.artist.picture_small,
+            tracklist_url: info.album.tracklist,
+            track_count : info.album.tracklist.length,
             tracks: [info],
             type: info.type,
             data: info,
+            release_date : info.release_date,
             query_id
           },
           err: null
