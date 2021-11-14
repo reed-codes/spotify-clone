@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Box from '@mui/material/Box';
-import RenderPlaylists from '../components/common/RenderPlaylists'
 import {SectionHeader, Container} from '../styles/utils'
+import { getMediaCardPlaceholders } from '../utils';
 
 export default function SimilarArtists(){
   const router = useRouter();
@@ -41,7 +41,9 @@ export default function SimilarArtists(){
   component="div"
   sx={{ display: 'flex', flexWrap:'wrap', gap: 2 }}
 >
-     <RenderPlaylists/>         
+
+  {getMediaCardPlaceholders(20)}
+  
 </Box>
 
 </Container>
