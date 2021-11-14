@@ -14,14 +14,14 @@ const darkTheme = createTheme({
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={darkTheme}>
     <Provider store={store}>
       <RouterIdicator />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </Provider>
-    </ThemeProvider>
+      <ThemeProvider theme={darkTheme}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
+    </Provider >
   )
 }
 

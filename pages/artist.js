@@ -13,14 +13,16 @@ import Tooltip from "@mui/material/Tooltip";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import PauseIcon from "@mui/icons-material/Pause";
 import useImageColor from "use-image-color";
+import axios from 'axios'
+
 
 const MusicHeader = styled.div`
-  height: 20vh;
-  max-height: 500px;
+  // height: 50vh;
+  height: 300px;
   min-height: 320px;
+  max-width: none;
   color: #fff;
   display: flex;
-  max-width: none;
   overflow: hidden;
   position: relative;
   cursor: default;
@@ -46,44 +48,40 @@ const MusicHeaderContentTitle = styled.h1`
 const MusicHeaderInnerWrapper = styled.div`
   height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  background-color: rgba(0, 0, 0, 0.4);
-  padding: 24px;
   background-image: url(${({ imageURL }) => imageURL});
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: canter;
+  // background-attachment: fixed;
+  background-size: contain;
+  background-position: top;
   background-color: #111;
   border-right: 5px #111 solid;
 `;
 
-export default function Artist() {
-  let cover = "./cover.jpg";
-  const { colors } = useImageColor(cover, { cors: true, colors: 5 });
+const BackdropBanner = styled.div`
+height: 100%;
+width: 100%;
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+padding: 24px;
+background:rgba(0,0,0,.3)
+`
+
+export default function Artist(props) {
+  const { colors } = useImageColor(props.data.cover, { cors: true, colors: 5 });
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const maxWidth750px = useMediaQuery('(max-width:750px)');
   const accentColor = colors ? colors[0] : "transparent";
 
-  const artist = {
-    name: "MARINA",
-    id: 4576879024,
-  };
-
   const handlePlayRequest = () => setIsPlaying(!isPlaying);
   const handleLikeBtnClick = () => setIsLiked(!isLiked);
 
-  const imageURL =
-    "https://e-cdns-images.dzcdn.net/images/artist/3a58adf62c522732a6d3a7f8806de0c3/1000x1000-000000-80-0-0.jpg";
-
-
   return (
     <>
-      <MusicHeader accentColor={accentColor}>
-        <MusicHeaderInnerWrapper imageURL={imageURL}>
-          <MusicHeaderContentTitle smallScreen = {maxWidth750px}>All In</MusicHeaderContentTitle>
+      <MusicHeader imageURL={props.data.cover} accentColor={accentColor}>
+        <MusicHeaderInnerWrapper imageURL={props.data.cover}>
+          <BackdropBanner>
+          <MusicHeaderContentTitle smallScreen = {maxWidth750px}>{props.data.artist_name}</MusicHeaderContentTitle>
 
           <Stack
             direction="row"
@@ -92,9 +90,10 @@ export default function Artist() {
             style={{ fontSize: 14 }}
           >
             <span style={{ color: "rgba(255,255,255,.8)" }}>
-              103 451 monthly listeners
+              {`${props.data.fan_count} fans`}
             </span>
           </Stack>
+          </BackdropBanner>
         </MusicHeaderInnerWrapper>
       </MusicHeader>
 
@@ -155,9 +154,11 @@ export default function Artist() {
 
           <SectionHeader>Popular</SectionHeader>
 
-          <TrackList />
+          <TrackList tracklist_url={props.data.tracklist_url}
+                        type={props.data.type}
+                      />
 
-          <div>
+          {/* <div>
             <ContentSliderSection
               title={getTitle("artist-albums") + artist.name}
               url={"/more/artist-albums?q=123&artist=Billie&type=album"}
@@ -168,9 +169,50 @@ export default function Artist() {
               url={"/more/similar-artists?q=456&type=artist"}
             />
 
-          </div>
+          </div> */}
         </Container>
       </div>
     </>
   );
+}
+
+
+
+
+
+// This gets called on every request
+export async function getServerSideProps(context) {
+  // Fetch data from external API
+  try {
+    const query_id = ( context.req.url.split("q=") )[1];
+    const { data: info } = await axios.get(`https://api.deezer.com/artist/${query_id}`);
+
+
+      return {
+        props: {
+          data: {
+            cover: info.picture_xl,
+            artist_name: info.name,
+            type: info.type,
+            tracklist_url: info.tracklist,
+            fan_count: info.nb_fan,
+            data: info,
+            query_id
+          },
+          err: null
+        }
+      }
+
+
+
+  } catch (err) {
+    return {
+      props: {
+        data: null,
+        err: err.message
+      }
+    }
+  }
+
+
 }

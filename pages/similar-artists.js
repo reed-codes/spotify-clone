@@ -4,7 +4,9 @@ import Box from '@mui/material/Box';
 import {SectionHeader, Container} from '../styles/utils'
 import { getMediaCardPlaceholders } from '../utils';
 
-export default function SimilarArtists(){
+export default function SimilarArtists(props){
+  console.log(props)
+  
   const router = useRouter();
   const q = router.query.q;
   const [pageInfo, setPageInfo] = useState({
@@ -51,3 +53,4 @@ export default function SimilarArtists(){
 
   )
 }
+
