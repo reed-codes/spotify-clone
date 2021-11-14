@@ -88,7 +88,7 @@ const MediaCard = ({ playlist }) => {
     initial={{ y: 10 }}
     transition={{ type: "spring", stiffness: 100 }}
   >
-    <Link href={`/album?q=${id}`}>
+    <Link href={`/album?q=${id}&type=playlist`}>
       <a>
         <Box className="media-card-wrapper" >
 

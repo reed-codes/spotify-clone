@@ -65,12 +65,10 @@ const TrackTitleWrapper = styled.div`
   text-transform: none;
 `;
 
-const TrackArtistWrapper = styled.div`
+const TrackArtistWrapper = styled.span`
 grid-area: title;
 justify-self: start;
--webkit-line-clamp: 1;
--webkit-box-orient: vertical;
-display: -webkit-box;
+display: inline;
 white-space: unset;
 word-break: break-all;
 overflow: hidden;
@@ -136,8 +134,6 @@ const TrackItem = ({ hideAlbumColumn, maxWidth780px, track, position }) => {
     e.stopPropagation();
     setIsLiked(!isLiked);
   };
-
-  console.log(track)
 
   const handlePlayRequest = () => setIsPlaying(!isPlaying);
 

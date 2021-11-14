@@ -117,7 +117,6 @@ padding-bottom:24px;
 
 
 export default function Album(props) {
-
   const { colors } = useImageColor(props.data.cover, { cors: true, colors: 5 })
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -138,7 +137,7 @@ export default function Album(props) {
           <HeaderDetailsWrapper>
             <MusicHeaderContentTypeText>{props.data.type}</MusicHeaderContentTypeText>
 
-            <MusicHeaderContentTitle smallScreen={maxWidth750px}>{ props.data.title }</MusicHeaderContentTitle>
+            <MusicHeaderContentTitle smallScreen={maxWidth750px}>{props.data.title}</MusicHeaderContentTitle>
 
             <Stack
               direction="row"
@@ -147,20 +146,25 @@ export default function Album(props) {
               justifyContent={maxWidth750px ? "center" : 'left'}
               style={{ fontSize: 14 }}
             >
-              <Avatar
-                alt= {props.data.artist_name}
-                src= {props.data.artist_image}
-                sx= {{ width: 24, height: 24 }}
-              />
 
-              <Link href="/" passHref={true}>
-                <a>
-                  <ArtistLink>{props.data.artist_name}</ArtistLink>
-                </a>
-              </Link>
+              {
+                (props.data.type !== "playlist" && (
+                  <>
+                    <Avatar
+                      alt={props.data.artist_name}
+                      src={props.data.artist_image}
+                      sx={{ width: 24, height: 24 }}
+                    />
+                    <Link href="/" passHref={true}>
+                      <a>
+                        <ArtistLink>{props.data.artist_name}</ArtistLink>
+                      </a>
+                    </Link>
 
-              <span>&bull;</span>
-
+                    <span>&bull;</span>
+                  </>
+                ))
+              }
               <span style={{ color: "rgba(255,255,255,.8)" }}>{`${props.data.track_count} songs`} </span>
 
               <span>&bull;</span>
@@ -224,19 +228,19 @@ export default function Album(props) {
           </Stack>
         </div>
 
-        <TrackList hideAlbumColumn={true} 
-                   tracklist_url = {props.data.tracklist_url}
-                   tracks = {props.data.tracks}
-                   type = {props.data.type}
-                   album = {(props.data.type == "album") ? props.data.data : null}
-                   />
+        <TrackList hideAlbumColumn={true}
+          tracklist_url={props.data.tracklist_url}
+          tracks={props.data.tracks}
+          type={props.data.type}
+          album={(props.data.type == "album") ? props.data.data : null}
+        />
 
         <div>
 
-          <ContentSliderSection
+          {/* <ContentSliderSection
             title = {'More by ' + props.data.artist_name}
             url = {"/more/artist-albums?q=123&artist=Billie&type=album"}
-          />
+          /> */}
 
         </div>
 
@@ -268,10 +272,30 @@ export async function getServerSideProps(context) {
             artist_name: info.artist.name,
             artist_image: info.artist.picture_small,
             tracklist_url: info.tracklist,
-            track_count:info.tracks.data.length,
+            track_count: info.tracks.data.length,
             type: info.type,
             data: info,
-            release_date : info.release_date,
+            release_date: info.release_date,
+            query_id
+          },
+          err: null
+        }
+      }
+
+    } else if (info.type === "playlist") {
+
+      return {
+        props: {
+          data: {
+            cover: info.picture_medium,
+            title: info.title,
+            type: info.type,
+            artist_name: info.creator.name,
+            track_count: info.nb_tracks,
+            tracks: info.tracks.data,
+            type: info.type,
+            release_date: info.creation_date,
+            data: info,
             query_id
           },
           err: null
@@ -279,6 +303,7 @@ export async function getServerSideProps(context) {
       }
 
     } else {
+
 
       return {
         props: {
@@ -289,11 +314,11 @@ export async function getServerSideProps(context) {
             artist_name: info.artist.name,
             artist_image: info.artist.picture_small,
             tracklist_url: info.album.tracklist,
-            track_count : info.album.tracklist.length,
+            track_count: info.album.tracklist.length,
             tracks: [info],
             type: info.type,
             data: info,
-            release_date : info.release_date,
+            release_date: info.release_date,
             query_id
           },
           err: null

@@ -16,7 +16,7 @@ const TrackList = ({ hideAlbumColumn, tracklist_url, tracks, type, album }) => {
 
 useEffect(() => {
 
-    if(type !== "track")
+    if(type === "album")
      {
 
       axios.post("/api/get-album-tracks", {
