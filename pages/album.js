@@ -13,13 +13,13 @@ import styled from "styled-components";
 import useImageColor from 'use-image-color'
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import PauseIcon from "@mui/icons-material/Pause";
 import axios from 'axios'
+import PageMediaPlayerBtn from "../components/common/media-player-btns/PageMediaPlayerBtn";
 
 
 const MusicHeader = styled.div`
-  height: ${({ smallScreen }) => smallScreen ? '40vh' : '20vh'};
+  margin-top: -66px;
+  height: ${({ smallScreen }) => smallScreen ? '40vh' : '50vh'};
   max-height: ${({ smallScreen }) => smallScreen ? '700px' : '500px'};
   min-height: 320px;
   color: #fff;
@@ -117,13 +117,16 @@ padding-bottom:24px;
 
 
 export default function Album(props) {
+  const [tracklist, setTracklist] = useState({
+    list: props.data.tracks ? props.data.tracks : [],
+    loading: !Boolean(props.data.tracks),
+    err: null
+  });
   const { colors } = useImageColor(props.data.cover, { cors: true, colors: 5 })
-  const [isPlaying, setIsPlaying] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const maxWidth750px = useMediaQuery('(max-width:750px)');
   const accentColor = colors ? colors[0] : 'transparent';
 
-  const handlePlayRequest = () => setIsPlaying(!isPlaying);
   const handleLikeBtnClick = () => setIsLiked(!isLiked);
 
   return (
@@ -181,15 +184,8 @@ export default function Album(props) {
 
         <div style={{ padding: "15px 0" }}>
           <Stack direction="row" spacing={2} alignItems="center">
-            <span onClick={handlePlayRequest}>
-              {isPlaying ? (
-                <IconButton>
-                  <PauseIcon style={{ color: "#1db954", fontSize: 66, cursor: 'pointer' }} />
-                </IconButton>
-              ) : (
-                <PlayCircleIcon style={{ color: "#1db954", fontSize: 66, cursor: 'pointer' }} />
-              )}
-            </span>
+
+            <PageMediaPlayerBtn tracklist = {tracklist.list}/>
 
             <span
               style={{
@@ -230,9 +226,10 @@ export default function Album(props) {
 
         <TrackList hideAlbumColumn={true}
           tracklist_url={props.data.tracklist_url}
-          tracks={props.data.tracks}
           type={props.data.type}
           album={(props.data.type == "album") ? props.data.data : null}
+          tracklist = {tracklist}
+          setTracklist = {setTracklist}
         />
 
         <div>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Button, useMediaQuery } from "@material-ui/core";
+import TextField from "@mui/material/TextField";
 import HomeIcon from "@mui/icons-material/Home";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import HistoryIcon from "@mui/icons-material/History";
@@ -15,16 +16,15 @@ import {
   openMenuDrawer,
   openMenuDrawerForSearch,
 } from "../../state/actions/menu-drawer-actions";
-
-import TextField from "@mui/material/TextField";
-
 import Link from "next/link";
 
 const LeftWideScreenNav = styled.nav`
   height: 100%;
+  resize : horizontal;
   width: ${({ width }) => (width ? width : "270px")};
   min-width: ${({ width }) => (width ? width : "270px")};
   display: ${({ hide }) => (hide ? "none" : "block")};
+  overflow:auto;
 `;
 
 const NavContentWrapper = styled.div`

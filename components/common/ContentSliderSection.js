@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ArtistCard from "./ArtistCard";
+import ArtistCard from "./media-cards/ArtistCard";
 import Link from "next/link";
 import Box from "@mui/material/Box";
 import { SectionHeader } from "../../styles/utils";

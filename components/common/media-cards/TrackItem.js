@@ -132,7 +132,10 @@ const TrackItem = ({ hideAlbumColumn, maxWidth780px, track, position }) => {
     setIsLiked(!isLiked);
   };
 
-  const handlePlayRequest = () => setIsPlaying(!isPlaying);
+  const handlePlayRequest = () => {
+       console.log("PLAY REQUEST FOR ",[track])
+       setIsPlaying(!isPlaying)
+  };
 
   return (
     <TrackItemWrapper

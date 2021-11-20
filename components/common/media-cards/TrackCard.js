@@ -2,8 +2,9 @@ import { useState } from 'react'
 import styled from "styled-components";
 import Link from 'next/link'
 import Box from '@mui/material/Box';
-import MediaPlayBtn from './MediaPlayBtn';
+import MediaPlayBtn from '../media-player-btns/MediaPlayBtn';
 import { motion } from 'framer-motion';
+
 
 const Card = styled.div`
 background: #181818;
@@ -27,13 +28,12 @@ const CardCoverImageWrapper = styled.div`
 `;
 
 const CardCoverImage = styled.img`
+ background-color: #333;
   border-radius: 2px;
   width: 100%;
   object-fit: cover;
   object-position: center;
-  border-radius:50%;
   min-height:130px;
-  background-color: #333;
   box-shadow: 0 8px 24px rgb(0 0 0 / 50%);
 `;
 const CardContentWrapper = styled.div`
@@ -73,28 +73,25 @@ const MediaCardOnHoverBtnWrapper = styled.div`
   justify-content:flex-end
 `;
 
-const MediaCard = ({ artist }) => {
+const MediaCard = ({ track }) => {
   const [showPlayBtn, setShowPlayBtn] = useState(false)
-  const artistName = artist.name;
-  const artistId = artist.id;
-  const artistAvatar = artist.picture_small;
-  const title = artist.title;
-  const id = artist.id;
-  const cover = artist.picture_medium
-  const type = artist.type
+  const artistName = track.artist.name;
+  const title = track.title;
+  const id = track.id;
+  const cover = track.album.cover_medium
+  
 
   return (
     <motion.div
-    animate={{ y: 0 }}
-    initial={{ y: 5 }}
-    transition={{ type: "spring", stiffness: 100 }}
+      animate={{ y: 0 }}
+      initial={{ y: 5 }}
+      transition={{ type: "spring", stiffness: 100 }}
     >
-      <Link href={`/artist?q=${id}`}>
+      <Link href={`/album?q=${id}&type=track`}>
         <a>
-          <Box className="media-card-wrapper">
+          <Box className="media-card-wrapper" >
 
             <Card className="media-card"
-
               onMouseEnter={() => { setShowPlayBtn(true) }}
               onMouseLeave={() => { setShowPlayBtn(false) }}
             >
@@ -105,20 +102,17 @@ const MediaCard = ({ artist }) => {
                 cursor: 'pointer'
               }}>
                 <CardCoverImageWrapper>
-
-                  <CardCoverImage src={cover} alt="" />
+                  <CardCoverImage src={cover} alt={title} />
 
                   <MediaCardOnHoverBtnWrapper className="media-card-on-hover-btn-wrapper">
-                    {showPlayBtn && <MediaPlayBtn />}
+                    {showPlayBtn && <MediaPlayBtn item = {track}/>}
                   </MediaCardOnHoverBtnWrapper>
                 </CardCoverImageWrapper>
 
                 <CardContentWrapper>
-                  <CardHeader>{artistName}</CardHeader>
+                  <CardHeader>{title}</CardHeader>
 
-                  <CardBody>
-                    {type}
-                  </CardBody>
+                  <CardBody> {artistName} </CardBody>
                 </CardContentWrapper>
               </Box>
             </Card>

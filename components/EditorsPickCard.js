@@ -8,8 +8,9 @@ import Typography from "@mui/material/Typography";
 import styled from "styled-components";
 import Tooltip from "@mui/material/Tooltip";
 import useImageColor from "use-image-color";
-import MediaPlayBtn from "./common/MediaPlayBtn";
+import MediaPlayBtn from "./common/media-player-btns/MediaPlayBtn";
 import { motion } from "framer-motion";
+import { trimText } from "../utils";
 
 const CARD_STYLE = {
   display: "flex",
@@ -27,16 +28,15 @@ const CARD_STYLE = {
 const CardImgWrapper = styled.div`
   position: relative;
   background: #333;
-  height: 90px;
-  width: 90px;
+  height: 100px;
+  width: 100px;
 `;
 
 export default function EditorsPickCard(props) {
   const router = useRouter()
-  const { cover_medium: cover, title, artist, id } = props.album;
+  const { cover_medium: cover, title, artist, id, tracklist } = props.album;
   const { colors } = useImageColor(cover, { cors: true, colors: 5 });
   const [showPlayBtn, setShowPlayBtn] = useState(false)
-
 
   return (
     <Tooltip title="click to open" placement="bottom" arrow>
@@ -70,7 +70,7 @@ export default function EditorsPickCard(props) {
                 variant="h6"
                 style={{ fontSize: "1.1rem", fontWeight: 700 }}
               >
-                {title}
+                {trimText(title, 30)}
               </Typography>
 
               <Typography
@@ -80,7 +80,7 @@ export default function EditorsPickCard(props) {
                   opacity: 0.6,
                 }}
               >
-                {artist.name}
+                {trimText(artist.name, 30)}
               </Typography>
             </CardContent>
           </Box>
@@ -99,12 +99,12 @@ export default function EditorsPickCard(props) {
               }}
 
             >
-              {showPlayBtn && <MediaPlayBtn />}
+              {showPlayBtn && <MediaPlayBtn item = {props.album}/>}
             </div>
 
             <CardMedia
               component="img"
-              sx={{ height: 90, width: 90 }}
+              sx={{ height: 100, width: 100 }}
               image={cover}
               alt={title}
             />

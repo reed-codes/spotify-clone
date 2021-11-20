@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Link from 'next/link'
 import Box from '@mui/material/Box';
-import { trimText } from '../../utils';
+import { trimText } from '../../../utils';
 
 
 const Card = styled.div`

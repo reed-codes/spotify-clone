@@ -1,18 +1,13 @@
 import { useState, useEffect } from "react";
-import TrackItem from "./TrackItem";
+import TrackItem from "./media-cards/TrackItem";
 import TrackItemsListHead from "./TrackItemsListHead";
 import { useMediaQuery } from "@mui/material";
 import axios from 'axios'
 import { v4 } from 'uuid'
 import { getTrackItemPlaceholders } from "../../utils";
 
-const TrackList = ({ hideAlbumColumn, tracklist_url, tracks, type, album }) => {
+const TrackList = ({ hideAlbumColumn, tracklist_url, tracks, type, album, tracklist, setTracklist }) => {
   const maxWidth780px = useMediaQuery('( max-width : 780px )');
-  const [tracklist, setTracklist] = useState({
-    list: tracks ? tracks : [],
-    loading: true,
-    err: null
-  });
 
   useEffect(() => {
 

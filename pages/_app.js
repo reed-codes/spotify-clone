@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import Layout from '../components/Layout'
 import RouterIdicator from './RouterIdicator'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import AudioPlayerContextProvider from '../state/context/AudioPlayerContext'
 
 
 const darkTheme = createTheme({
@@ -15,12 +16,14 @@ const darkTheme = createTheme({
 function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
-      <RouterIdicator />
-      <ThemeProvider theme={darkTheme}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
+      <AudioPlayerContextProvider>
+        <RouterIdicator />
+        <ThemeProvider theme={darkTheme}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </AudioPlayerContextProvider>
     </Provider >
   )
 }

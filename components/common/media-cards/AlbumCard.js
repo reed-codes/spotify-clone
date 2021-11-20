@@ -2,7 +2,7 @@ import { useState } from 'react'
 import styled from "styled-components";
 import Link from 'next/link'
 import Box from '@mui/material/Box';
-import MediaPlayBtn from './MediaPlayBtn';
+import MediaPlayBtn from '../media-player-btns/MediaPlayBtn';
 import { motion } from 'framer-motion';
 
 
@@ -73,21 +73,21 @@ const MediaCardOnHoverBtnWrapper = styled.div`
   justify-content:flex-end
 `;
 
-const MediaCard = ({ track }) => {
+const MediaCard = ({ album }) => {
   const [showPlayBtn, setShowPlayBtn] = useState(false)
-  const artistName = track.artist.name;
-  const title = track.title;
-  const id = track.id;
-  const cover = track.album.cover_medium
-  
+  const artistName = album.artist.name;
+  const title = album.title;
+  const id = album.id;
+  const cover = album.cover_medium
+
 
   return (
     <motion.div
-      animate={{ y: 0 }}
-      initial={{ y: 5 }}
-      transition={{ type: "spring", stiffness: 100 }}
+    animate={{ y: 0 }}
+    initial={{ y: 5 }}
+    transition={{ type: "spring", stiffness: 100 }}
     >
-      <Link href={`/album?q=${id}&type=track`}>
+      <Link href={`/album?q=${id}&type=album`}>
         <a>
           <Box className="media-card-wrapper" >
 
@@ -102,17 +102,17 @@ const MediaCard = ({ track }) => {
                 cursor: 'pointer'
               }}>
                 <CardCoverImageWrapper>
-                  <CardCoverImage src={cover} alt={title} />
+                  <CardCoverImage src={cover} alt="" />
 
                   <MediaCardOnHoverBtnWrapper className="media-card-on-hover-btn-wrapper">
-                    {showPlayBtn && <MediaPlayBtn />}
+                    {showPlayBtn && <MediaPlayBtn item = {album}/>}
                   </MediaCardOnHoverBtnWrapper>
                 </CardCoverImageWrapper>
 
                 <CardContentWrapper>
                   <CardHeader>{title}</CardHeader>
 
-                  <CardBody> {artistName} </CardBody>
+                  <CardBody>{artistName}</CardBody>
                 </CardContentWrapper>
               </Box>
             </Card>

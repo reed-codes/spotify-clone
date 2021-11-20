@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { SectionHeader, Container } from "../styles/utils";
 import ContentSliderSection from "../components/common/ContentSliderSection";
 import { getTitle, scrollTop } from "../utils";
@@ -10,15 +10,15 @@ import TrackList from "../components/common/TrackList";
 import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import PauseIcon from "@mui/icons-material/Pause";
 import useImageColor from "use-image-color";
 import axios from 'axios'
 
+import PageMediaPlayerBtn from "../components/common/media-player-btns/PageMediaPlayerBtn";
+
 
 const MusicHeader = styled.div`
-  // height: 50vh;
-  height: 300px;
+  margin-top: -66px;
+  height: 50vh;
   min-height: 320px;
   max-width: none;
   color: #fff;
@@ -38,7 +38,7 @@ const MusicHeaderContentTitle = styled.h1`
   padding: 0.08em 0px;
   visibility: visible;
   width: 100%;
-  font-size : ${({smallScreen}) => smallScreen ? '55px' : '96px'  };
+  font-size : ${({ smallScreen }) => smallScreen ? '55px' : '96px'};
   line-height: 96px;
   font-weight: 700;
   letter-spacing: -0.04em;
@@ -67,32 +67,38 @@ background:rgba(0,0,0,.3)
 `
 
 export default function Artist(props) {
+  const [tracklist, setTracklist] = useState({
+    list: [],
+    loading: true,
+    err: null
+  });
   const { colors } = useImageColor(props.data.cover, { cors: true, colors: 5 });
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const maxWidth750px = useMediaQuery('(max-width:750px)');
   const accentColor = colors ? colors[0] : "transparent";
 
-  const handlePlayRequest = () => setIsPlaying(!isPlaying);
   const handleLikeBtnClick = () => setIsLiked(!isLiked);
+  const initTracklist = (list) => setTracklist(setTracklist)
+
 
   return (
     <>
       <MusicHeader imageURL={props.data.cover} accentColor={accentColor}>
         <MusicHeaderInnerWrapper imageURL={props.data.cover}>
           <BackdropBanner>
-          <MusicHeaderContentTitle smallScreen = {maxWidth750px}>{props.data.artist_name}</MusicHeaderContentTitle>
+            <MusicHeaderContentTitle smallScreen={maxWidth750px}>{props.data.artist_name}</MusicHeaderContentTitle>
 
-          <Stack
-            direction="row"
-            spacing={1}
-            alignItems="center"
-            style={{ fontSize: 14 }}
-          >
-            <span style={{ color: "rgba(255,255,255,.8)" }}>
-              {`${props.data.fan_count} fans`}
-            </span>
-          </Stack>
+            <Stack
+              direction="row"
+              spacing={1}
+              alignItems="center"
+              style={{ fontSize: 14 }}
+            >
+              <span style={{ color: "rgba(255,255,255,.8)" }}>
+                {`${props.data.fan_count} fans`}
+              </span>
+            </Stack>
           </BackdropBanner>
         </MusicHeaderInnerWrapper>
       </MusicHeader>
@@ -102,18 +108,11 @@ export default function Artist(props) {
           background: `linear-gradient(${accentColor} -25%, rgb(19, 19, 19) 15%, rgb(18, 18, 18) 30%, transparent 50%)`,
         }}
       >
-        <Container className = "content-wrapper" >
+        <Container className="content-wrapper" >
           <div style={{ padding: "15px 0" }}>
             <Stack direction="row" spacing={2} alignItems="center">
-              <span onClick={handlePlayRequest}>
-                {isPlaying ? (
-                  <IconButton>
-                    <PauseIcon style={{ color: "#1db954", fontSize: 66 }} />
-                  </IconButton>
-                ) : (
-                  <PlayCircleIcon style={{ color: "#1db954", fontSize: 66 }} />
-                )}
-              </span>
+
+              <PageMediaPlayerBtn tracklist = {tracklist.list}/>
 
               <span
                 style={{
@@ -155,8 +154,11 @@ export default function Artist(props) {
           <SectionHeader>Popular</SectionHeader>
 
           <TrackList tracklist_url={props.data.tracklist_url}
-                        type={props.data.type}
-                      />
+            tracklist = {tracklist}
+            type={props.data.type}
+            setTracklist = {setTracklist}
+            initTracklist={initTracklist}
+          />
 
           {/* <div>
             <ContentSliderSection
@@ -184,24 +186,24 @@ export default function Artist(props) {
 export async function getServerSideProps(context) {
   // Fetch data from external API
   try {
-    const query_id = ( context.req.url.split("q=") )[1];
+    const query_id = (context.req.url.split("q="))[1];
     const { data: info } = await axios.get(`https://api.deezer.com/artist/${query_id}`);
 
 
-      return {
-        props: {
-          data: {
-            cover: info.picture_xl,
-            artist_name: info.name,
-            type: info.type,
-            tracklist_url: info.tracklist,
-            fan_count: info.nb_fan,
-            data: info,
-            query_id
-          },
-          err: null
-        }
+    return {
+      props: {
+        data: {
+          cover: info.picture_xl,
+          artist_name: info.name,
+          type: info.type,
+          tracklist_url: info.tracklist,
+          fan_count: info.nb_fan,
+          data: info,
+          query_id
+        },
+        err: null
       }
+    }
 
 
 

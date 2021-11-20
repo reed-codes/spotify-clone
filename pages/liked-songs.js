@@ -12,13 +12,12 @@ import styled from "styled-components";
 import useImageColor from 'use-image-color'
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import PauseIcon from "@mui/icons-material/Pause";
 import { getTrackItemPlaceholders } from "../utils";
+import PageMediaPlayerBtn from "../components/common/media-player-btns/PageMediaPlayerBtn";
 
 const MusicHeader = styled.div`
-  height: ${({smallScreen})=> smallScreen ? '40vh' : '20vh'};
-  max-height: ${({smallScreen})=> smallScreen ? '700px' : '500px'};
+  margin-top: -66px;
+  height: ${({smallScreen})=> smallScreen ? '40vh' : '50vh'};
   min-height: 320px;
   color: #fff;
   display: flex;
@@ -111,19 +110,19 @@ padding-bottom:24px;
 
 export default function LikedSongs() {
   let cover = "./liked-songs.png";
+  const [tracklist, setTracklist] = useState({
+    list: [],
+    loading: true,
+    err: null
+  });
   const { colors } = useImageColor( cover, { cors: true, colors: 5 })
   const accentColor = colors ? colors[0] : 'transparent';
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const maxWidth750px = useMediaQuery('(max-width:750px)');
-
-  const artist = {
-    name : 'MARINA',
-    id : 4576879024
-  } 
  
-  const handlePlayRequest = () => setIsPlaying(!isPlaying);
   const handleLikeBtnClick = () => setIsLiked(!isLiked);
+  const initTracklist = (list) => setTracklist(setTracklist)
 
 
   return (
@@ -168,15 +167,8 @@ export default function LikedSongs() {
 
         <div style={{ padding: "15px 0" }}>
             <Stack direction="row" spacing={2} alignItems="center">
-              <span onClick={handlePlayRequest}>
-                {isPlaying ? (
-                  <IconButton>
-                    <PauseIcon style={{ color: "#1db954", fontSize: 66, cursor:'pointer' }} />
-                  </IconButton>
-                ) : (
-                  <PlayCircleIcon style={{ color: "#1db954", fontSize: 66, cursor:'pointer' }} />
-                )}
-              </span>
+
+            <PageMediaPlayerBtn tracklist = {tracklist.list}/>
 
               <span
                 style={{

@@ -3,10 +3,25 @@ import IconButton from "@mui/material/IconButton";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Tooltip from "@mui/material/Tooltip";
 import { motion } from 'framer-motion';
-import { withStyles } from '@mui/material';
+import { getTracklist } from '../../../utils'
 
+const MediaPlayBtn = ({ item }) => {
 
-const MediaPlayBtn = () => {
+  const handlePlayBtnClick = async (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+
+    if (item.type === "track") {
+      console.log("PLAY REQUEST FOR LOCAL", [item])
+    }
+    else {
+      console.log(item.tracklist)
+      const tracklist = await getTracklist(item.tracklist)
+      console.log("PLAY REQUEST FOR EXTERNAL", tracklist)
+    }
+
+  }
+
   return (
     <motion.div
       animate={{ y: -10 }}
@@ -25,13 +40,9 @@ const MediaPlayBtn = () => {
             height: 40,
             minWidth: 'unset',
             cursor: 'default',
-            boxShadow : theme=>theme.shadows[10]
+            boxShadow: theme => theme.shadows[10]
           }}
-          onClick = {(e)=>{
-            e.stopPropagation()
-            e.preventDefault()
-
-         }}
+          onClick={handlePlayBtnClick}
         >
           <PlayArrowIcon style={{ fontSize: 18, color: '#fff' }} />
         </IconButton>

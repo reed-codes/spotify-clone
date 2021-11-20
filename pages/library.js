@@ -9,18 +9,17 @@ import Box from "@mui/material/Box";
 import { useMediaQuery } from "@mui/material";
 import styled from "styled-components";
 import { getMediaCardPlaceholders } from "../utils";
-
-
 import { Container } from "../styles/utils";
 
 const LikedSongsJumbotronWrapper = styled.div`
-  background: #181818;
+  // margin-top: -66px;
+  // flex:3;
+  // background: #181818;
   border-radius: 4px;
   padding: 20px;
   position: relative;
   transition: background-color 0.3s ease;
-  // width: ${({ fullWidth }) => (fullWidth ? "100%" : "40%")};
-  flex:3;
+  width: ${({ fullWidth }) => (fullWidth ? "100%" : "40%")};
   color: #fff;
   font-size: 16px;
   line-height: 24px;
@@ -113,6 +112,7 @@ export default function Library() {
       <TabPanel value={value} index={0} dir={theme.direction}>
         <Box component="div" sx={{ display: "flex", flexWrap: "wrap", gap: 2, justifyContent:'space-between', alignItems:'felx-start' }}>
           <LikedSongsJumbotronWrapper fullWidth={maxWidth890px}>
+
             <JumbotronSongsListWrapper>
               <LikedSongJumbotronItem
                 artist={"AUDREY NUNA"}
