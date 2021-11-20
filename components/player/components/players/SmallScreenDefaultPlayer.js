@@ -6,7 +6,7 @@ import BackgroundEffect from '../../../common/BackgroundEffect'
 import PrevAndPlayAndNextButtonPack  from '../PrevAndPlayAndNextButtonPack'
 import MoreMenuButton  from '../MoreMenuButton'
 import PlayerProgressPack from '../PlayerProgressPack'
-import {PlayerContext} from '../../Player'
+import { AudioPlayerContext } from '../../../../state/context/AudioPlayerContext';
 
 
 const SmallScreenPlayerWrapper = styled.div`
@@ -45,7 +45,7 @@ right:0
 
 
 export default function SmallScreenDefaultPlayer(){
-    const {currentTrack} =  useContext(PlayerContext);
+    const {currentTrack} =  useContext(AudioPlayerContext);
     const max_width_560px = useMediaQuery("(max-width:560px)")
   
   

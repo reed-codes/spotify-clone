@@ -3,7 +3,7 @@ import {motion} from 'framer-motion'
 import PrevAndPlayAndNextButtonPack from '../PrevAndPlayAndNextButtonPack'
 import IconButton from "@material-ui/core/IconButton";
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
-import {PlayerContext} from '../../Player'
+import { AudioPlayerContext } from '../../../../state/context/AudioPlayerContext';
 
 const PIP_PLAYER_STYLE = {
     height:250,
@@ -29,7 +29,7 @@ const CLOSE_PIP_BTN = {
 }
 
 const PipPlayer = ({constraintsRef}) => {
-    const {handlePipToggle} =  useContext(PlayerContext);
+    const {handlePipToggle, currentTrack} =  useContext(AudioPlayerContext);
 
     return (
         <motion.div

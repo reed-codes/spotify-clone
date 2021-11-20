@@ -9,7 +9,9 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import CloseIcon from '@mui/icons-material/Close';
-import {PlayerContext} from '../Player'
+import { AudioPlayerContext } from "../../../state/context/AudioPlayerContext";
+
+
 
 const MENU_ITEM_STYLE = {
   background:'green',
@@ -24,7 +26,7 @@ const MENU_ITEM_STYLE = {
 
 
 export default function MoreMenuButton(){
-    const {handleToggleRepeat, handleToggleShuffle, handleFullScreenClick, isShuffling , repeatFlag} =  useContext(PlayerContext);
+    const {handleToggleRepeat, handleToggleShuffle, handleFullScreenClick, isShuffling , repeatFlag} =  useContext(AudioPlayerContext);
     const [anchorEl, setAnchorEl] = useState(null);
   
     const handleClick = (e) => setAnchorEl(e.currentTarget);

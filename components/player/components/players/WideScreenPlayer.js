@@ -13,7 +13,7 @@ import PlayerProgressPack from '../PlayerProgressPack'
 import TrackTitleAndArtist from '../TrackTitleAndArtist'
 import PrevAndPlayAndNextButtonPack from '../PrevAndPlayAndNextButtonPack'
 import MoreMenuButton from '../MoreMenuButton'
-import {PlayerContext} from '../../Player'
+import { AudioPlayerContext } from "../../../../state/context/AudioPlayerContext";
 
 const PlayerGrid = styled.div`
   height: 100%;
@@ -26,15 +26,15 @@ const PlayerGrid = styled.div`
 `;
 
 export default function WideScreenPlayer(props){
-  const {currentTrack} =  useContext(PlayerContext);
+  const {currentTrack} =  useContext(AudioPlayerContext);
 
   return (
     <>
       <PlayerGrid>
         <TrackInfoWrapper
-          cover={props.cover}
-          title={currentTrack.title}
-          artist={currentTrack.artist.name}
+          cover =  {currentTrack ? currentTrack.album.cover_medium : ""}
+          title =  {currentTrack ? currentTrack.title : ""}
+          artist = {currentTrack ? currentTrack.artist.name : ""}
         />
       </PlayerGrid>
 
@@ -86,11 +86,11 @@ justify-content: center;
 export const TrackInfoWrapper = (props) => {
 return (
   <InfoWrapper>
-    <TrackCoverImage src={props.cover} />
+    <TrackCoverImage src={props.cover ? props.cover : ""} />
 
     <TrackDetailsContainer>
-      <TrackTitleAndArtist title={props.title}
-                           artist={props.artist}
+      <TrackTitleAndArtist title={props.title ? props.title : ""}
+                           artist={props.artist ? props.artist : ""}
                            />
     </TrackDetailsContainer>
   </InfoWrapper>
@@ -118,7 +118,7 @@ const PlayerProgressControlsWrapper = styled.div`
 
 export const PlayerCenterControls = () => {
 
-  const {handleToggleRepeat, handleToggleShuffle, isShuffling , repeatFlag} =  useContext(PlayerContext);
+  const {handleToggleRepeat, handleToggleShuffle, isShuffling , repeatFlag} =  useContext(AudioPlayerContext);
   
   return (
     <>
@@ -167,7 +167,7 @@ const TrackVolumePack = styled.div`
 `;
 
 export const PlayerRightGridOptions = () => {
-  const {volume, isPipOn, handleVolumeChange, handlePipToggle} = useContext(PlayerContext)
+  const {volume, isPipOn, handleVolumeChange, handlePipToggle} = useContext(AudioPlayerContext)
 
   return (
     <div

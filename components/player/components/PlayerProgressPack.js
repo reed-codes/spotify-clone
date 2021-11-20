@@ -1,10 +1,9 @@
 import {useContext} from 'react'
 import styled from "styled-components";
 import Slider from "@material-ui/core/Slider";
-import {PlayerContext} from '../Player'
+import { AudioPlayerContext } from '../../../state/context/AudioPlayerContext'; 
 import moment from 'moment';
 import { StageSpinner } from "react-spinners-kit";
-
 
 
 const PlayerProgressInfoWrapper = styled.div`
@@ -31,9 +30,7 @@ position:relative
 
 
 export default function PlayerProgressPack(){
-const {handleTrackTimeUpdateFromSlider, trackProgress, isLoading} =  useContext(PlayerContext);
-// const currTime = moment.utc(trackProgress.time*1000).format('mm:ss') : "00:00";
-// const duration = moment.utc(trackProgress.duration*1000).format('mm:ss') : "00:00";
+const {handleTrackTimeUpdateFromSlider, trackProgress, isLoading} =  useContext(AudioPlayerContext);
 const currTime = moment.utc(trackProgress.time*1000).format('mm:ss');
 const duration = moment.utc(trackProgress.duration*1000).format('mm:ss');
 

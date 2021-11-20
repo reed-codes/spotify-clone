@@ -2,7 +2,6 @@ import Marquee from "react-fast-marquee";
 import { useMediaQuery } from "@material-ui/core";
 import Box from '@mui/material/Box';
 
-
 export default function TrackTitleAndArtist(props){
     const max_width_560px = useMediaQuery("(max-width:560px)")
     const max_width_680px = useMediaQuery("(max-width:650px)")
@@ -10,7 +9,6 @@ export default function TrackTitleAndArtist(props){
       
      return (
      <>   
-         
 
               {
                       
@@ -77,11 +75,9 @@ export default function TrackTitleAndArtist(props){
 
                       )
 
-
               }
 
            
-
       </>
      )
 

@@ -4,7 +4,8 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
-import {PlayerContext} from '../Player'
+import { AudioPlayerContext } from "../../../state/context/AudioPlayerContext";
+
 
 export default function PrevAndPlayAndNextButtonPack(){
     const {
@@ -14,7 +15,7 @@ export default function PrevAndPlayAndNextButtonPack(){
       handlePause,
       handlePlayNext,
       handlePlayPrev,
-    } = useContext(PlayerContext)
+    } = useContext(AudioPlayerContext)
 
      return (
  

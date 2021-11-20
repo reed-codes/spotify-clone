@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import Nav from "./nav/Nav";
 import AppBar from "./nav/AppBar";
 import styled from "styled-components";
@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import Player from './player/Player'
 import { toggleMenuDrawer } from "../state/actions/menu-drawer-actions";
 import Head from "./Head";
+import {AudioPlayerContext} from "../state/context/AudioPlayerContext";
 
 const MainWrapper = styled.div`
   height: 100vh;
@@ -26,6 +27,7 @@ const MainContentContainer = styled.main`
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
+  const {currentTrack} = useContext(AudioPlayerContext)
   const mainWrapperRef = useRef(null)
   const [showAppBarBackground, setShowAppBarBackground] = useState(false);
 
@@ -61,9 +63,17 @@ const Layout = ({ children }) => {
           {children}
         </MainContentContainer>
       </MainWrapper>
-      <Player config={{
-        constraintsRef: mainWrapperRef
-      }} />
+
+     {
+         currentTrack && (
+
+          <Player config={{
+            constraintsRef: mainWrapperRef
+          }} />
+
+         ) 
+     }
+
     </>
   );
 };

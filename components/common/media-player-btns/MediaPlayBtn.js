@@ -1,23 +1,36 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import IconButton from "@mui/material/IconButton";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Tooltip from "@mui/material/Tooltip";
 import { motion } from 'framer-motion';
 import { getTracklist } from '../../../utils'
+import {AudioPlayerContext} from '../../../state/context/AudioPlayerContext'
 
 const MediaPlayBtn = ({ item }) => {
+   const {handleTrackListInit} = useContext(AudioPlayerContext);
+   const state = useContext(AudioPlayerContext);
 
-  const handlePlayBtnClick = async (e) => {
+   const handlePlayBtnClick = async (e) => {
     e.stopPropagation()
     e.preventDefault()
 
     if (item.type === "track") {
-      console.log("PLAY REQUEST FOR LOCAL", [item])
+      handleTrackListInit([item])
     }
     else {
-      console.log(item.tracklist)
       const tracklist = await getTracklist(item.tracklist)
-      console.log("PLAY REQUEST FOR EXTERNAL", tracklist)
+      let new_list = null;
+
+      if(item.type === "album"){
+         new_list = tracklist.map(track => {
+          return {
+            ...track,
+            album : item
+          }
+        })
+      }
+
+      handleTrackListInit(new_list ? new_list : tracklist)
     }
 
   }
