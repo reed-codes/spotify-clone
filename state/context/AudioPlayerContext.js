@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useRef } from 'react'
+import { useState, useEffect, createContext } from 'react'
 
 
 function shuffleArray(tracklist) {
@@ -15,7 +15,7 @@ export const AudioPlayerContext = createContext(null);
 
 
 export default function AudioPlayerContextProvider({ children }) {
-    // const [playerRef.current, setPlayerRef] = useState(null);
+    const [playerRef, setPlayerRef] = useState(null);
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
     const [repeatFlag, setRepeatFlag] = useState(0); // REPEAT-CURRENT, REPEAT-ALL
     const [isShuffling, setIsShuffling] = useState(false);
@@ -35,8 +35,6 @@ export default function AudioPlayerContextProvider({ children }) {
         isPending: false
     })
     const repeatType = (repeatFlag == 0) ? "NO-REPEAT" : (repeatFlag == 1) ? "REPEAT-ALL" : "REPEAT-CURRENT";
-    const playerRef = useRef(null)
-
 
     useEffect(() => {
         const localStoragePlayStateFlag = localStorage.getItem('player-play-state') ? Boolean(Number(localStorage.getItem('player-play-state'))) : null;
@@ -51,9 +49,9 @@ export default function AudioPlayerContextProvider({ children }) {
 
     useEffect(() => {
         try {
-            if (playerRef.current && !isPlaying) {
+            if (playerRef && !isPlaying) {
                 try {
-                    playerRef.current.pause()
+                    playerRef.pause()
                     localStorage.setItem('player-play-state', 0)
                 } catch (err) {
                     console.log("bro had trouble pausing", err.message)
@@ -61,9 +59,9 @@ export default function AudioPlayerContextProvider({ children }) {
                     localStorage.setItem('player-play-state', 0)
                 }
             }
-            else if (playerRef.current && isPlaying) {
+            else if (playerRef && isPlaying) {
                 try {
-                    playerRef.current.play()
+                    playerRef.play()
                     localStorage.setItem('player-play-state', 1)
                 } catch (err) {
                     console.log("bro had trouble initiating play", err.message)
@@ -77,48 +75,46 @@ export default function AudioPlayerContextProvider({ children }) {
     }, [isPlaying])
 
 
-    // useEffect(()=>{
-    //     if(playerRef.current){
-    //         playerRef.current.load();
-    //         setIsPlaying(true)
-    //     }
-    //     return ()=>{
-    //           if(playerRef.current)
-    //           playerRef.current.remove()
-    //     }
-    // },[tracklist])
-
-
-    useEffect(() => {
-        if (isShuffling) {
+    useEffect(()=>{
+           if(isShuffling)
+           {
+            setTracklist({
+                  ...tracklist,
+                  activeList : tracklist.shuffledList
+            })
+           }else{
             setTracklist({
                 ...tracklist,
-                activeList: tracklist.shuffledList
+                activeList : tracklist.originalList
             })
-        } else {
-            setTracklist({
-                ...tracklist,
-                activeList: tracklist.originalList
-            })
-        }
-    }, [isShuffling])
+           }
+    },[isShuffling])
+
+
+    useEffect(()=>{
+       if(playerRef)
+       {
+          playerRef.load()
+          setIsPlaying(true)
+       }
+ },[tracklist])
 
 
     useEffect(() => {
         localStorage.setItem('player-volume', volume)
-        if (playerRef.current)
-            playerRef.current.volume = volume;
+        if (playerRef)
+            playerRef.volume = volume;
     }, [volume])
 
 
     useEffect(() => {
-        if (playerRef.current) {
+        if (playerRef) {
             try {
-                playerRef.current.load();
+                playerRef.load();
 
                 if (isPlaying) {
                     try {
-                        playerRef.current.play()
+                        playerRef.play()
                         localStorage.setItem('player-play-state', 1)
                     } catch (err) {
                         console.log("bro had trouble initiating play", err.message)
@@ -128,7 +124,7 @@ export default function AudioPlayerContextProvider({ children }) {
                 }
                 else {
                     try {
-                        playerRef.current.pause()
+                        playerRef.pause()
                         localStorage.setItem('player-play-state', 0)
                     } catch (err) {
                         console.log("bro had trouble pausing", err.message)
@@ -148,14 +144,15 @@ export default function AudioPlayerContextProvider({ children }) {
     //   HANDLERS START 🪓🪓🪓
 
     const handleTrackListInit = (list) => {
-        if (Array.isArray(list)) {
+        if(Array.isArray(list))
+        {
             setTracklist({
                 originalList: list,
                 shuffledList: shuffleArray(list),
                 activeList: list,
                 isPending: false
             })
-        } else {
+        }else{
             console.log("AN ARRAY WAS NOT PASSED DOWN TO 'handleTrackListInit' : ", handleTrackListInit)
         }
 
@@ -165,9 +162,23 @@ export default function AudioPlayerContextProvider({ children }) {
 
     const handlePause = () => setIsPlaying(false)
 
+    const handleTrackEnd = () => handlePlayNext()
+
+    const handleTrackBuffering = () => setIsLoading(true);
+
     const handlePipToggle = () => setIsPipOn(!isPipOn);
 
     const handleVolumeChange = (_, newVolume) => setVolume(newVolume / 100)
+
+    const handleIsLoading = () => {
+        setIsLoading(true)
+        handlePause();
+    }
+
+    const handleCanPlay = () => {
+        setIsLoading(false)
+        handlePlay()
+    }
 
     const handlePlayNext = () => {
         if ((currentTrackIndex == (tracklist.length - 1)) && (repeatType == "NO-REPEAT")) {
@@ -177,10 +188,10 @@ export default function AudioPlayerContextProvider({ children }) {
         else if (currentTrackIndex == (tracklist.length - 1) && (repeatType != "REPEAT-CURRENT"))
             setCurrentTrackIndex(0);
         else if (repeatType == "REPEAT-CURRENT") {
-            playerRef.current.load();
+            playerRef.load();
 
             try {
-                playerRef.current.play()
+                playerRef.play()
                 localStorage.setItem('player-play-state', 1)
             } catch (err) {
                 console.log("bro had trouble initiating play", err.message)
@@ -222,18 +233,6 @@ export default function AudioPlayerContextProvider({ children }) {
     }
 
 
-    const handleTrackTimeUpdateFromSlider = (_, newPercentage) => {
-        const newTime = (newPercentage / 100) * trackProgress.duration;
-        playerRef.current.currentTime = newTime;
-
-        setTrackProgress({
-            ...trackProgress,
-            time: parseInt(newTime),
-            percentage: newPercentage,
-        })
-    }
-
-
     //ADD TRACK PROGRESS TO STATE
     const handleTrackTimeUpdateFromAudioElement = (event) => {
         const __this = event.target;
@@ -251,23 +250,20 @@ export default function AudioPlayerContextProvider({ children }) {
             })
     }
 
-    const handleTrackEnd = () => handlePlayNext()
 
-    const handleTrackBuffering = () => setIsLoading(true);
+    const handleTrackTimeUpdateFromSlider = (_, newPercentage) => {
+        const newTime = (newPercentage / 100) * trackProgress.duration;
+        playerRef.currentTime = newTime;
 
-    const handleIsLoading = () => {
-        setIsLoading(true)
-        handlePause();
+        setTrackProgress({
+            ...trackProgress,
+            time: parseInt(newTime),
+            percentage: newPercentage,
+        })
     }
-
-    const handleCanPlay = () => {
-        setIsLoading(false)
-        handlePlay()
-    }
-
-
 
     //   HANDLERS END 🪓🪓🪓
+
 
 
     return (
@@ -282,20 +278,11 @@ export default function AudioPlayerContextProvider({ children }) {
             handleVolumeChange,
             handleToggleRepeat,
             handleTrackTimeUpdateFromSlider,
-            handleTrackTimeUpdateFromAudioElement,
             handleToggleShuffle,
             handleFullScreenClick,
             handlePipToggle,
-
-            handleTrackEnd,
-            handleTrackBuffering,
-            handleIsLoading,
-            handleCanPlay,
-
-            playerRef,
             currentTrackIndex,
             currentTrack: tracklist.activeList[currentTrackIndex],
-            tracklist,
             repeatType,
             isPlaying,
             isLoading,
@@ -308,6 +295,19 @@ export default function AudioPlayerContextProvider({ children }) {
 
             {children}
 
+            <audio
+                ref={setPlayerRef}
+                style={{ display: "none" }}
+                onLoadStart={handleIsLoading}
+                onCanPlay={handleCanPlay}
+                onTimeUpdate={handleTrackTimeUpdateFromAudioElement}
+                onWaiting={handleTrackBuffering}
+                onEnded={handleTrackEnd}
+            >
+                <source src={tracklist.activeList[currentTrackIndex] ? tracklist.activeList[currentTrackIndex].preview : ""} type="audio/ogg" />
+                <source src={tracklist.activeList[currentTrackIndex] ? tracklist.activeList[currentTrackIndex].preview : ""} type="audio/mpeg" />
+                Your browser does not support the audio element.
+            </audio>
 
         </AudioPlayerContext.Provider>
 

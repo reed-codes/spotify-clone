@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from 'react'
+import {useContext} from 'react'
 import styled from "styled-components";
 import { useMediaQuery } from "@material-ui/core";
 import useImageColor from "use-image-color";
@@ -7,7 +7,6 @@ import WideScreenPlayer from './components/players/WideScreenPlayer'
 import SmallScreenPlayer from './components/players/SmallScreenDefaultPlayer'
 import PipPlayer from './components/players/PipPlayer'
 import { AudioPlayerContext } from '../../state/context/AudioPlayerContext';
-import HTMLAudioPlayer from './components/players/HTMLAudioPlayer';
 
 export const PlayerWrapper = styled.div`
   width: 100%;
@@ -31,12 +30,11 @@ export default function Player(props){
         return (
             <PlayerWrapper accentColor = { colors ? colors[0] : ''} >
 
-                  { isPipOn &&  <PipPlayer constraintsRef = {props.config.constraintsRef}/> }
+                  { (isPipOn && !max_width_950px) &&  <PipPlayer constraintsRef = {props.config.constraintsRef}/> }
 
                   <BackgroundEffect accentColor = { colors ? colors[0] : ''} />
 
                   {max_width_950px ? <SmallScreenPlayer/> : <WideScreenPlayer cover = {cover}/>}
-                  <HTMLAudioPlayer/>
             </PlayerWrapper>
         )
 } 
