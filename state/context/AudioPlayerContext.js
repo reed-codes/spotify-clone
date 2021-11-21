@@ -181,14 +181,21 @@ export default function AudioPlayerContextProvider({ children }) {
     }
 
     const handlePlayNext = () => {
-        if ((currentTrackIndex == (tracklist.length - 1)) && (repeatType == "NO-REPEAT")) {
+        // IF AT THE END OF TRACKLIST AND REPEAT IS OFF
+        if ((currentTrackIndex == (tracklist.activeList.length - 1)) && (repeatType == "NO-REPEAT")) {
             setCurrentTrackIndex(0);
             handlePause()
+
+            console.log("IF ONE")
         }
-        else if (currentTrackIndex == (tracklist.length - 1) && (repeatType != "REPEAT-CURRENT"))
+        else if (currentTrackIndex == (tracklist.activeList.length - 1) && (repeatType != "REPEAT-CURRENT"))
+        {
             setCurrentTrackIndex(0);
+            console.log("IF TWO")
+        }
         else if (repeatType == "REPEAT-CURRENT") {
             playerRef.load();
+            console.log("IF THREE")
 
             try {
                 playerRef.play()
@@ -201,11 +208,13 @@ export default function AudioPlayerContextProvider({ children }) {
         }
         else {
             setCurrentTrackIndex(currentTrackIndex + 1);
+            console.log("IF ELSE")
+
         }
     }
 
     const handlePlayPrev = () => {
-        if (currentTrackIndex == 0 && (repeatType == "REPEAT-ALL")) setCurrentTrackIndex(tracklist.length - 1);
+        if (currentTrackIndex == 0 && (repeatType == "REPEAT-ALL")) setCurrentTrackIndex(tracklist.activeList.length - 1);
         else if (currentTrackIndex == 0 && (repeatType == "REPEAT-CURRENT")) setCurrentTrackIndex(currentTrackIndex);
         else if (currentTrackIndex != 0) setCurrentTrackIndex(currentTrackIndex - 1);
     }
