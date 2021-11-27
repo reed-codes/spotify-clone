@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
-import { WaveSpinner } from "react-spinners-kit";
+import { BarsSpinner } from "react-spinners-kit";
 import moment from 'moment';
 
 
@@ -65,7 +65,7 @@ const TrackTitleWrapper = styled.div`
   text-transform: none;
 `;
 
-const TrackArtistWrapper = styled.span`
+const TrackArtistWrapper = styled.a`
 grid-area: title;
 justify-self: start;
 display: inline;
@@ -87,7 +87,7 @@ text-transform: none;
   }
 `;
 
-const TrackAlbumWrapper = styled.div`
+const TrackAlbumWrapper = styled.a`
   display: flex;
   align-items: center;
   white-space: unset;
@@ -122,37 +122,35 @@ const TrackDurationWrapper = styled.div`
   text-transform: none;
 `;
 
-const TrackItem = ({ hideAlbumColumn, maxWidth780px, track, position }) => {
+const TrackItem = ({ hideAlbumColumn, maxWidth780px, track, position, isCurrentPlaying, isPlaying, handlePlayRequest }) => {
   const [isLiked, setIsLiked] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const duration = moment.utc(track.duration*1000).format('mm:ss');
+  const duration = moment.utc(track.duration * 1000).format('mm:ss');
 
   const handleLikeBtnClick = (e) => {
     e.stopPropagation();
     setIsLiked(!isLiked);
   };
 
-  const handlePlayRequest = () => {
-       console.log("PLAY REQUEST FOR ",[track])
-       setIsPlaying(!isPlaying)
-  };
-
   return (
     <TrackItemWrapper
       className="track-item-wrapper"
-      onClick={handlePlayRequest}
+      onClick={() => { handlePlayRequest(track.id) }}
     >
       <TrackNumberWrapper className="d-flex align-items-center">
         <span className="track-number-and-wave-animation-wrapper">
-          {isPlaying ? (
-            <WaveSpinner size={9} color="#1db954" />
+          {(isCurrentPlaying && isPlaying) ? (
+            <BarsSpinner size={10} color="#1db954" />
           ) : (
-            <span className="ms-1">{position}</span>
+            <span className="ms-1" style={{
+              color: (isCurrentPlaying) ? "#1db954" : "efefef"
+            }}>
+              {position}
+            </span>
           )}
         </span>
 
         <span className="track-play-icon">
-          {isPlaying ? (
+          {(isCurrentPlaying && isPlaying) ? (
             <Tooltip title="Pause" placement="top">
               <IconButton style={{ padding: 0 }}>
                 <PauseIcon style={{ color: '#fff' }} />
@@ -182,21 +180,26 @@ const TrackItem = ({ hideAlbumColumn, maxWidth780px, track, position }) => {
       </TrackCoverArtWrapper>
 
       <TrackDetailsWrapper>
-        <TrackTitleWrapper isPlaying={isPlaying}>
-        {track.title}
+        <TrackTitleWrapper isPlaying={isCurrentPlaying}>
+          {track.title}
         </TrackTitleWrapper>
 
-        <Link href="/" passHref={true}>
-          <a>
-            <TrackArtistWrapper>{track.artist.name}</TrackArtistWrapper>
-          </a>
+        <Link href={`artist?q=${track.artist.id}`} passHref={true}>
+          <TrackArtistWrapper>{track.artist.name}</TrackArtistWrapper>
         </Link>
       </TrackDetailsWrapper>
 
 
       {
         !hideAlbumColumn && (
-          !maxWidth780px && <TrackAlbumWrapper>{track.album.title}</TrackAlbumWrapper>
+          !maxWidth780px && (
+
+            <Link href={`album?q=${track.album.id}&type=album`} passHref={true}>
+              <TrackAlbumWrapper onClick={(e) => e.stopPropagation()}>
+                {track.album.title}
+              </TrackAlbumWrapper>
+            </Link>
+          )
         )
       }
 

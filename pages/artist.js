@@ -73,14 +73,11 @@ export default function Artist(props) {
     err: null
   });
   const { colors } = useImageColor(props.data.cover, { cors: true, colors: 5 });
-  const [isPlaying, setIsPlaying] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const maxWidth750px = useMediaQuery('(max-width:750px)');
   const accentColor = colors ? colors[0] : "transparent";
 
   const handleLikeBtnClick = () => setIsLiked(!isLiked);
-  const initTracklist = (list) => setTracklist(setTracklist)
-
 
   return (
     <>
@@ -112,7 +109,7 @@ export default function Artist(props) {
           <div style={{ padding: "15px 0" }}>
             <Stack direction="row" spacing={2} alignItems="center">
 
-              <PageMediaPlayerBtn tracklist = {tracklist.list} id = {props.data.query_id} />
+              <PageMediaPlayerBtn tracklist={tracklist.list} id={props.data.query_id} />
 
               <span
                 style={{
@@ -153,11 +150,12 @@ export default function Artist(props) {
 
           <SectionHeader>Popular</SectionHeader>
 
-          <TrackList tracklist_url={props.data.tracklist_url}
-            tracklist = {tracklist}
+          <TrackList
+            tracklist_url={props.data.tracklist_url}
+            tracklist={tracklist}
             type={props.data.type}
-            setTracklist = {setTracklist}
-            initTracklist={initTracklist}
+            id={props.data.query_id}
+            setTracklist={setTracklist}
           />
 
           {/* <div>

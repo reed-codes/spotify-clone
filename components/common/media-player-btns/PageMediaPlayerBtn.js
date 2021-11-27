@@ -12,12 +12,13 @@ const PageMediaPlayerBtn = ({ tracklist, id }) => {
     handlePause,
     currentCollection
   } = useContext(AudioPlayerContext);
-  
+
+
   const handlePlayBtnClick = async () => {
-    if( (String(currentCollection) === String(id)) ) {
+    if ((String(currentCollection) === String(id))) {
       if (isPlaying) handlePause()
       else handlePlay()
-    }else{
+    } else {
       const payload = {
         collection: id,
         list: tracklist
@@ -28,13 +29,13 @@ const PageMediaPlayerBtn = ({ tracklist, id }) => {
   }
 
   return (
-    <span style = {{ borderRadius : '50%'}}>
-      { (isPlaying && String(currentCollection) === String(id)) ? (
+    <span style={{ borderRadius: '50%' }}>
+      {(isPlaying && String(currentCollection) === String(id)) ? (
         <IconButton onClick={handlePause} >
           <PauseIcon style={{ color: "#1db954", fontSize: 60, cursor: 'pointer' }} />
         </IconButton>
       ) : (
-        <IconButton  onClick={handlePlayBtnClick} >
+        <IconButton onClick={handlePlayBtnClick} >
           <PlayCircleIcon style={{ color: "#1db954", fontSize: 60, cursor: 'pointer' }} />
         </IconButton>
       )}

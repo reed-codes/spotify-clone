@@ -46,7 +46,7 @@ export default function AudioPlayerContextProvider({ children }) {
         setVolume(playerVolume)
 
     }, [])
-    
+
     useEffect(() => {
         try {
             if (playerRef && !isPlaying) {
@@ -75,29 +75,27 @@ export default function AudioPlayerContextProvider({ children }) {
     }, [isPlaying])
 
 
-    useEffect(()=>{
-           if(isShuffling)
-           {
-            setTracklist({
-                  ...tracklist,
-                  activeList : tracklist.shuffledList
-            })
-           }else{
+    useEffect(() => {
+        if (isShuffling) {
             setTracklist({
                 ...tracklist,
-                activeList : tracklist.originalList
+                activeList: tracklist.shuffledList
             })
-           }
-    },[isShuffling])
+        } else {
+            setTracklist({
+                ...tracklist,
+                activeList: tracklist.originalList
+            })
+        }
+    }, [isShuffling])
 
 
-    useEffect(()=>{
-       if(playerRef)
-       {
-          playerRef.load()
-          setIsPlaying(true)
-       }
- },[tracklist])
+    useEffect(() => {
+        if (playerRef) {
+            playerRef.load()
+            setIsPlaying(true)
+        }
+    }, [tracklist])
 
 
     useEffect(() => {
@@ -144,16 +142,38 @@ export default function AudioPlayerContextProvider({ children }) {
     //   HANDLERS START 🪓🪓🪓
 
     const handleTrackListInit = (payload) => {
-        if(payload)
-        {
-            setTracklist({
-                originalList: payload.list,
-                shuffledList: shuffleArray(payload.list),
-                activeList: payload.list,
-                isPending: false,
-                collectionID : payload.collection
-            })
-        }else{
+        if (payload) {
+            //IF PLAYING TRACKLIST AND WANTING TO START AT SPECIFIC INDEX, SET 'pointer' TO TRUE
+            if (payload.pointer) {
+
+                if (String(payload.collection) === String(tracklist.collectionID)) {
+                    const currentIndex = tracklist.activeList.findIndex(track => String(track.id) === String(payload.trackID))
+                    setCurrentTrackIndex(currentIndex)
+                }
+                else {
+                    const currentIndex = payload.list.findIndex(track => String(track.id) === String(payload.trackID))
+                    setTracklist({
+                        originalList: payload.list,
+                        shuffledList: shuffleArray(payload.list),
+                        activeList: payload.list,
+                        isPending: false,
+                        collectionID: payload.collection
+                    })
+                    setCurrentTrackIndex(currentIndex)
+                }
+
+            } else {
+                // IF JUST WANTING TO PLAY A TRACKLIST FROM BEGINNING
+                setTracklist({
+                    originalList: payload.list,
+                    shuffledList: shuffleArray(payload.list),
+                    activeList: payload.list,
+                    isPending: false,
+                    collectionID: payload.collection
+                })
+            }
+
+        } else {
             console.log("AN ARRAY WAS NOT PASSED DOWN TO 'handleTrackListInit' : ", handleTrackListInit)
         }
 
@@ -187,8 +207,7 @@ export default function AudioPlayerContextProvider({ children }) {
             setCurrentTrackIndex(0);
             handlePause()
         }
-        else if (currentTrackIndex == (tracklist.activeList.length - 1) && (repeatType != "REPEAT-CURRENT"))
-        {
+        else if (currentTrackIndex == (tracklist.activeList.length - 1) && (repeatType != "REPEAT-CURRENT")) {
             setCurrentTrackIndex(0);
         }
         else if (repeatType == "REPEAT-CURRENT") {

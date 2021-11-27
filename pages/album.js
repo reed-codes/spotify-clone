@@ -128,7 +128,6 @@ export default function Album(props) {
   const accentColor = colors ? colors[0] : 'transparent';
 
   const handleLikeBtnClick = () => setIsLiked(!isLiked);
-
   return (
     <>
       <MusicHeader smallScreen={maxWidth750px} accentColor={accentColor}>
@@ -185,7 +184,7 @@ export default function Album(props) {
         <div style={{ padding: "15px 0" }}>
           <Stack direction="row" spacing={2} alignItems="center">
 
-            <PageMediaPlayerBtn tracklist = {tracklist.list} id = {props.data.query_id}/>
+            <PageMediaPlayerBtn tracklist={tracklist.list} id={props.data.query_id} />
 
             <span
               style={{
@@ -228,8 +227,9 @@ export default function Album(props) {
           tracklist_url={props.data.tracklist_url}
           type={props.data.type}
           album={(props.data.type == "album") ? props.data.data : null}
-          tracklist = {tracklist}
-          setTracklist = {setTracklist}
+          tracklist={tracklist}
+          setTracklist={setTracklist}
+          id={props.data.query_id}
         />
 
         <div>
@@ -268,7 +268,7 @@ export async function getServerSideProps(context) {
             type: info.type,
             artist_name: info.artist.name,
             artist_image: info.artist.picture_small,
-            artist_id:info.artist.id,
+            artist_id: info.artist.id,
             tracklist_url: info.tracklist,
             track_count: info.tracks.data.length,
             type: info.type,
@@ -311,7 +311,7 @@ export async function getServerSideProps(context) {
             type: info.type,
             artist_name: info.artist.name,
             artist_image: info.artist.picture_small,
-            artist_id:info.artist.id,
+            artist_id: info.artist.id,
             tracklist_url: info.album.tracklist,
             track_count: 1,
             tracks: [info],

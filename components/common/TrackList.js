@@ -1,40 +1,49 @@
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from "react";
 import TrackItem from "./media-cards/TrackItem";
 import TrackItemsListHead from "./TrackItemsListHead";
 import { useMediaQuery } from "@mui/material";
 import axios from 'axios'
 import { v4 } from 'uuid'
 import { getTrackItemPlaceholders } from "../../utils";
+import { AudioPlayerContext } from "../../state/context/AudioPlayerContext";
 
-const TrackList = ({ hideAlbumColumn, tracklist_url, tracks, type, album, tracklist, setTracklist }) => {
+const TrackList = (props) => {
+  const {
+    currentTrack,
+    isPlaying,
+    handleTrackListInit,
+    handlePause,
+    handlePlay,
+    currentCollection
+  } = useContext(AudioPlayerContext)
   const maxWidth780px = useMediaQuery('( max-width : 780px )');
 
   useEffect(() => {
 
-    if (type === "album" || type === "artist") {
+    if (props.type === "album" || props.type === "artist") {
 
       axios.post("/api/get-tracklist", {
-        url: tracklist_url
+        url: props.tracklist_url
       }).then(({ data }) => {
 
-        if (type === "album") {
+        if (props.type === "album") {
           let new_list = data.tracklist.map(track => {
             return {
               ...track,
-              album
+              album: props.album
             }
           })
 
-          setTracklist({
-            ...tracklist,
+          props.setTracklist({
+            ...props.tracklist,
             list: new_list,
             loading: false
           })
         }
-        else if (type === "artist") {
+        else if (props.type === "artist") {
 
-          setTracklist({
-            ...tracklist,
+          props.setTracklist({
+            ...props.tracklist,
             list: data.tracklist,
             loading: false
           })
@@ -42,8 +51,8 @@ const TrackList = ({ hideAlbumColumn, tracklist_url, tracks, type, album, trackl
       })
         .catch(err => {
           console.log(err.message)
-          setTracklist({
-            ...tracklist,
+          props.setTracklist({
+            ...props.tracklist,
             loading: false,
             err: err
           })
@@ -53,21 +62,44 @@ const TrackList = ({ hideAlbumColumn, tracklist_url, tracks, type, album, trackl
 
   }, [])
 
+  const handlePlayRequest = (trackID) => {
+
+    if ((String(currentCollection) === String(props.id)) && (currentTrack.id === trackID)) {
+      if (isPlaying) handlePause()
+      else handlePlay()
+    }
+    else {
+      const payload = {
+        collection: props.id,
+        trackID,
+        list: props.tracklist.list,
+        pointer: true
+      }
+      handleTrackListInit(payload)
+
+    }
+  }
+
 
   return (
     <div>
-      <TrackItemsListHead hideAlbumColumn={hideAlbumColumn} maxWidth780px={maxWidth780px} />
+      <TrackItemsListHead hideAlbumColumn={props.hideAlbumColumn} maxWidth780px={maxWidth780px} />
       {
-        (tracklist.loading && !tracks) ? (
+        (props.tracklist.loading && !props.tracks) ? (
           getTrackItemPlaceholders(4)
         ) : (
 
-          tracklist.list.map((track, i) => {
+          props.tracklist.list.map((track, i) => {
+            const isCurrentPlaying = currentTrack ? (String(currentTrack.id) === String(track.id)) : false
+
             return (
-              <TrackItem hideAlbumColumn={hideAlbumColumn}
+              <TrackItem hideAlbumColumn={props.hideAlbumColumn}
                 maxWidth780px={maxWidth780px}
                 track={track}
                 position={(i + 1)}
+                isPlaying={isPlaying} //IS ANY TRACK PLAYING
+                isCurrentPlaying={isCurrentPlaying} //IF SO IT THIS THE TRACK THATS PLAYING
+                handlePlayRequest={handlePlayRequest}
                 key={v4()}
               />
             )
