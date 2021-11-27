@@ -1,6 +1,7 @@
 import axios from "axios";
 import CardSkeleton from "../components/common/loaders/CardSkeleton"
 import TrackItemSkeleton from "../components/common/loaders/TrackItemSkeleton"
+import EditorsPickCardSkeleton from "../components/common/loaders/EditorsPickCardSkeleton"
 
 
 export const getTitle = (id) => {
@@ -51,6 +52,14 @@ export const getTrackItemPlaceholders = (count = 6) => {
       for (let i = 0; i < count; i++) demo_arr = [...demo_arr, i];
 
       return demo_arr.map((_, i) => <TrackItemSkeleton key={i} />);
+}
+
+
+export const getEditorsPickCardSkeletons = (count = 6) => {
+      let demo_arr = []
+      for (let i = 0; i < count; i++) demo_arr = [...demo_arr, i];
+
+      return demo_arr.map((_, i) => <EditorsPickCardSkeleton key={i} />);
 }
 
 export const removeObjectDuplicates = (arr) => (

@@ -32,7 +32,8 @@ export default function AudioPlayerContextProvider({ children }) {
         originalList: [],
         shuffledList: [],
         activeList: [],
-        isPending: false
+        isPending: false,
+        collectionID: 0
     })
     const repeatType = (repeatFlag == 0) ? "NO-REPEAT" : (repeatFlag == 1) ? "REPEAT-ALL" : "REPEAT-CURRENT";
 
@@ -45,8 +46,7 @@ export default function AudioPlayerContextProvider({ children }) {
         setVolume(playerVolume)
 
     }, [])
-
-
+    
     useEffect(() => {
         try {
             if (playerRef && !isPlaying) {
@@ -143,14 +143,16 @@ export default function AudioPlayerContextProvider({ children }) {
 
     //   HANDLERS START 🪓🪓🪓
 
-    const handleTrackListInit = (list) => {
-        if(Array.isArray(list))
+    const handleTrackListInit = (payload) => {
+        console.log(payload)
+        if(payload)
         {
             setTracklist({
-                originalList: list,
-                shuffledList: shuffleArray(list),
-                activeList: list,
-                isPending: false
+                originalList: payload.list,
+                shuffledList: shuffleArray(payload.list),
+                activeList: payload.list,
+                isPending: false,
+                collectionID : payload.collection
             })
         }else{
             console.log("AN ARRAY WAS NOT PASSED DOWN TO 'handleTrackListInit' : ", handleTrackListInit)
@@ -185,17 +187,13 @@ export default function AudioPlayerContextProvider({ children }) {
         if ((currentTrackIndex == (tracklist.activeList.length - 1)) && (repeatType == "NO-REPEAT")) {
             setCurrentTrackIndex(0);
             handlePause()
-
-            console.log("IF ONE")
         }
         else if (currentTrackIndex == (tracklist.activeList.length - 1) && (repeatType != "REPEAT-CURRENT"))
         {
             setCurrentTrackIndex(0);
-            console.log("IF TWO")
         }
         else if (repeatType == "REPEAT-CURRENT") {
             playerRef.load();
-            console.log("IF THREE")
 
             try {
                 playerRef.play()
@@ -208,8 +206,6 @@ export default function AudioPlayerContextProvider({ children }) {
         }
         else {
             setCurrentTrackIndex(currentTrackIndex + 1);
-            console.log("IF ELSE")
-
         }
     }
 
@@ -299,7 +295,8 @@ export default function AudioPlayerContextProvider({ children }) {
             volume,
             repeatFlag,
             isShuffling,
-            isPipOn
+            isPipOn,
+            currentCollection: tracklist.collectionID
         }}>
 
             {children}

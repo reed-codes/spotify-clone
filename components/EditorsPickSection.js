@@ -4,6 +4,8 @@ import EditorsPickCard from "./EditorsPickCard";
 import Box from '@mui/material/Box';
 import { useMediaQuery } from '@material-ui/core'
 import { v4 as uuidv4 } from 'uuid';
+import { getEditorsPickCardSkeletons } from '../utils';
+import { useSelector } from 'react-redux';
 
 const BackgroundAccentColorGradientEffect = styled.main`
 padding:10px 24px 100px 24px;
@@ -21,6 +23,9 @@ transition: all 1s linear;
 `
 
 const EditorsPickSection = ({ data }) => {
+  const {
+    loading
+  } = useSelector(state => state.musicData)
   const maxWidth1095px = useMediaQuery('(max-width:1095px)');
   const maxWidth950px = useMediaQuery('(max-width:950px)');
   const maxWidth650px = useMediaQuery('(max-width:650px)');
@@ -39,15 +44,20 @@ const EditorsPickSection = ({ data }) => {
       >
 
         {
-          data.map(album => {
-            return (
-              <EditorsPickCard
-                key={uuidv4()}
-                album={album}
-              />
-            )
-          })
 
+          loading ? (
+            getEditorsPickCardSkeletons(6)
+          ) : (
+            data.map(album => {
+              return (
+                <EditorsPickCard
+                  key={uuidv4()}
+                  album={album}
+                />
+              )
+            })
+
+          )
         }
 
       </Box>

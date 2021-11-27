@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { SectionHeader, Container } from "../styles/utils";
-import { getTitle, removeObjectDuplicates } from "../utils";
-import { intiMusic } from "../state/actions/music-data-actions";
+import { getTitle, getMediaCardPlaceholders } from "../utils";
+import { intiMusic, endLoading } from "../state/actions/music-data-actions";
 import EditorsPickGridSection from "../components/EditorsPickSection";
 import { useSelector } from "react-redux";
 import ContentSliderSection from "../components/common/ContentSliderSection";
@@ -15,26 +15,36 @@ import ArtistCard from '../components/common/media-cards/ArtistCard'
 
 export default function Home(props) {
   const dispatch = useDispatch()
-  const musicContent = useSelector(state => state.musicData)
+  const {
+    albums_top_six,
+    tracks_top_six,
+    playlists_top_six,
+    artists_top_six,
+    podcasts_top_six,
+    new_releases_top_six,
+    loading
+  } = useSelector(state => state.musicData)
 
   useEffect(() => {
 
-    axios.get('/api/get-new-releases')
-      .then((res) => {
-        if (!props.err) {
-          let new_releases = removeObjectDuplicates(res.data.tracklist)
-          let content = {
-            ...props,
-            new_releases,
-            new_releases_top_six: new_releases.slice(0, 6)
+    if (!albums_top_six.length) {
+
+      axios.get('/api/get-app-content')
+        .then((res) => {
+          if (!props.err) {
+            dispatch(intiMusic(res.data.content))
           }
-          dispatch(intiMusic(content))
-        }
-      })
-      .catch(err => {
-        console.log(err.message)
-        alert("ERR : " + err.message)
-      })
+          dispatch(endLoading())
+        })
+        .catch(err => {
+          dispatch(endLoading())
+          console.log(err.message)
+          alert("ERR : " + err.message)
+        })
+
+    } else {
+      dispatch(endLoading())
+    }
 
   }, [])
 
@@ -42,18 +52,21 @@ export default function Home(props) {
   return (
     <Container className="content-wrapper" >
       <SectionHeader>Good afternoon </SectionHeader>
-      <EditorsPickGridSection data={musicContent.albums_top_six} />
-
+      <EditorsPickGridSection data={albums_top_six} />
 
       <ContentSliderSection title={getTitle("top-tracks")}
         url={"/more/top-tracks"}
       >
         {
-          musicContent.tracks_top_six.map(track => {
-            return <TrackCard key={track.id}
-              track={track}
-            />
-          })
+          loading ? (
+            getMediaCardPlaceholders(6)
+          ) : (
+            tracks_top_six.map(track => {
+              return <TrackCard key={track.id}
+                track={track}
+              />
+            })
+          )
         }
       </ContentSliderSection>
 
@@ -62,11 +75,15 @@ export default function Home(props) {
         url={"/more/top-playlists"}
       >
         {
-          musicContent.playlists_top_six.map(playlist => {
-            return <PlaylistCard key={playlist.id}
-              playlist={playlist}
-            />
-          })
+          loading ? (
+            getMediaCardPlaceholders(6)
+          ) : (
+            playlists_top_six.map(playlist => {
+              return <PlaylistCard key={playlist.id}
+                playlist={playlist}
+              />
+            })
+          )
         }
 
       </ContentSliderSection>
@@ -76,11 +93,15 @@ export default function Home(props) {
         url={"/more/top-albums"}
       >
         {
-          musicContent.albums_top_six.map(album => {
-            return <AlbumCard key={album.id}
-              album={album}
-            />
-          })
+          loading ? (
+            getMediaCardPlaceholders(6)
+          ) : (
+            albums_top_six.map(album => {
+              return <AlbumCard key={album.id}
+                album={album}
+              />
+            })
+          )
         }
       </ContentSliderSection>
 
@@ -89,11 +110,15 @@ export default function Home(props) {
         url={"/more/top-artists"}
       >
         {
-          musicContent.artists_top_six.map(artist => {
-            return <ArtistCard key={artist.id}
-              artist={artist}
-            />
-          })
+          loading ? (
+            getMediaCardPlaceholders(6)
+          ) : (
+            artists_top_six.map(artist => {
+              return <ArtistCard key={artist.id}
+                artist={artist}
+              />
+            })
+          )
         }
       </ContentSliderSection>
 
@@ -102,11 +127,15 @@ export default function Home(props) {
         url={"/more/episodes-for-you"}
       >
         {
-          musicContent.podcasts_top_six.map(podcast => {
-            return <PodcastCard key={podcast.id}
-              podcast={podcast}
-            />
-          })
+          loading ? (
+            getMediaCardPlaceholders(6)
+          ) : (
+            podcasts_top_six.map(podcast => {
+              return <PodcastCard key={podcast.id}
+                podcast={podcast}
+              />
+            })
+          )
         }
       </ContentSliderSection>
 
@@ -116,78 +145,20 @@ export default function Home(props) {
         url={"/more/new-releases"}
       >
         {
-          musicContent.new_releases_top_six.map(album => {
-            return <AlbumCard key={album.id}
-              album={album}
-            />
-          })
+          loading ? (
+            getMediaCardPlaceholders(6)
+          ) : (
+            new_releases_top_six.map(album => {
+              return <AlbumCard key={album.id}
+                album={album}
+              />
+            })
+          )
         }
       </ContentSliderSection>
 
 
     </Container>
   );
-
-}
-
-
-// This gets called on every request
-export async function getServerSideProps() {
-  // Fetch data from external API
-
-  try {
-    const { data: pop_resulsts } = await axios.get("https://api.deezer.com/editorial/132/charts?limit=7")
-    const { data: rap_resulsts } = await axios.get("https://api.deezer.com/editorial/116/charts?limit=7")
-    const { data: r_and_b_resulsts } = await axios.get("https://api.deezer.com/editorial/165/charts?limit=7")
-    const { data: alternative_results } = await axios.get("https://api.deezer.com/editorial/85/charts?limit=7")
-    const { data: podcast_results } = await axios.get("https://api.deezer.com/chart/0/podcasts?limit=0")
-
-    if (pop_resulsts && rap_resulsts && r_and_b_resulsts && alternative_results && podcast_results) {
-      let tracks = [...pop_resulsts.tracks.data, ...rap_resulsts.tracks.data, ...r_and_b_resulsts.tracks.data, ...alternative_results.tracks.data];
-      let playlists = [...pop_resulsts.playlists.data, ...rap_resulsts.playlists.data, ...r_and_b_resulsts.playlists.data, ...alternative_results.playlists.data];
-      let artists = [...pop_resulsts.artists.data, ...rap_resulsts.artists.data, ...r_and_b_resulsts.artists.data, ...alternative_results.artists.data];
-      let albums = [...pop_resulsts.albums.data, ...rap_resulsts.albums.data, ...r_and_b_resulsts.albums.data, ...alternative_results.albums.data];
-      let podcasts = podcast_results.data;
-
-      return {
-        props: {
-          tracks: removeObjectDuplicates(tracks),
-          playlists: removeObjectDuplicates(playlists),
-          albums: removeObjectDuplicates(albums),
-          podcasts: removeObjectDuplicates(podcasts),
-          artists: artists,
-          err: null
-        }
-      }
-
-    } else {
-
-      return {
-        props: {
-          tracks: [],
-          playlists: [],
-          artists: [],
-          albums: [],
-          podcasts: [],
-          err: "ONE_OR_MORE_RESULTS_WERE_NOT_AS_EXPECTED"
-        }
-      }
-
-    }
-
-
-  } catch (err) {
-    return {
-      props: {
-        tracks: [],
-        playlists: [],
-        artists: [],
-        albums: [],
-        podcasts: [],
-        err: err.message
-      }
-    }
-
-  }
 
 }

@@ -12,9 +12,6 @@ import { getMediaCardPlaceholders } from "../utils";
 import { Container } from "../styles/utils";
 
 const LikedSongsJumbotronWrapper = styled.div`
-  // margin-top: -66px;
-  // flex:3;
-  // background: #181818;
   border-radius: 4px;
   padding: 20px;
   position: relative;
@@ -83,7 +80,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box>
-          <Typography >{children}</Typography>
+          {children}
         </Box>
       )}
     </div>

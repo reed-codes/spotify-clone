@@ -72,7 +72,7 @@ a:hover{
 } */
 
 #pip-player:hover {
-  filter: brightness(70%);
+  filter: brightness(80%);
   cursor: grab;
 }
 #pip-player:active {

@@ -13,6 +13,8 @@ export default function RouteIndicator() {
 
   const onRouteChangeStart = React.useCallback(() => {
     setLoading(true);
+    if(console)
+      console.clear()
   }, []);
 
   const onRouteChangeDone = React.useCallback(() => {

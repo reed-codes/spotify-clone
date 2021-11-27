@@ -34,16 +34,16 @@ const CardImgWrapper = styled.div`
 
 export default function EditorsPickCard(props) {
   const router = useRouter()
-  const { cover_medium: cover, title, artist, id, tracklist } = props.album;
+  const { cover_medium: cover, title, artist, id } = props.album;
   const { colors } = useImageColor(cover, { cors: true, colors: 5 });
   const [showPlayBtn, setShowPlayBtn] = useState(false)
 
   return (
     <Tooltip title="click to open" placement="bottom" arrow>
       <motion.div
-        animate={{ y: 0 }}
-        initial={{ y: 3 }}
-        transition={{ type: "spring", stiffness: 100 }}
+        // animate={{ y: 0 }}
+        // initial={{ y: 3 }}
+        // transition={{ type: "spring", stiffness: 100 }}
       >
         <Card
           style={CARD_STYLE}
@@ -99,7 +99,7 @@ export default function EditorsPickCard(props) {
               }}
 
             >
-              {showPlayBtn && <MediaPlayBtn item = {props.album}/>}
+              { <MediaPlayBtn item = {props.album} show = {showPlayBtn} /> }
             </div>
 
             <CardMedia

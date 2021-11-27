@@ -64,6 +64,16 @@ const CardBody = styled.div`
   text-transform: none;
 `;
 
+
+const ArtistLink = styled.div`
+  font-weight: 700;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    color: rgba(255, 255, 255, 0.7);
+  }
+`;
+
 const MediaCardOnHoverBtnWrapper = styled.div`
   width: 100%;
   position: absolute;
@@ -105,14 +115,20 @@ const MediaCard = ({ track }) => {
                   <CardCoverImage src={cover} alt={title} />
 
                   <MediaCardOnHoverBtnWrapper className="media-card-on-hover-btn-wrapper">
-                    {showPlayBtn && <MediaPlayBtn item = {track}/>}
+                    {<MediaPlayBtn item = {track} show = {showPlayBtn} />}
                   </MediaCardOnHoverBtnWrapper>
                 </CardCoverImageWrapper>
 
                 <CardContentWrapper>
                   <CardHeader>{title}</CardHeader>
 
-                  <CardBody> {artistName} </CardBody>
+                  <CardBody> 
+                  <Link href={`artist?q=${track.artist.id}`} passHref={true}>
+                      <a>
+                        <ArtistLink>{artistName}</ArtistLink>
+                      </a>
+                    </Link>
+                  </CardBody>
                 </CardContentWrapper>
               </Box>
             </Card>

@@ -106,9 +106,7 @@ const MediaCard = ({ playlist }) => {
                 <CardCoverImage src={cover} alt="" />
 
                 <MediaCardOnHoverBtnWrapper>
-                  {
-                   showPlayBtn && <MediaPlayBtn item = {playlist}/>
-                  }
+                  { <MediaPlayBtn item = {playlist} show = {showPlayBtn}/>}
                 </MediaCardOnHoverBtnWrapper>
               </CardCoverImageWrapper>
 

@@ -27,6 +27,16 @@ const CardCoverImageWrapper = styled.div`
   position: relative;
 `;
 
+
+const ArtistLink = styled.div`
+  font-weight: 700;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    color: rgba(255, 255, 255, 0.7);
+  }
+`;
+
 const CardCoverImage = styled.img`
  background-color: #333;
   border-radius: 2px;
@@ -105,14 +115,20 @@ const MediaCard = ({ album }) => {
                   <CardCoverImage src={cover} alt="" />
 
                   <MediaCardOnHoverBtnWrapper className="media-card-on-hover-btn-wrapper">
-                    {showPlayBtn && <MediaPlayBtn item = {album}/>}
+                    {<MediaPlayBtn item = {album} show = {showPlayBtn} />}
                   </MediaCardOnHoverBtnWrapper>
                 </CardCoverImageWrapper>
 
                 <CardContentWrapper>
                   <CardHeader>{title}</CardHeader>
 
-                  <CardBody>{artistName}</CardBody>
+                  <CardBody>
+                    <Link href={`artist?q=${album.artist.id}`} passHref={true}>
+                      <a>
+                        <ArtistLink>{artistName}</ArtistLink>
+                      </a>
+                    </Link>
+                    </CardBody>
                 </CardContentWrapper>
               </Box>
             </Card>

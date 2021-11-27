@@ -28,11 +28,8 @@ const MainContentContainer = styled.main`
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
   const {currentTrack} = useContext(AudioPlayerContext)
-  const state = useContext(AudioPlayerContext)
   const mainWrapperRef = useRef(null)
   const [showAppBarBackground, setShowAppBarBackground] = useState(false);
-
-  console.log(state)
 
   const toggleDrawer = () => (event) => {
     if (

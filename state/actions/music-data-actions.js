@@ -1,6 +1,6 @@
 import {
   INIT_MUSIC_CONTENT,
-  POPULATE_NEW_RELEASES
+  END_LOADING
 } from "../action-types";
 
 export const intiMusic = (payload) => {
@@ -9,3 +9,10 @@ export const intiMusic = (payload) => {
     payload
   };
 };
+
+export const endLoading = () => {
+  return {
+    type: END_LOADING,
+  };
+};
+

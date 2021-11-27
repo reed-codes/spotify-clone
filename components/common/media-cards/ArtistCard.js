@@ -110,7 +110,7 @@ const MediaCard = ({ artist }) => {
                   <CardCoverImage src={cover} alt="" />
 
                   <MediaCardOnHoverBtnWrapper className="media-card-on-hover-btn-wrapper">
-                    {showPlayBtn && <MediaPlayBtn item = {artist}/>}
+                    { <MediaPlayBtn item = {artist} show = {showPlayBtn} /> }
                   </MediaCardOnHoverBtnWrapper>
                 </CardCoverImageWrapper>
 
