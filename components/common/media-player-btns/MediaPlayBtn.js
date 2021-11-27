@@ -5,59 +5,66 @@ import PauseIcon from "@mui/icons-material/Pause";
 import Tooltip from "@mui/material/Tooltip";
 import { motion } from 'framer-motion';
 import { getTracklist } from '../../../utils'
-import {AudioPlayerContext} from '../../../state/context/AudioPlayerContext'
+import { AudioPlayerContext } from '../../../state/context/AudioPlayerContext'
 
 const MediaPlayBtn = ({ item, show }) => {
-   const {
-         handleTrackListInit, 
-         currentCollection,
-         isPlaying,
-         handlePause
-        } = useContext(AudioPlayerContext);
-  
-   const handlePlayBtnClick = async (e) => {
+  const {
+    handleTrackListInit,
+    currentCollection,
+    isPlaying,
+    handlePause,
+    handlePlay
+  } = useContext(AudioPlayerContext);
+
+  const handlePlayBtnClick = async (e) => {
     e.stopPropagation()
     e.preventDefault()
 
-    if (item.type === "track") {
-      const payload = {
-        collection: item.id,
-        list : [item]
-      }
-      handleTrackListInit(payload)
-    }
-    else {
-      const tracklist = await getTracklist(item.tracklist)
-      let new_list = null;
+    if( (String(currentCollection) === String(item.id)) ) {
+      
+          if (isPlaying) handlePause()
+          else handlePlay()
+          
+    } else {
+      if (item.type === "track") {
+        const payload = {
+          collection: item.id,
+          list: [item]
+        }
+        handleTrackListInit(payload)
+      } else {
+        const tracklist = await getTracklist(item.tracklist)
+        let new_list = null;
 
-      if(item.type === "album"){
-         new_list = tracklist.map(track => {
-          return {
-            ...track,
-            album : item
-          }
-        })
-      }
+        if (item.type === "album") {
+          new_list = tracklist.map(track => {
+            return {
+              ...track,
+              album: item
+            }
+          })
+        }
 
-      const payload = {
-        collection: item.id,
-        list : new_list ? new_list : tracklist
-      } 
-      handleTrackListInit(payload)
+        const payload = {
+          collection: item.id,
+          list: new_list ? new_list : tracklist
+        }
+        handleTrackListInit(payload)
+      }
     }
 
   }
 
   return (
     <>
-       {
-          ( isPlaying && (currentCollection == item.id) ) ? (
+      {
+        (isPlaying && (String(currentCollection) == String(item.id))) ? (
 
-            <motion.div
+          <motion.div
             animate={{ y: -10 }}
             initial={{ y: 0 }}
             transition={{ type: "spring", stiffness: 100 }}
-            style = {{
+            style={{
               width: 40,
               height: 40,
               borderRadius: "50% !important",
@@ -77,7 +84,7 @@ const MediaPlayBtn = ({ item, show }) => {
                   cursor: 'default',
                   boxShadow: theme => theme.shadows[10]
                 }}
-                onClick={(e)=>{
+                onClick={(e) => {
                   e.stopPropagation()
                   e.preventDefault()
                   handlePause()
@@ -88,13 +95,13 @@ const MediaPlayBtn = ({ item, show }) => {
             </Tooltip>
           </motion.div>
 
-          ) : ( 
-            show ? (
-              <motion.div
+        ) : (
+          show ? (
+            <motion.div
               animate={{ y: -10 }}
               initial={{ y: 0 }}
               transition={{ type: "spring", stiffness: 100 }}
-              style = {{
+              style={{
                 width: 40,
                 height: 40,
                 borderRadius: "50% !important",
@@ -120,15 +127,15 @@ const MediaPlayBtn = ({ item, show }) => {
                 </IconButton>
               </Tooltip>
             </motion.div>
-            ) : (
-              <div></div>
-            )
-           
+          ) : (
+            <div></div>
+          )
 
-           )
-       }
+
+        )
+      }
     </>
-  
+
   )
 }
 

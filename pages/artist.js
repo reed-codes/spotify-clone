@@ -112,7 +112,7 @@ export default function Artist(props) {
           <div style={{ padding: "15px 0" }}>
             <Stack direction="row" spacing={2} alignItems="center">
 
-              <PageMediaPlayerBtn tracklist = {tracklist.list}/>
+              <PageMediaPlayerBtn tracklist = {tracklist.list} id = {props.data.query_id} />
 
               <span
                 style={{

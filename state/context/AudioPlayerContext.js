@@ -144,7 +144,6 @@ export default function AudioPlayerContextProvider({ children }) {
     //   HANDLERS START 🪓🪓🪓
 
     const handleTrackListInit = (payload) => {
-        console.log(payload)
         if(payload)
         {
             setTracklist({

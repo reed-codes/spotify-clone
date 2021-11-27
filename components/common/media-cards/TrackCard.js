@@ -65,7 +65,7 @@ const CardBody = styled.div`
 `;
 
 
-const ArtistLink = styled.div`
+const ArtistLink = styled.a`
   font-weight: 700;
   cursor: pointer;
   &:hover {
@@ -124,9 +124,7 @@ const MediaCard = ({ track }) => {
 
                   <CardBody> 
                   <Link href={`artist?q=${track.artist.id}`} passHref={true}>
-                      <a>
                         <ArtistLink>{artistName}</ArtistLink>
-                      </a>
                     </Link>
                   </CardBody>
                 </CardContentWrapper>
