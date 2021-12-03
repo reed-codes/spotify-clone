@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import axios from "axios";
 import { SectionHeader, Container } from "../styles/utils";
 import { getTitle, getMediaCardPlaceholders } from "../utils";
 import { intiMusic, endLoading } from "../state/actions/music-data-actions";
 import EditorsPickGridSection from "../components/EditorsPickSection";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ContentSliderSection from "../components/common/ContentSliderSection";
 import TrackCard from '../components/common/media-cards/TrackCard'
 import AlbumCard from '../components/common/media-cards/AlbumCard'
@@ -23,7 +22,7 @@ export default function Home(props) {
     podcasts_top_six,
     new_releases_top_six,
     loading
-  } = useSelector(state => state.musicData)
+  } = useSelector(state => state.musicData);
 
   useEffect(() => {
 

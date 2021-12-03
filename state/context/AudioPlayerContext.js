@@ -159,11 +159,12 @@ export default function AudioPlayerContextProvider({ children }) {
                         isPending: false,
                         collectionID: payload.collection
                     })
-                    setCurrentTrackIndex(currentIndex)
+                    setCurrentTrackIndex(currentIndex);
                 }
 
             } else {
                 // IF JUST WANTING TO PLAY A TRACKLIST FROM BEGINNING
+                setCurrentTrackIndex(0);
                 setTracklist({
                     originalList: payload.list,
                     shuffledList: shuffleArray(payload.list),

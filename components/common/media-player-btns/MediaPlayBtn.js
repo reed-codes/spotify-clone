@@ -7,6 +7,8 @@ import { motion } from 'framer-motion';
 import { getTracklist } from '../../../utils'
 import { AudioPlayerContext } from '../../../state/context/AudioPlayerContext'
 import { useMediaQuery } from '@material-ui/core';
+import { useDispatch } from 'react-redux'
+import {alterRecentPlays} from '../../../state/actions/user-data-actions'
 
 const MediaPlayBtn = ({ item, show }) => {
   const {
@@ -17,6 +19,7 @@ const MediaPlayBtn = ({ item, show }) => {
     handlePlay
   } = useContext(AudioPlayerContext);
   const maxWidth600px = useMediaQuery("(max-width:650px)");
+  const dispatch = useDispatch()
 
   const handlePlayBtnClick = async (e) => {
     e.stopPropagation()
@@ -33,7 +36,10 @@ const MediaPlayBtn = ({ item, show }) => {
           collection: item.id,
           list: [item]
         }
-        handleTrackListInit(payload)
+
+        dispatch(alterRecentPlays({...item.album, artist : item.artist}))
+        handleTrackListInit(payload);
+
       } else {
         const tracklist = await getTracklist(item.tracklist)
         let new_list = null;
@@ -51,7 +57,10 @@ const MediaPlayBtn = ({ item, show }) => {
           collection: item.id,
           list: new_list ? new_list : tracklist
         }
+
+        dispatch(alterRecentPlays(item))
         handleTrackListInit(payload)
+
       }
     }
 
