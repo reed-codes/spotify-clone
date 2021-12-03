@@ -10,14 +10,14 @@ const HeadElement = () => {
       <meta property="og:title" content="Spotify clone by Reedemer - Web Player: Music for everyone" />
       <meta property="og:description" content="Spotify clone by Reedemer is a digital music service that gives you access to millions of songs." />
       <meta property="og:url" content="https://spotify-clone-reed-codes.vercel.app/" />
-      <meta property="og:image" content="/logo.png" />
+      <meta property="og:image" content="/clone-preview.jpg" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Spotify clone by Reedemer" />
       <meta property="al:android:app_name" content="Spotify clone by Reedemer" />
       <meta property="al:ios:app_name" content="Spotify clone by Reedemer" />
       <meta property="twitter:title" content="Spotify clone by Reedemer - Web Player: Music for everyone" />
       <meta property="twitter:description" content="Spotify clone by Reedemer is a digital music service that gives you access to millions of songs." />
-      <meta property="twitter:image" content="/logo.png" />
+      <meta property="twitter:image" content="/clone-preview.jpg" />
       <meta property="twitter:card" content="summary" />
       <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
