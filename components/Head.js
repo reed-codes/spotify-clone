@@ -27,7 +27,6 @@ const HeadElement = () => {
       ></link>
       <link rel="icon" type="image/png" href="favicons/favicon-16x16.png" sizes="16x16" />
       <link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32" />
-      <link rel="shortcut icon" href="favicons/favicon.ico" type="image/x-icon" />
     </Head>
   )
 }
