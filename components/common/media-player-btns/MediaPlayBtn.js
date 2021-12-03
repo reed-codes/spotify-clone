@@ -6,6 +6,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { motion } from 'framer-motion';
 import { getTracklist } from '../../../utils'
 import { AudioPlayerContext } from '../../../state/context/AudioPlayerContext'
+import { useMediaQuery } from '@material-ui/core';
 
 const MediaPlayBtn = ({ item, show }) => {
   const {
@@ -15,6 +16,7 @@ const MediaPlayBtn = ({ item, show }) => {
     handlePause,
     handlePlay
   } = useContext(AudioPlayerContext);
+  const maxWidth600px = useMediaQuery("(max-width:650px)");
 
   const handlePlayBtnClick = async (e) => {
     e.stopPropagation()
@@ -68,6 +70,7 @@ const MediaPlayBtn = ({ item, show }) => {
               width: 40,
               height: 40,
               borderRadius: "50% !important",
+              display: maxWidth600px ? 'none' : 'block'
             }}
           >
             <Tooltip title="pause" placement="bottom" arrow>
@@ -105,6 +108,7 @@ const MediaPlayBtn = ({ item, show }) => {
                 width: 40,
                 height: 40,
                 borderRadius: "50% !important",
+                display: maxWidth600px ? 'none' : 'block'
               }}
             >
               <Tooltip title="play" placement="bottom" arrow>

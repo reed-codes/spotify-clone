@@ -9,6 +9,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import { BarsSpinner } from "react-spinners-kit";
 import moment from 'moment';
+import { useMediaQuery } from "@mui/material";
 
 
 const TrackItemWrapper = styled.div`
@@ -125,6 +126,7 @@ const TrackDurationWrapper = styled.div`
 const TrackItem = ({ hideAlbumColumn, maxWidth780px, track, position, isCurrentPlaying, isPlaying, handlePlayRequest }) => {
   const [isLiked, setIsLiked] = useState(false);
   const duration = moment.utc(track.duration * 1000).format('mm:ss');
+  const maxWidth650px = useMediaQuery("(max-width:650px)")
 
   const handleLikeBtnClick = (e) => {
     e.stopPropagation();
@@ -203,7 +205,7 @@ const TrackItem = ({ hideAlbumColumn, maxWidth780px, track, position, isCurrentP
         )
       }
 
-      <span style={{ marginRight: 16 }} onClick={handleLikeBtnClick}>
+      <span style={{ marginRight: 16, display: maxWidth650px ? 'none' : 'block' }} onClick={handleLikeBtnClick}>
         {isLiked ? (
           <Tooltip title="Remove from Your Library" placement="top">
             <IconButton>

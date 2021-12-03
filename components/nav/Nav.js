@@ -91,36 +91,36 @@ const SMALLSCREEN_NAV_ROUTE_BTN_STYLE = {
 };
 
 const Nav = (props) => {
-  const maxWidth890px = useMediaQuery("(max-width:890px)");
+  const minWidth890px = useMediaQuery("(min-width:890px)");
   const [viewSmallScreenNav, setViewSmallScreenNav] = useState(false);
 
   const toggleViewedNav = () => setViewSmallScreenNav(!viewSmallScreenNav);
 
   return (
-    <>{getMenu(maxWidth890px, viewSmallScreenNav, toggleViewedNav, props)}</>
+    <>{getMenu(minWidth890px, viewSmallScreenNav, toggleViewedNav, props)}</>
   );
 };
 
 export default Nav;
 
-const getMenu = (maxWidth890px, viewSmallScreenNav, toggleViewedNav, props) => {
-  if (maxWidth890px)
+const getMenu = (minWidth890px, viewSmallScreenNav, toggleViewedNav, props) => {
+  if (!minWidth890px)
     return (
       <SmallScreenNav
         {...props}
-        maxWidth890px={maxWidth890px}
+        minWidth890px={minWidth890px}
         toggleViewedNav={toggleViewedNav}
       />
     );
-  else if (!maxWidth890px && viewSmallScreenNav)
+  else if (minWidth890px && viewSmallScreenNav)
     return (
       <SmallScreenNav
         {...props}
-        maxWidth890px={maxWidth890px}
+        minWidth890px={minWidth890px}
         toggleViewedNav={toggleViewedNav}
       />
     );
-  else if (!maxWidth890px && !viewSmallScreenNav)
+  else if (minWidth890px && !viewSmallScreenNav)
     return <WideScreenNav toggleViewedNav={toggleViewedNav} />;
   else return <WideScreenNav toggleViewedNav={toggleViewedNav} />;
 };
@@ -153,26 +153,6 @@ export const WideScreenNav = ({ toggleViewedNav }) => {
           style={MENU_BTN_STYLE}
           onClick={() => toggleViewedNav()}
         ></Button>
-
-        {/* <SeachInputAndIconContainer>
-          <SeachInputContainer>
-            <TextField id="search-input" label="Search" variant="filled" />
-          </SeachInputContainer>
-
-          <SeachIconContainer>
-            <Button
-              style={{
-                height: "100%",
-                width: "100%",
-                minWidth: "unset",
-                borderRadius: 0,
-                background: "rgba(17,17,17,.5)",
-              }}
-            >
-              <SearchIcon style={{ color: "#fff" }} />
-            </Button>
-          </SeachIconContainer>
-        </SeachInputAndIconContainer> */}
 
         <NavRoutesContainer>
           <Link href="/" passHref={true}>
@@ -269,7 +249,7 @@ export const WideScreenNav = ({ toggleViewedNav }) => {
   );
 };
 
-export const SmallScreenNav = ({ toggleViewedNav, maxWidth890px }) => {
+export const SmallScreenNav = ({ toggleViewedNav, minWidth890px }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const maxWidth600px = useMediaQuery("(max-width:600px)");
@@ -303,7 +283,7 @@ export const SmallScreenNav = ({ toggleViewedNav, maxWidth890px }) => {
             color: "#fff",
           }}
           onClick={() => {
-            if (maxWidth890px) dispatch(openMenuDrawer());
+            if (!minWidth890px) dispatch(openMenuDrawer());
             else toggleViewedNav();
           }}
         ></Button>
