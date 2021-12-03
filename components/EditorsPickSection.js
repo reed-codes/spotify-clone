@@ -19,7 +19,7 @@ z-index: 0;
 box-shadow: -16px -200px 100px -31px #101010 inset;
 -webkit-box-shadow: -16px -200px 100px -31px #101010 inset;
 -moz-box-shadow: -16px -200px 100px -31px #101010 inset;
-transition: all 1s linear; 
+transition: all .6s linear; 
 `
 
 const EditorsPickSection = ({ data }) => {

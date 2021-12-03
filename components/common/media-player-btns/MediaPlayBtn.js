@@ -85,7 +85,7 @@ const MediaPlayBtn = ({ item, show }) => {
                   height: 40,
                   minWidth: 'unset',
                   cursor: 'default',
-                  boxShadow: theme => theme.shadows[10]
+                  boxShadow: 15
                 }}
                 onClick={(e) => {
                   e.stopPropagation()

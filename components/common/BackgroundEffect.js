@@ -12,7 +12,6 @@ background: #000;
 background: ${(props) => props.accentColor ? props.accentColor : '#000'};
 filter: brightness(50%);
 opacity:.95;
-// transition : all .3s ease-in;
 `;
 
 
