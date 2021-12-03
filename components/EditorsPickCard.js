@@ -40,11 +40,7 @@ export default function EditorsPickCard(props) {
 
   return (
     <Tooltip title="click to open" placement="bottom" arrow>
-      <motion.div
-        // animate={{ y: 0 }}
-        // initial={{ y: 3 }}
-        // transition={{ type: "spring", stiffness: 100 }}
-      >
+      <motion.div>
         <Card
           style={CARD_STYLE}
           className="editors-pick-card"
