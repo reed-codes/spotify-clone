@@ -4,7 +4,7 @@ import Head from "next/head";
 const HeadElement = () => {
   return (
     <Head>
-      <title>Nextjs Spotify Clone – Web Player</title>
+      <title>Spotify Clone – by Reedemer</title>
       <meta name="description" content="Spotify clone by Reedemer is a digital music service that gives you access to millions of songs." />
       <meta property="google" content="notranslate" />
       <meta property="og:title" content="Spotify clone by Reedemer - Web Player: Music for everyone" />

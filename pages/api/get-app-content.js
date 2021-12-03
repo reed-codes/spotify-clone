@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import axios from 'axios'
-import { removeObjectDuplicates } from '../../utils'
+import { removeObjectDuplicates, filterOutDeadPreviews } from '../../utils'
 
 export default async function handler(req, res) {
 
@@ -19,6 +19,8 @@ export default async function handler(req, res) {
             let albums = [...pop_resulsts.albums.data, ...rap_resulsts.albums.data, ...r_and_b_resulsts.albums.data, ...alternative_results.albums.data];
             let new_releases = new_releases_results.data
             let podcasts = podcast_results.data;
+
+            tracks = filterOutDeadPreviews(tracks);
 
             res.status(200).json({
                 content: {

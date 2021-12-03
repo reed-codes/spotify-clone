@@ -77,3 +77,9 @@ export const getTracklist = async (url) =>{
             return []
       }
 }
+
+export const filterOutDeadPreviews = (arr)=>{
+        if(Array.isArray(arr)){
+              return arr.filter(track => track.preview);
+        }else return arr
+}

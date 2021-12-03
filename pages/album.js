@@ -15,6 +15,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import axios from 'axios'
 import PageMediaPlayerBtn from "../components/common/media-player-btns/PageMediaPlayerBtn";
+import { filterOutDeadPreviews } from "../utils";
 
 
 const MusicHeader = styled.div`
@@ -118,7 +119,7 @@ padding-bottom:24px;
 
 export default function Album(props) {
   const [tracklist, setTracklist] = useState({
-    list: props.data.tracks ? props.data.tracks : [],
+    list: props.data.tracks ? filterOutDeadPreviews(props.data.tracks) : [],
     loading: !Boolean(props.data.tracks),
     err: null
   });

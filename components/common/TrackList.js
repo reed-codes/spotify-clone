@@ -4,7 +4,7 @@ import TrackItemsListHead from "./TrackItemsListHead";
 import { useMediaQuery } from "@mui/material";
 import axios from 'axios'
 import { v4 } from 'uuid'
-import { getTrackItemPlaceholders } from "../../utils";
+import { getTrackItemPlaceholders, filterOutDeadPreviews } from "../../utils";
 import { AudioPlayerContext } from "../../state/context/AudioPlayerContext";
 
 const TrackList = (props) => {
@@ -36,7 +36,7 @@ const TrackList = (props) => {
 
           props.setTracklist({
             ...props.tracklist,
-            list: new_list,
+            list: filterOutDeadPreviews(new_list),
             loading: false
           })
         }
@@ -44,7 +44,7 @@ const TrackList = (props) => {
 
           props.setTracklist({
             ...props.tracklist,
-            list: data.tracklist,
+            list: filterOutDeadPreviews(data.tracklist),
             loading: false
           })
         }
@@ -72,7 +72,7 @@ const TrackList = (props) => {
       const payload = {
         collection: props.id,
         trackID,
-        list: props.tracklist.list,
+        list: filterOutDeadPreviews(props.tracklist.list),
         pointer: true
       }
       handleTrackListInit(payload)
