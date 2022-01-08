@@ -21,6 +21,7 @@ const SmallScreenPlayerTopSection = styled.div`
 height: 65% ;
 width: 100% ;
 display: flex ;
+align-items: center;
 position: relative ;
 `
 const SmallScreenPlayerTrackTitleAndArtistWrapper = styled.div`
@@ -36,15 +37,16 @@ overflow: hidden;
 const SmallScreenPlayerLeftControlsWrapper = styled.div`
 padding:0 12px;
 height: 100% ;
+border-radius:5px;
 min-width:175px;
 display :  flex ;
 justify-content: space-between;
 align-items: center;
-position: absolute};
+// position: absolute};
 z-index: 3;
 top:0;
 right:0;
-backdrop-filter:blur(10px) 
+// backdrop-filter:blur(100px) 
 `
 
 
@@ -59,7 +61,9 @@ export default function SmallScreenDefaultPlayer({smallScreen}) {
                 width: '100%', 
                 position: 'absolute',
                 top: '-16px',
-                padding:"0 10px"
+                padding:"0 10px",
+                pointerEvents:'none'
+
                 }}>
         <PlayerProgressPack smallScreen />
       </Box>

@@ -9,19 +9,19 @@ export default function TrackTitleAndArtist(props) {
   const { currentTrack } = useContext(AudioPlayerContext);
   const max_width_680px = useMediaQuery("(max-width:650px)")
   const max_width_950px = useMediaQuery("(max-width:950px)")
+  let contentRenderArray = [1, 1, 1, 1, 1];
 
+  for (let i = 0; i < 100; i++)
+    contentRenderArray[i] = 0;
 
   return (
     <>
 
       {
-
         max_width_950px ? (
           <>
 
-
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-
 
               <img
                 src={currentTrack ? currentTrack.album.cover_medium : ""}
@@ -32,93 +32,48 @@ export default function TrackTitleAndArtist(props) {
 
               {
                 max_width_680px ? (
-              
-                  <Box sx = {{
-                    marginRight:"165px",
-                    width:'100%',
-                    overflow:'hidden',
-                    boxSizing:'border-box'
+
+                  <Box sx={{
+                    width: '100%',
+                    overflow: 'hidden',
+                    boxSizing: 'border-box'
                   }}>
-                  <Marquee style={{
-                    width: 'fit-content',
-                    marginLeft: "10px",
-                  }}
-                    gradient={false}
-                    speed={30}
-                  >
+                    <Marquee style={{
+                      width: 'fit-content',
+                      marginLeft: "10px",
+                    }}
+                      gradient={false}
+                      speed={50}
+                    >
 
-                    <Box sx={{ height: "100%", display: 'flex', alignItems: "center", gap: 2 }}>
+                      {
+                        contentRenderArray.map(() => {
 
-                      <Box
-                        sx={{
-                          whiteSpace: "nowrap",
-                          height: '100%',
-                          alignItems: 'center'
-                        }}
-                        className="font-bold block"
-                      >
-                        {props.title}
-                      </Box>
+                          console.log("boom")
+                          return (
+                            <MarqueeContent artist={props.artist}
+                              title={props.title}
+                            />
+                          )
+                          I
+                        })
+                      }
 
-                      <Box>
-                        &bull;
-                      </Box>
-
-                      <Box style={{
-                        width: '100%',
-                        whiteSpace: "nowrap",
-                        height: '100%',
-                        alignItems: 'center'
-                      }}
-                      >
-                        {props.artist}
-                      </Box>
-
-                    </Box>
-
-                  </Marquee>
+                    </Marquee>
                   </Box>
 
                 ) : (
 
-                  <Box sx={{ height: "100%", display: 'flex', alignItems: "center", gap: 2, pl:2 }}>
-
-                    <Box
-                      sx={{
-                        whiteSpace: "nowrap",
-                        height: '100%',
-                        alignItems: 'center'
-                      }}
-                      className="font-bold block"
-                    >
-                      {props.title}
-                    </Box>
-
-                    <Box>
-                      &bull;
-                    </Box>
-
-                    <Box style={{
-                      width: '100%',
-                      whiteSpace: "nowrap",
-                      height: '100%',
-                      alignItems: 'center'
-                    }}
-                    >
-                      {props.artist}
-                    </Box>
-                  </Box>
+                  <MarqueeContent artist={props.artist}
+                    title={props.title}
+                  />
 
                 )
               }
 
-
-              {/* </Box> */}
-
             </Box>
           </>
         ) : (
-
 
           <>
 
@@ -139,7 +94,6 @@ export default function TrackTitleAndArtist(props) {
 
             }
 
-
             <div style={{
               fontSize: 14,
               fontWeight: 700,
@@ -157,9 +111,42 @@ export default function TrackTitleAndArtist(props) {
 
       }
 
-
     </>
   )
 
 }
 
+
+
+const MarqueeContent = (props) => {
+  return (
+    <Box sx={{ height: "100%", display: 'flex', alignItems: "center", gap: 2, mr: "1s0px", ml: "10px" }}>
+
+      <Box
+        sx={{
+          whiteSpace: "nowrap",
+          height: '100%',
+          alignItems: 'center'
+        }}
+        className="font-bold block"
+      >
+        {props.title}
+      </Box>
+
+      <Box>
+        &bull;
+      </Box>
+
+      <Box style={{
+        width: '100%',
+        whiteSpace: "nowrap",
+        height: '100%',
+        alignItems: 'center'
+      }}
+      >
+        {props.artist}
+      </Box>
+
+    </Box>
+  )
+}

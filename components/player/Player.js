@@ -14,11 +14,13 @@ export const PlayerWrapper = styled.div`
   bottom: ${({smallScreen})=> smallScreen ? "5px" : "-1px" } ;
   border-radius: ${({smallScreen})=> smallScreen ? "10px" : "0px" };
   background: ${({smallScreen})=> smallScreen ? "#111" : "none" } ;
+  overflow:hidden;
   position: fixed;
   left: 0;
   right:0;
   margin:auto;
   display: flex;
+  align-items:center;
   cursor: default; 
   user-select: none;
   z-index:100;
