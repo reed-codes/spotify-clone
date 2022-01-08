@@ -32,16 +32,19 @@ export default function TrackTitleAndArtist(props) {
 
               {
                 max_width_680px ? (
-
+              
+                  <Box sx = {{
+                    marginRight:"165px",
+                    width:'100%',
+                    overflow:'hidden',
+                    boxSizing:'border-box'
+                  }}>
                   <Marquee style={{
                     width: 'fit-content',
-                    marginLeft: "10px"
+                    marginLeft: "10px",
                   }}
                     gradient={false}
                     speed={30}
-                    play={max_width_680px}
-                    onFinish={() => { console.log("listen") }}
-                    onCycleComplete={() => { console.log("listen") }}
                   >
 
                     <Box sx={{ height: "100%", display: 'flex', alignItems: "center", gap: 2 }}>
@@ -74,7 +77,7 @@ export default function TrackTitleAndArtist(props) {
                     </Box>
 
                   </Marquee>
-
+                  </Box>
 
                 ) : (
 

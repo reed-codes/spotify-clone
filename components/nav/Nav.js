@@ -327,24 +327,28 @@ export const SmallScreenNav = ({ toggleViewedNav, minWidth890px }) => {
             </a>
           </Link>
 
-          <Link href="/now-playing" passHref={true}>
-            <a>
               <Tooltip title="NOW-PLAYING">
                 <Button
                   style={{
                     ...SMALLSCREEN_NAV_ROUTE_BTN_STYLE,
-                    color: router.pathname == "/now-playing" ? "#fff" : "#b3b3b3",
-                    background:
-                      router.pathname == "/now-playing"
-                        ? "#282828"
-                        : "transparent",
+                    color: "#b3b3b3",
+                    background:"transparent",
+                  }}
+                  onClick={() => {
+                    const playerPIPToggleBtn = document.querySelector("#player-pip-toggle-btn")
+                    if (playerPIPToggleBtn) {
+                      playerPIPToggleBtn.click()
+                    } else {
+                      enqueueSnackbar("No currently playing song", {
+                        preventDuplicate: true,
+                        variant: "warning",
+                      });
+                    }
                   }}
                 >
                   <EqualizerIcon />
                 </Button>
               </Tooltip>
-            </a>
-          </Link>
 
           <Link href="/library" passHref={true}>
             <a>

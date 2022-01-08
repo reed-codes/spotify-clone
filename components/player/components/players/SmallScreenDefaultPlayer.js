@@ -14,7 +14,7 @@ const SmallScreenPlayerWrapper = styled.div`
 height: 100% ;
 width: 100% ;
 position: relative ;
-padding: ${({smallScreen})=> smallScreen ? "16px 0" : "0"}
+padding: ${({smallScreen})=> smallScreen ? "16px 0" : "0"};
 `
 
 const SmallScreenPlayerTopSection = styled.div`
@@ -29,7 +29,8 @@ height: 100%;
 flex: 1;
 display: flex ;
 flex-direction: column ;
-justify-content: center
+justify-content: center;
+overflow: hidden;
 `
 
 const SmallScreenPlayerLeftControlsWrapper = styled.div`
@@ -43,7 +44,7 @@ position: absolute};
 z-index: 3;
 top:0;
 right:0;
-backdrop-filter:blur(100px) 
+backdrop-filter:blur(10px) 
 `
 
 

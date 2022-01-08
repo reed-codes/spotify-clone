@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import {
@@ -32,7 +32,9 @@ import {
 import styled from "styled-components";
 
 import QuickNavigationBtnGroup from "./QuickNavigationBtnGroup";
+import { useSnackbar } from 'notistack';
 import SpotifyTextLogo from '../common/SpotifyTextLogo'
+import {AudioPlayerContext} from '../../state/context/AudioPlayerContext'
 
 const AppBarWrapper = styled.div`
   position: sticky;
@@ -56,26 +58,6 @@ const LogoContainer = styled.div`
   padding: 15px 0;
 `;
 
-// const SeachInputAndIconContainer = styled.div`
-//   width: 100%;
-//   height: 56px;
-//   display: flex;
-//   color: #fff;
-// `;
-
-// const SeachInputContainer = styled.div`
-//   flex: 1;
-//   height: 100%;
-// `;
-
-// const SeachIconContainer = styled.div`
-//   min-width: 60px;
-//   width: 60px;
-//   height: 100%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// `;
 
 const NavRoutesContainer = styled.div`
   padding-top: 30px;
@@ -167,6 +149,8 @@ export default function ButtonAppBar(props) {
 }
 
 export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
+  const { handlePipToggle, currentTrack } = useContext(AudioPlayerContext);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const router = useRouter();
   const dispatch = useDispatch();
   return (
@@ -188,30 +172,16 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
           <LeftWideScreenNav>
             <NavContentWrapper>
               <LogoContainer>
-                <Box  
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                      }}
-                      onClick={() => dispatch(toggleMenuDrawer())}
-                      >
-                    <SpotifyTextLogo/>
+                <Box
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  onClick={() => dispatch(toggleMenuDrawer())}
+                >
+                  <SpotifyTextLogo />
                 </Box>
-{/*                 
-                <Link href="/" passHref={true}>
-                  <a>
-                    <img
-                      src={"./logo-and-brand.png"}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "contain",
-                        objectPosition: 'left',
-                      }}
-                      onClick={() => dispatch(toggleMenuDrawer())}
-                    />
-                  </a>
-                </Link> */}
+
               </LogoContainer>
 
               <Button
@@ -220,30 +190,7 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
                 style={MENU_BTN_STYLE}
                 onClick={() => dispatch(toggleMenuDrawer())}
               ></Button>
-              {/* 
-              <SeachInputAndIconContainer>
-                <SeachInputContainer>
-                  <TextField
-                    id="search-input"
-                    label="Search"
-                    variant="filled"
-                  />
-                </SeachInputContainer>
 
-                <SeachIconContainer>
-                  <Button
-                    style={{
-                      height: "100%",
-                      width: "100%",
-                      minWidth: "unset",
-                      borderRadius: 0,
-                      background: "rgba(17,17,17,.5)",
-                    }}
-                  >
-                    <SearchIcon style={{ color: "#fff" }} />
-                  </Button>
-                </SeachIconContainer>
-              </SeachInputAndIconContainer> */}
 
               <NavRoutesContainer>
                 <Link href="/" passHref={true}>
@@ -280,22 +227,31 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
                   </a>
                 </Link>
 
-                <Link href="/now-playing" passHref={true}>
-                  <a>
-                    <Button
-                      variant="outlined"
-                      startIcon={<EqualizerIcon />}
-                      style={{
-                        ...NAV_ROUTE_BTN_STYLE,
-                        color: router.pathname == "now-playing" ? '#fff' : '#b3b3b3',
-                        background: router.pathname == "now-playing" ? '#282828' : 'transparent',
-                      }}
-                      onClick={() => dispatch(toggleMenuDrawer())}
-                    >
-                      Now playing
-                    </Button>
-                  </a>
-                </Link>
+                <Button
+                  variant="outlined"
+                  startIcon={<EqualizerIcon />}
+                  style={{
+                    ...NAV_ROUTE_BTN_STYLE,
+                    color: '#b3b3b3',
+                    background: 'transparent',
+                  }}
+                  onClick={() => {
+                    
+                    if (currentTrack) {
+                      handlePipToggle()
+                    } else {
+                      enqueueSnackbar("No currently playing song", {
+                        preventDuplicate: true,
+                        variant: "warning",
+                      });
+                    }
+
+                    dispatch(toggleMenuDrawer())
+
+                  }}
+                >
+                  Now playing
+                </Button>
 
                 <Link href="/library" passHref={true}>
                   <a>

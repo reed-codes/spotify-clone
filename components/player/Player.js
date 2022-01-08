@@ -13,6 +13,7 @@ export const PlayerWrapper = styled.div`
   height: ${({smallScreen})=> smallScreen ? "unset" : "100px" };
   bottom: ${({smallScreen})=> smallScreen ? "5px" : "-1px" } ;
   border-radius: ${({smallScreen})=> smallScreen ? "10px" : "0px" };
+  background: ${({smallScreen})=> smallScreen ? "#111" : "none" } ;
   position: fixed;
   left: 0;
   right:0;
@@ -36,7 +37,8 @@ export default function Player(props){
                           className = "shadow-2xl"
                           >
 
-                  { (isPipOn && !max_width_950px) &&  <PipPlayer constraintsRef = {props.config.constraintsRef}/> }
+                  {/* { (isPipOn && !max_width_950px) &&  <PipPlayer constraintsRef = {props.config.constraintsRef}/> } */}
+                  { (isPipOn) &&  <PipPlayer constraintsRef = {props.config.constraintsRef}/> }
 
                   <BackgroundEffect accentColor = { colors ? colors[0] : ''}
                                     smallScreen = {max_width_950px}
