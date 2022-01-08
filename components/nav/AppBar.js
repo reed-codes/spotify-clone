@@ -9,7 +9,6 @@ import {
   Typography,
   Button,
   SwipeableDrawer,
-  TextField,
 } from "@mui/material";
 import MenuIcon from "@material-ui/icons/Menu";
 import HomeIcon from "@mui/icons-material/Home";
@@ -34,7 +33,7 @@ import styled from "styled-components";
 import QuickNavigationBtnGroup from "./QuickNavigationBtnGroup";
 import { useSnackbar } from 'notistack';
 import SpotifyTextLogo from '../common/SpotifyTextLogo'
-import {AudioPlayerContext} from '../../state/context/AudioPlayerContext'
+import { AudioPlayerContext } from '../../state/context/AudioPlayerContext'
 
 const AppBarWrapper = styled.div`
   position: sticky;
@@ -236,7 +235,7 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
                     background: 'transparent',
                   }}
                   onClick={() => {
-                    
+
                     if (currentTrack) {
                       handlePipToggle()
                     } else {

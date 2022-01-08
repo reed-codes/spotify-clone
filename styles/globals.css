@@ -18,7 +18,7 @@ a {
   text-decoration: none;
 }
 
-a:hover{
+a:hover {
   color: #fff;
 }
 
@@ -42,10 +42,9 @@ a:hover{
   background: #353535;
 }
 
-.secondary-text{
-  opacity: .7;
+.secondary-text {
+  opacity: 0.7;
 }
-
 
 .player-controls-icon-btn {
   height: 40px;
@@ -78,33 +77,30 @@ a:hover{
   display: block;
 }
 
-.editors-pick-card{
-  background-color: rgba(255,255,255,.1) !important;
+.editors-pick-card {
+  background-color: rgba(255, 255, 255, 0.1) !important;
   display: flex;
   justify-content: flex-start !important;
 }
 
-
-.editors-pick-card:hover{
-  background-color: rgba(255,255,255,.25) !important;
+.editors-pick-card:hover {
+  background-color: rgba(255, 255, 255, 0.25) !important;
 }
 
-
-.media-card-wrapper{
-  flex: 1 ;
+.media-card-wrapper {
+  flex: 1;
   min-width: 150px;
-  width : 200px; 
-  margin-bottom:5px;
-  transition: all .2s linear
+  width: 200px;
+  margin-bottom: 5px;
+  transition: all 0.2s linear;
 }
-
 
 .MuiPaper-root {
   border: none !important;
 }
 
-.MuiSlider-colorSecondary{
-    padding: 13px 0 !important;
+.MuiSlider-colorSecondary {
+  padding: 13px 0 !important;
 }
 
 @media (min-width: 1280px) {
@@ -115,20 +111,18 @@ a:hover{
   }
 }
 
-
 @media (max-width: 600px) {
   .content-wrapper {
-     padding: 0 10px !important;
+    padding: 0 10px !important;
   }
 
-  .media-card-wrapper{
-    width : 175px; 
+  .media-card-wrapper {
+    width: 175px;
   }
 }
 
-
 @media (max-width: 950px) {
-  .MuiSlider-thumb{
-    display: none!important;
+  .MuiSlider-thumb {
+    display: none !important;
   }
 }

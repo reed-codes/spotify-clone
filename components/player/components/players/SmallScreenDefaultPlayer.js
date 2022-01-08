@@ -1,10 +1,7 @@
 import { useContext } from 'react'
 import styled from "styled-components";
-import { useMediaQuery } from "@material-ui/core";
 import TrackTitleAndArtist from '../TrackTitleAndArtist'
-import BackgroundEffect from '../../../common/BackgroundEffect'
 import PrevAndPlayAndNextButtonPack from '../PrevAndPlayAndNextButtonPack'
-import MoreMenuButton from '../MoreMenuButton'
 import PlayerProgressPack from '../PlayerProgressPack'
 import { AudioPlayerContext } from '../../../../state/context/AudioPlayerContext';
 import { Box } from '@mui/material';
@@ -14,7 +11,7 @@ const SmallScreenPlayerWrapper = styled.div`
 height: 100% ;
 width: 100% ;
 position: relative ;
-padding: ${({smallScreen})=> smallScreen ? "16px 0" : "0"};
+padding: ${({ smallScreen }) => smallScreen ? "16px 0" : "0"};
 `
 
 const SmallScreenPlayerTopSection = styled.div`
@@ -50,31 +47,31 @@ right:0;
 `
 
 
-export default function SmallScreenDefaultPlayer({smallScreen}) {
+export default function SmallScreenDefaultPlayer({ smallScreen }) {
   const { currentTrack } = useContext(AudioPlayerContext);
 
   return (
 
-    <SmallScreenPlayerWrapper smallScreen = {smallScreen}>
+    <SmallScreenPlayerWrapper smallScreen={smallScreen}>
 
       <Box sx={{
-                width: '100%', 
-                position: 'absolute',
-                top: '-16px',
-                padding:"0 10px",
-                pointerEvents:'none'
+        width: '100%',
+        position: 'absolute',
+        top: '-16px',
+        padding: "0 10px",
+        pointerEvents: 'none'
 
-                }}>
+      }}>
         <PlayerProgressPack smallScreen />
       </Box>
 
 
       <SmallScreenPlayerTopSection>
         <SmallScreenPlayerTrackTitleAndArtistWrapper>
-          <TrackTitleAndArtist 
-                  title={currentTrack.title}
-                  artist={currentTrack.artist.name}
-                  />
+          <TrackTitleAndArtist
+            title={currentTrack.title}
+            artist={currentTrack.artist.name}
+          />
         </SmallScreenPlayerTrackTitleAndArtistWrapper>
 
 

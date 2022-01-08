@@ -48,9 +48,19 @@ export default function Home(props) {
   }, [])
 
 
+  const currentHour = (new Date()).getHours();
+  let greetingMessage = "";
+
+  if (currentHour < 12)
+    greetingMessage = "Good morning";
+  else if ((currentHour > 12) && (currentHour < 18))
+    greetingMessage = "Good afternoon";
+  else
+    greetingMessage = "Good evening";
+
   return (
     <Container className="content-wrapper" >
-      <SectionHeader>Good afternoon </SectionHeader>
+      <SectionHeader> {greetingMessage} </SectionHeader>
       <EditorsPickGridSection data={albums_top_six} />
 
       <ContentSliderSection title={getTitle("top-tracks")}

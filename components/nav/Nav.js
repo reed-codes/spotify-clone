@@ -131,7 +131,7 @@ export const WideScreenNav = ({ toggleViewedNav, enqueueSnackbar }) => {
     <LeftWideScreenNav>
       <NavContentWrapper>
         <LogoContainer>
-            <SpotifyTextLogo/>
+          <SpotifyTextLogo />
         </LogoContainer>
 
         <Button
@@ -327,28 +327,28 @@ export const SmallScreenNav = ({ toggleViewedNav, minWidth890px }) => {
             </a>
           </Link>
 
-              <Tooltip title="NOW-PLAYING">
-                <Button
-                  style={{
-                    ...SMALLSCREEN_NAV_ROUTE_BTN_STYLE,
-                    color: "#b3b3b3",
-                    background:"transparent",
-                  }}
-                  onClick={() => {
-                    const playerPIPToggleBtn = document.querySelector("#player-pip-toggle-btn")
-                    if (playerPIPToggleBtn) {
-                      playerPIPToggleBtn.click()
-                    } else {
-                      enqueueSnackbar("No currently playing song", {
-                        preventDuplicate: true,
-                        variant: "warning",
-                      });
-                    }
-                  }}
-                >
-                  <EqualizerIcon />
-                </Button>
-              </Tooltip>
+          <Tooltip title="NOW-PLAYING">
+            <Button
+              style={{
+                ...SMALLSCREEN_NAV_ROUTE_BTN_STYLE,
+                color: "#b3b3b3",
+                background: "transparent",
+              }}
+              onClick={() => {
+                const playerPIPToggleBtn = document.querySelector("#player-pip-toggle-btn")
+                if (playerPIPToggleBtn) {
+                  playerPIPToggleBtn.click()
+                } else {
+                  enqueueSnackbar("No currently playing song", {
+                    preventDuplicate: true,
+                    variant: "warning",
+                  });
+                }
+              }}
+            >
+              <EqualizerIcon />
+            </Button>
+          </Tooltip>
 
           <Link href="/library" passHref={true}>
             <a>

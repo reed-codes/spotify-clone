@@ -1,49 +1,49 @@
-import {useContext} from 'react'
-import {motion} from 'framer-motion'  
+import { useContext } from 'react'
+import { motion } from 'framer-motion'
 import PrevAndPlayAndNextButtonPack from '../PrevAndPlayAndNextButtonPack'
 import IconButton from "@material-ui/core/IconButton";
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 import { AudioPlayerContext } from '../../../../state/context/AudioPlayerContext';
 
 const OVERLAY_STYLE = {
-    height:"100%",
+    height: "100%",
     width: "100%",
-    padding:20,
+    padding: 20,
     backgroundColor: 'rgba(0,0,0,.3)',
-    color:'#fff',
-    display:'flex',
-    justifyContent:'center',
-    alignItems :'flex-end'
+    color: '#fff',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end'
 }
 
 const PIP_PLAYER_STYLE = {
-    height:250,
+    height: 250,
     width: 250,
-    bottom:0,
-    right:30,
+    bottom: 0,
+    right: 30,
     backgroundColor: '#111',
     position: 'fixed',
     boxShadow: '5px 5px 30px rgba(10,10,10,.9)',
-    border:'1px rgba(10,10,10,.7) solid',
+    border: '1px rgba(10,10,10,.7) solid',
 }
 
 const CLOSE_PIP_BTN = {
-    position : 'absolute',
+    position: 'absolute',
     top: 0,
     right: 0,
-    color:'#fff'
+    color: '#fff'
 }
 
-const PipPlayer = ({constraintsRef}) => {
-    const {handlePipToggle, currentTrack} =  useContext(AudioPlayerContext);
+const PipPlayer = ({ constraintsRef }) => {
+    const { handlePipToggle, currentTrack } = useContext(AudioPlayerContext);
 
     return (
         <motion.div
-            style = {{
+            style={{
                 ...PIP_PLAYER_STYLE,
                 backgroundImage: `url(${currentTrack.album.cover_medium})`,
-                backgroundSize:'cover',
-                backgroundPosition:'center',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
                 zIndex: 100,
             }}
             drag
@@ -53,21 +53,21 @@ const PipPlayer = ({constraintsRef}) => {
             initial={{ y: 0 }}
             transition={{ type: "spring", stiffness: 100 }}
             id="pip-player"
-            className = "cursor-grab"
-           >
-          
-          <div style = {OVERLAY_STYLE}>
-            <IconButton className = "exit-pip-btn" 
-                               aria-label="close pip"
-                               title = "close pip"
-                               style = {CLOSE_PIP_BTN}
-                               onClick = {handlePipToggle}
-                               >
-                     <CloseTwoToneIcon />
-            </IconButton>
+            className="cursor-grab"
+        >
 
-           <div> <PrevAndPlayAndNextButtonPack/> </div>
-           </div>
+            <div style={OVERLAY_STYLE}>
+                <IconButton className="exit-pip-btn"
+                    aria-label="close pip"
+                    title="close pip"
+                    style={CLOSE_PIP_BTN}
+                    onClick={handlePipToggle}
+                >
+                    <CloseTwoToneIcon />
+                </IconButton>
+
+                <div> <PrevAndPlayAndNextButtonPack /> </div>
+            </div>
         </motion.div>
     )
 }
