@@ -32,6 +32,7 @@ import {
 import styled from "styled-components";
 
 import QuickNavigationBtnGroup from "./QuickNavigationBtnGroup";
+import SpotifyTextLogo from '../common/SpotifyTextLogo'
 
 const AppBarWrapper = styled.div`
   position: sticky;
@@ -97,7 +98,7 @@ const NAV_ROUTE_BTN_STYLE = {
   paddingBottom: 10,
   borderColor: "transparent",
   color: "#fff",
-  fontWeight:700
+  fontWeight: 700
 };
 
 const LeftWideScreenNav = styled.nav`
@@ -115,9 +116,9 @@ export default function ButtonAppBar(props) {
 
   return (
     <AppBarWrapper>
-      { props.showAppBarBackground && (
-            <BackgroundEffect accentColor = { colors ? colors[0] : ''}/>
-          ) } 
+      {props.showAppBarBackground && (
+        <BackgroundEffect accentColor={colors ? colors[0] : ''} />
+      )}
 
       <Box sx={{ flexGrow: 1 }}>
         <SwipeableMenuDrawer
@@ -125,7 +126,7 @@ export default function ButtonAppBar(props) {
           menuDrawerIsOpen={menuDrawerIsOpen}
         />
 
-        <AppBar position="static" style={{ background: "none", boxShadow : 'none'}}>
+        <AppBar position="static" style={{ background: "none", boxShadow: 'none' }}>
           <Toolbar>
             {maxWidth600px && (
               <Button
@@ -145,22 +146,19 @@ export default function ButtonAppBar(props) {
               className={`d-flex ${maxWidth600px && "justify-content-center"}`}
             >
               {maxWidth600px ? (
-                <img
-                  src={"./logo.png"}
+                <Box
                   style={{
-                    width: 40,
-                    height: 40,
-                    objectFit: "contain",
-                    objectPosition:'left',
-                    marginBottom: -3,
+                    height: 35,
                   }}
-                />
+                >
+                  <SpotifyTextLogo />
+                </Box>
               ) : (
                 <QuickNavigationBtnGroup />
               )}
             </Typography>
 
-            <Button style = {{color:'#fff', fontWeight:700, background : '#080808'}}>Login</Button>
+            <Button style={{ color: '#fff', fontWeight: 700, background: '#080808' }}>Login</Button>
           </Toolbar>
         </AppBar>
       </Box>
@@ -190,6 +188,16 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
           <LeftWideScreenNav>
             <NavContentWrapper>
               <LogoContainer>
+                <Box  
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                      }}
+                      onClick={() => dispatch(toggleMenuDrawer())}
+                      >
+                    <SpotifyTextLogo/>
+                </Box>
+{/*                 
                 <Link href="/" passHref={true}>
                   <a>
                     <img
@@ -198,12 +206,12 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
                         width: "100%",
                         height: "100%",
                         objectFit: "contain",
-                        objectPosition:'left',
+                        objectPosition: 'left',
                       }}
                       onClick={() => dispatch(toggleMenuDrawer())}
                     />
                   </a>
-                </Link>
+                </Link> */}
               </LogoContainer>
 
               <Button
@@ -212,7 +220,7 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
                 style={MENU_BTN_STYLE}
                 onClick={() => dispatch(toggleMenuDrawer())}
               ></Button>
-{/* 
+              {/* 
               <SeachInputAndIconContainer>
                 <SeachInputContainer>
                   <TextField
@@ -243,10 +251,10 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
                     <Button
                       variant="outlined"
                       startIcon={<HomeIcon />}
-                      style = {{
+                      style={{
                         ...NAV_ROUTE_BTN_STYLE,
-                          color : router.pathname == "/" ? '#fff' : '#b3b3b3',
-                          background : router.pathname == "/" ? '#282828' : 'transparent',
+                        color: router.pathname == "/" ? '#fff' : '#b3b3b3',
+                        background: router.pathname == "/" ? '#282828' : 'transparent',
                       }}
                       onClick={() => dispatch(toggleMenuDrawer())}
                     >
@@ -260,10 +268,10 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
                     <Button
                       variant="outlined"
                       startIcon={<HistoryIcon />}
-                      style = {{
+                      style={{
                         ...NAV_ROUTE_BTN_STYLE,
-                          color : router.pathname == "/recent" ? '#fff' : '#b3b3b3',
-                          background : router.pathname == "/recent" ? '#282828' : 'transparent',
+                        color: router.pathname == "/recent" ? '#fff' : '#b3b3b3',
+                        background: router.pathname == "/recent" ? '#282828' : 'transparent',
                       }}
                       onClick={() => dispatch(toggleMenuDrawer())}
                     >
@@ -277,10 +285,10 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
                     <Button
                       variant="outlined"
                       startIcon={<EqualizerIcon />}
-                      style = {{
+                      style={{
                         ...NAV_ROUTE_BTN_STYLE,
-                          color : router.pathname == "now-playing" ? '#fff' : '#b3b3b3',
-                          background : router.pathname == "now-playing" ? '#282828' : 'transparent',
+                        color: router.pathname == "now-playing" ? '#fff' : '#b3b3b3',
+                        background: router.pathname == "now-playing" ? '#282828' : 'transparent',
                       }}
                       onClick={() => dispatch(toggleMenuDrawer())}
                     >
@@ -294,10 +302,10 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
                     <Button
                       variant="outlined"
                       startIcon={<LibraryMusicIcon />}
-                      style = {{
+                      style={{
                         ...NAV_ROUTE_BTN_STYLE,
-                          color : router.pathname == "/library" ? '#fff' : '#b3b3b3',
-                          background : router.pathname == "/library" ? '#282828' : 'transparent',
+                        color: router.pathname == "/library" ? '#fff' : '#b3b3b3',
+                        background: router.pathname == "/library" ? '#282828' : 'transparent',
                       }}
                       onClick={() => dispatch(toggleMenuDrawer())}
                     >
@@ -311,10 +319,10 @@ export function SwipeableMenuDrawer({ toggleDrawer, menuDrawerIsOpen }) {
                     <Button
                       variant="outlined"
                       startIcon={<FavoriteIcon />}
-                      style = {{
+                      style={{
                         ...NAV_ROUTE_BTN_STYLE,
-                          color : router.pathname == "/liked-songs" ? '#fff' : '#b3b3b3',
-                          background : router.pathname == "/liked-songs" ? '#282828' : 'transparent',
+                        color: router.pathname == "/liked-songs" ? '#fff' : '#b3b3b3',
+                        background: router.pathname == "/liked-songs" ? '#282828' : 'transparent',
                       }}
                       onClick={() => dispatch(toggleMenuDrawer())}
                     >

@@ -178,6 +178,7 @@ const TrackItem = ({ hideAlbumColumn, maxWidth780px, track, position, isCurrentP
             background: "#000",
             objectFit: "cover",
           }}
+          className = "pointer-events-none"
         />
       </TrackCoverArtWrapper>
 

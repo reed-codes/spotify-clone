@@ -9,11 +9,14 @@ import PipPlayer from './components/players/PipPlayer'
 import { AudioPlayerContext } from '../../state/context/AudioPlayerContext';
 
 export const PlayerWrapper = styled.div`
-  width: 100%;
-  height: 100px;
+  width: ${({smallScreen})=> smallScreen ? "95%" : "100%" };
+  height: ${({smallScreen})=> smallScreen ? "unset" : "100px" };
+  bottom: ${({smallScreen})=> smallScreen ? "5px" : "-1px" } ;
+  border-radius: ${({smallScreen})=> smallScreen ? "10px" : "0px" };
   position: fixed;
-  bottom: -1px;
   left: 0;
+  right:0;
+  margin:auto;
   display: flex;
   cursor: default; 
   user-select: none;
@@ -28,13 +31,18 @@ export default function Player(props){
         const max_width_950px = useMediaQuery("(max-width:950px)");
 
         return (
-            <PlayerWrapper accentColor = { colors ? colors[0] : ''} >
+            <PlayerWrapper 
+                          smallScreen = {max_width_950px}
+                          className = "shadow-2xl"
+                          >
 
                   { (isPipOn && !max_width_950px) &&  <PipPlayer constraintsRef = {props.config.constraintsRef}/> }
 
-                  <BackgroundEffect accentColor = { colors ? colors[0] : ''} />
+                  <BackgroundEffect accentColor = { colors ? colors[0] : ''}
+                                    smallScreen = {max_width_950px}
+                                    />
 
-                  {max_width_950px ? <SmallScreenPlayer/> : <WideScreenPlayer cover = {cover}/>}
+                  {max_width_950px ? <SmallScreenPlayer smallScreen = {max_width_950px}/> : <WideScreenPlayer cover = {cover}/>}
             </PlayerWrapper>
         )
 } 

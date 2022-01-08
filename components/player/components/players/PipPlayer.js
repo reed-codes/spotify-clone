@@ -53,6 +53,7 @@ const PipPlayer = ({constraintsRef}) => {
             initial={{ y: 0 }}
             transition={{ type: "spring", stiffness: 100 }}
             id="pip-player"
+            className = "cursor-grab"
            >
           
           <div style = {OVERLAY_STYLE}>

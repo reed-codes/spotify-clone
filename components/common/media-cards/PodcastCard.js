@@ -82,7 +82,7 @@ const MediaCard = ({ podcast }) => {
               cursor: 'pointer'
             }}>
               <CardCoverImageWrapper>
-                <CardCoverImage src={cover} alt="" />
+                <CardCoverImage src={cover} alt="" className = "pointer-events-none" />
               </CardCoverImageWrapper>
 
               <CardContentWrapper>

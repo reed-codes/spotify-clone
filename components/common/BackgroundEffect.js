@@ -8,10 +8,11 @@ position: absolute;
 bottom:0;
 left:0,
 z-Index:4;
-background: #000;
 background: ${(props) => props.accentColor ? props.accentColor : '#000'};
 filter: brightness(50%);
 opacity:.95;
+border-radius: ${({smallScreen})=> smallScreen ? "10px" : "0px" };
+overflow:hidden;
 `;
 
 
@@ -22,9 +23,10 @@ position: absolute ;
 bottom:0;
 left:0,
 z-Index:5;
-overflow:hidden;
 backdrop-filter:blur(10px);
-background: ${(props) => props.accentColor ? 'rgba(0,0,0,.3)' : '#000'}
+background: ${(props) => props.accentColor ? 'rgba(0,0,0,.3)' : '#000'},
+border-radius: ${({smallScreen})=> smallScreen ? "10px" : "0px" };
+overflow:hidden;
 `;
 
 
@@ -37,8 +39,8 @@ export default function BackgroundEffect(props) {
       initial={{ opacity: 0 }}
       transition={{ type: "spring", stiffness: 100 }}
     >
-      <PlayerBackdrobFilterWrapper accentColor={props.accentColor}>
-        <PlayerBackgroundEffectWrapper accentColor={props.accentColor} />
+      <PlayerBackdrobFilterWrapper accentColor={props.accentColor} smallScreen = {props.smallScreen}>
+        <PlayerBackgroundEffectWrapper accentColor={props.accentColor} smallScreen = {props.smallScreen} />
       </PlayerBackdrobFilterWrapper>
     </motion.div>
   );

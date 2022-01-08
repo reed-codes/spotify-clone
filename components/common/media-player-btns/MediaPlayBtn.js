@@ -8,7 +8,7 @@ import { getTracklist } from '../../../utils'
 import { AudioPlayerContext } from '../../../state/context/AudioPlayerContext'
 import { useMediaQuery } from '@material-ui/core';
 import { useDispatch } from 'react-redux'
-import {alterRecentPlays} from '../../../state/actions/user-data-actions'
+import { alterRecentPlays } from '../../../state/actions/user-data-actions'
 
 const MediaPlayBtn = ({ item, show }) => {
   const {
@@ -25,11 +25,11 @@ const MediaPlayBtn = ({ item, show }) => {
     e.stopPropagation()
     e.preventDefault()
 
-    if( (String(currentCollection) === String(item.id)) ) {
-      
-          if (isPlaying) handlePause()
-          else handlePlay()
-          
+    if ((String(currentCollection) === String(item.id))) {
+
+      if (isPlaying) handlePause()
+      else handlePlay()
+
     } else {
       if (item.type === "track") {
         const payload = {
@@ -37,7 +37,7 @@ const MediaPlayBtn = ({ item, show }) => {
           list: [item]
         }
 
-        dispatch(alterRecentPlays({...item.album, artist : item.artist}))
+        dispatch(alterRecentPlays({ ...item.album, artist: item.artist }))
         handleTrackListInit(payload);
 
       } else {
@@ -94,8 +94,8 @@ const MediaPlayBtn = ({ item, show }) => {
                   height: 40,
                   minWidth: 'unset',
                   cursor: 'default',
-                  boxShadow: 15
                 }}
+                className="shadow-2xl"
                 onClick={(e) => {
                   e.stopPropagation()
                   e.preventDefault()
@@ -113,6 +113,14 @@ const MediaPlayBtn = ({ item, show }) => {
               animate={{ y: -10 }}
               initial={{ y: 0 }}
               transition={{ type: "spring", stiffness: 100 }}
+
+              whileHover={{
+                scale: 1.1,
+                transition: { duration: .05 },
+              }}
+              whileTap={{ scale: 0.95 }}
+
+
               style={{
                 width: 40,
                 height: 40,
@@ -132,8 +140,8 @@ const MediaPlayBtn = ({ item, show }) => {
                     height: 40,
                     minWidth: 'unset',
                     cursor: 'default',
-                    boxShadow: theme => theme.shadows[10]
                   }}
+                  className="shadow-2xl"
                   onClick={handlePlayBtnClick}
                 >
                   <PlayArrowIcon style={{ fontSize: 18, color: '#fff' }} />

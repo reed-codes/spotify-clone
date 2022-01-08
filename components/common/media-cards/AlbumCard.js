@@ -112,7 +112,7 @@ const MediaCard = ({ album }) => {
                 cursor: 'pointer'
               }}>
                 <CardCoverImageWrapper>
-                  <CardCoverImage src={cover} alt="" />
+                  <CardCoverImage src={cover} alt="" className = "pointer-events-none"/>
 
                   <MediaCardOnHoverBtnWrapper className="media-card-on-hover-btn-wrapper">
                     {<MediaPlayBtn item = {album} show = {showPlayBtn} />}

@@ -97,9 +97,10 @@ export default function EditorsPickCard(props) {
             <Box sx={{ boxShadow: 10 }}>
               <CardMedia
                 component="img"
-                sx={{ height: 100, width: 100 }}
+                sx={{ height: 100, width: 100, minHeight: 100, minWidth: 100 }}
                 image={cover}
                 alt={title}
+                className = "pointer-events-none"
               />
             </Box>
 

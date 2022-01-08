@@ -23,8 +23,8 @@ const CARD_STYLE = {
 const CardImgWrapper = styled.div`
   position: relative;
   background: #333;
-  height: 100px;
-  width: 100px;
+  min-height: 100px;
+  min-width: 100px;
 `;
 
 export default function EditorsPickCardSkeleton() {
@@ -38,17 +38,14 @@ export default function EditorsPickCardSkeleton() {
           style={CARD_STYLE}
           className="editors-pick-card"
         >
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <CardContent sx={{ flex: "1 0 auto", padding: "10px !important" }}>
-
-              <Skeleton width={110} height={35}/>
-              <Skeleton width={60} height={35}/>
-
+          <CardImgWrapper/>
+          
+          <Box sx={{ display: "flex", flexDirection: "column", width:'100%' }}>
+            <CardContent sx={{ flex: "1 !important", padding: "10px !important" }}>
+                  <Skeleton width={"100%"} height={35}/>
+                  <Skeleton width={60} height={35}/>
             </CardContent>
           </Box>
-
-          <CardImgWrapper>
-          </CardImgWrapper>
         </Card>
       </motion.div>
   );

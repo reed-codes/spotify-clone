@@ -103,7 +103,9 @@ a:hover{
   border: none !important;
 }
 
-
+.MuiSlider-colorSecondary{
+    padding: 13px 0 !important;
+}
 
 @media (min-width: 1280px) {
   .music-header-cover-img {

@@ -14,7 +14,6 @@ import { AudioPlayerContext } from "../../../state/context/AudioPlayerContext";
 
 
 const MENU_ITEM_STYLE = {
-  background:'green',
   display:'flex',
   justifyContent:'space-between',
   alignItems:'center',

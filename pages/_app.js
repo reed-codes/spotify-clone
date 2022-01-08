@@ -5,7 +5,8 @@ import Layout from '../components/Layout'
 import RouterIdicator from './RouterIdicator'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AudioPlayerContextProvider from '../state/context/AudioPlayerContext'
-
+import Slide from '@mui/material/Slide';
+import { SnackbarProvider } from 'notistack';
 
 const darkTheme = createTheme({
   palette: {
@@ -15,16 +16,27 @@ const darkTheme = createTheme({
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Provider store={store}>
-      <AudioPlayerContextProvider>
-        <RouterIdicator />
-        <ThemeProvider theme={darkTheme}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
-      </AudioPlayerContextProvider>
+
+    <SnackbarProvider
+      maxSnack={3}
+      preventDuplicate
+      autoHideDuration={4500}
+      TransitionComponent={Slide}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}>
+      <Provider store={store}>
+        <AudioPlayerContextProvider>
+          <RouterIdicator />
+          <ThemeProvider theme={darkTheme}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+        </AudioPlayerContextProvider>
     </Provider >
+    </SnackbarProvider>
   )
 }
 

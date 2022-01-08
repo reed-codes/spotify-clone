@@ -32,11 +32,11 @@ const PageMediaPlayerBtn = ({ tracklist, id }) => {
     <span style={{ borderRadius: '50%' }}>
       {(isPlaying && String(currentCollection) === String(id)) ? (
         <IconButton onClick={handlePause} >
-          <PauseIcon style={{ color: "#1db954", fontSize: 60, cursor: 'pointer' }} />
+          <PauseIcon style={{ color: "#1db954", width:"50px", height:"50px", cursor: 'pointer' }} />
         </IconButton>
       ) : (
         <IconButton onClick={handlePlayBtnClick} >
-          <PlayCircleIcon style={{ color: "#1db954", fontSize: 60, cursor: 'pointer' }} />
+          <PlayCircleIcon style={{ color: "#1db954", width:"50px", height:"50px", cursor: 'pointer' }} />
         </IconButton>
       )}
     </span>

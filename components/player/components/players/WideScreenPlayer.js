@@ -199,6 +199,7 @@ export const PlayerRightGridOptions = () => {
 
       <IconButton
         className = "player-controls-icon-btn"
+        id = "player-pip-toggle-btn"
         aria-label="picture in picture"
         onClick = {handlePipToggle}
       >
