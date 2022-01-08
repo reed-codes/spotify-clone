@@ -24,6 +24,8 @@ export default function Home(props) {
     loading
   } = useSelector(state => state.musicData);
 
+console.log("hash")
+
   useEffect(() => {
 
     if (!albums_top_six.length) {

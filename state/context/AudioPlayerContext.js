@@ -266,24 +266,48 @@ export default function AudioPlayerContextProvider({ children }) {
 
         const intCurrentTime = parseInt(currentTime);
 
-        if (trackProgress.time !== intCurrentTime)
-            setTrackProgress({
+        if (trackProgress.time !== intCurrentTime) {
+            // setTrackProgress({
+            //     time: intCurrentTime,
+            //     percentage: percentProgress,
+            //     duration
+            // })
+
+            const payload = {
                 time: intCurrentTime,
                 percentage: percentProgress,
                 duration
-            })
+            }
+            localStorage.setItem("trackProgress", JSON.stringify(payload))
+
+        }
+
+
     }
 
 
     const handleTrackTimeUpdateFromSlider = (_, newPercentage) => {
-        const newTime = (newPercentage / 100) * trackProgress.duration;
+        const storedProgress = localStorage.getItem("trackProgress")
+        const progress = JSON.parse(storedProgress)
+        const duration = progress.duration ? progress.duration : 0;
+        const newTime = (newPercentage / 100) * duration;
+        
         playerRef.currentTime = newTime;
 
-        setTrackProgress({
+        const payload = {
             ...trackProgress,
             time: parseInt(newTime),
-            percentage: newPercentage,
-        })
+            percentage: newPercentage
+        }
+
+        localStorage.setItem("trackProgress", JSON.stringify(payload))
+
+        // setTrackProgress(1)
+        // setTrackProgress({
+        //     ...trackProgress,
+        //     time: parseInt(newTime),
+        //     percentage: newPercentage,
+        // })
     }
 
     //   HANDLERS END 🪓🪓🪓
