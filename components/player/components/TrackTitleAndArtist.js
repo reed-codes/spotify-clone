@@ -3,25 +3,13 @@ import Marquee from "react-fast-marquee";
 import { useMediaQuery } from "@material-ui/core";
 import Box from '@mui/material/Box';
 import { AudioPlayerContext } from "../../../state/context/AudioPlayerContext";
-import { useEffect, useState } from "react";
 
 
 export default function TrackTitleAndArtist(props) {
   const { currentTrack } = useContext(AudioPlayerContext);
   const max_width_680px = useMediaQuery("(max-width:650px)")
   const max_width_950px = useMediaQuery("(max-width:950px)")
-  const [playMarquee, toggleMarquee] = useState(false)
 
-  // useEffect(() => {
-
-  //     const marqueeInterval = setInterval(() => {
-  //         console.log("jude")
-  //         toggleMarquee(!playMarquee)
-  //     }, 4000);
-
-  //     return ()=> clearInterval(marqueeInterval)
-
-  // }, [playMarquee])
 
   return (
     <>

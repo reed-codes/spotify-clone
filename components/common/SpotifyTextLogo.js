@@ -11,7 +11,7 @@ const SpotifyTextLogo = () => {
                     }}>
                 <svg
                     style={{
-                        width: "100%",
+                        // width: "100%",
                         height: "100%",
                         objectFit: "contain",
                         objectPosition: 'left'

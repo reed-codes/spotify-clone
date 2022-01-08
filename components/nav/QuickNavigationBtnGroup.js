@@ -4,10 +4,18 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { useRouter } from 'next/router'
+import IconButton from '@mui/material/IconButton'
+import Box from '@mui/material/Box';
+
 
 const QUICK_NAV_BTN_STYLES = {
     color:'#fff',
-    border:'1px rgb(225, 225, 225, .08) solid'
+    border:'1px rgb(225, 225, 225, .07) solid',
+    borderRadius:'50%',
+    background:'rgba(0,0,0,.5)',
+    height:'32px',
+    width:'32px',
+    marginRight:"16px"
 }
 
 export default function QuickNavigationBtnGroup() {
@@ -27,28 +35,29 @@ export default function QuickNavigationBtnGroup() {
 
   return (
     <>
-      <ButtonGroup aria-label="medium button group"
+      {/* <ButtonGroup aria-label="medium button group"
                    size="small"
                    style = {{
                        color:'#fff',
                        background:'rgba(0,0,0,.5)',
                        border:'none'
                    }}
-                   >
-        <Button  style = {QUICK_NAV_BTN_STYLES}
+                   > */}
+                   <Box >
+        <IconButton  style = {QUICK_NAV_BTN_STYLES}
                  onClick = {handlePrevPageClick}
                  >
              <NavigateBeforeIcon
                  className = "text-white"/>
-         </Button>
+         </IconButton>
 
-        <Button  style = {QUICK_NAV_BTN_STYLES}
+        <IconButton  style = {QUICK_NAV_BTN_STYLES}
                   onClick = {handleNextPageClick}
                   >
              <NavigateNextIcon
                  className = "text-white"/>
-         </Button>
-      </ButtonGroup>
+         </IconButton>
+      </Box>
     </>
   );
 }
