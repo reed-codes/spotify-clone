@@ -147,6 +147,7 @@ export default function ButtonAppBar(props) {
             <a
               href="https://github.com/reed-codes/spotify-clone"
               target="_blank"
+              rel="noreferrer"
             >
               <IconButton
                 className="md:opacity-50 hover:opacity-100"
