@@ -157,6 +157,7 @@ export default function ButtonAppBar(props) {
                   width:'23px',
                   height:'23px',
                   borderRadius:'50% !important',
+                  color:'#fff !important'
                 }}
               >
                 <GitHubIcon />
