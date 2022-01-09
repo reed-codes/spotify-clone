@@ -16,10 +16,8 @@ import HomeIcon from "@mui/icons-material/Home";
 import HistoryIcon from "@mui/icons-material/History";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
-import SearchIcon from "@mui/icons-material/Search";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import GitHubIcon from "@mui/icons-material/GitHub";
-
 
 import useImageColor from "use-image-color";
 
@@ -93,15 +91,14 @@ const LeftWideScreenNav = styled.nav`
 
 export default function ButtonAppBar(props) {
   const dispatch = useDispatch();
-  const cover = './cover-2.jpg'
-  const { colors } = useImageColor(cover, { cors: true, colors: 5 });
+  // const { colors } = useImageColor(cover, { cors: true, colors: 5 });
   const { menuDrawerIsOpen } = useSelector((state) => state.menuState);
   const maxWidth600px = useMediaQuery("(max-width:600px)");
 
   return (
     <AppBarWrapper>
       {props.showAppBarBackground && (
-        <BackgroundEffect accentColor={colors ? colors[0] : ''} />
+        <BackgroundEffect accentColor={''} />
       )}
 
       <Box sx={{ flexGrow: 1 }}>
@@ -118,7 +115,7 @@ export default function ButtonAppBar(props) {
                   dispatch(openMenuDrawer());
                 }}
                 style={{ color: "#fff" }}
-              >
+                >
                 <MenuIcon />
               </Button>
             )}
@@ -142,7 +139,6 @@ export default function ButtonAppBar(props) {
               )}
             </Typography>
 
-            {/* <Button style={{ color: '#fff', fontWeight: 700, background: '#080808' }}>Login</Button> */}
 
             <a
               href="https://github.com/reed-codes/spotify-clone"
@@ -153,11 +149,11 @@ export default function ButtonAppBar(props) {
                 className="md:opacity-50 hover:opacity-100"
                 aria-label="upload picture"
                 component="span"
-                sx = {{
-                  width:'23px',
-                  height:'23px',
-                  borderRadius:'50% !important',
-                  color:'#fff !important'
+                sx={{
+                  width: '23px',
+                  height: '23px',
+                  borderRadius: '50% !important',
+                  color: '#fff !important'
                 }}
               >
                 <GitHubIcon />

@@ -85,7 +85,8 @@ export default function EditorsPickCard(props) {
               "#background-gradient-effect"
             );
             if (backgrounGradientEffect && colors)
-              backgrounGradientEffect.style.background = LightenDarkenColor(colors[0], -70);
+              backgrounGradientEffect.style.background = colors[0];
+              // backgrounGradientEffect.style.background = LightenDarkenColor(colors[0], -70);
 
             setShowPlayBtn(true)
           }}

@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import Player from './player/Player'
 import { toggleMenuDrawer } from "../state/actions/menu-drawer-actions";
 import Head from "./Head";
-import {AudioPlayerContext} from "../state/context/AudioPlayerContext";
+import { AudioPlayerContext } from "../state/context/AudioPlayerContext";
 
 const MainWrapper = styled.div`
   height: 100vh;
@@ -27,7 +27,7 @@ const MainContentContainer = styled.main`
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
-  const {currentTrack} = useContext(AudioPlayerContext)
+  const { currentTrack } = useContext(AudioPlayerContext)
   const mainWrapperRef = useRef(null)
   const [showAppBarBackground, setShowAppBarBackground] = useState(false);
 
@@ -58,21 +58,23 @@ const Layout = ({ children }) => {
           onScroll={handleMainContentContainerScroll}
           className="main-content-container"
         >
-          <AppBar showAppBarBackground={showAppBarBackground} toggleDrawer={toggleDrawer} />
+          <AppBar showAppBarBackground={showAppBarBackground}
+                  toggleDrawer={toggleDrawer}
+                   />
 
           {children}
         </MainContentContainer>
       </MainWrapper>
 
-     {
-         currentTrack && (
+      {
+        currentTrack && (
 
           <Player config={{
             constraintsRef: mainWrapperRef
           }} />
 
-         ) 
-     }
+        )
+      }
 
     </>
   );
