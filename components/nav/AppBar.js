@@ -8,6 +8,7 @@ import {
   Toolbar,
   Typography,
   Button,
+  IconButton,
   SwipeableDrawer,
 } from "@mui/material";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -17,6 +18,8 @@ import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import GitHubIcon from "@mui/icons-material/GitHub";
+
 
 import useImageColor from "use-image-color";
 
@@ -139,7 +142,26 @@ export default function ButtonAppBar(props) {
               )}
             </Typography>
 
-            <Button style={{ color: '#fff', fontWeight: 700, background: '#080808' }}>Login</Button>
+            {/* <Button style={{ color: '#fff', fontWeight: 700, background: '#080808' }}>Login</Button> */}
+
+            <a
+              href="https://github.com/reed-codes/spotify-clone"
+              target="_blank"
+            >
+              <IconButton
+                className="md:opacity-50 hover:opacity-100"
+                aria-label="upload picture"
+                component="span"
+                sx = {{
+                  width:'23px',
+                  height:'23px',
+                  borderRadius:'50% !important',
+                }}
+              >
+                <GitHubIcon />
+              </IconButton>
+            </a>
+
           </Toolbar>
         </AppBar>
       </Box>

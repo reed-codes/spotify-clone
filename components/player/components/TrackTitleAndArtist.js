@@ -47,15 +47,14 @@ export default function TrackTitleAndArtist(props) {
                     >
 
                       {
-                        contentRenderArray.map(() => {
-
-                          console.log("boom")
+                        contentRenderArray.map((_ , index) => {
                           return (
-                            <MarqueeContent artist={props.artist}
-                              title={props.title}
+                            <MarqueeContent 
+                                key = {"marquee-"+index}
+                                artist={props.artist}
+                                title={props.title}
                             />
                           )
-                          I
                         })
                       }
 

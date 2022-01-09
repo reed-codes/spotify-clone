@@ -5,13 +5,13 @@ const HeadElement = () => {
   return (
     <Head>
       <title>Spotify Clone – by Reedemer</title>
-      <meta name="description" content="Spotify clone by Reedemer is a digital music service that gives you access to millions of songs." />
-      <meta property="og:title" content="Spotify - Web Player: Music for everyone" />
-      <meta property="og:description" content="Spotify is a digital music service that gives you access to millions of songs." />
+      <meta name="description" content="Spotify-clone by Reedemer is a digital music service that gives you access to millions of songs." />
+      <meta property="og:title" content="Spotify-clone by Reedemer - Web Player: Music for everyone" />
+      <meta property="og:description" content="Spotify-clone by Reedemer is a digital music service that gives you access to millions of songs." />
       <meta property="og:url" content="https://open.spotify.com/" />
       <meta property="og:image" content="https://open.scdn.co/cdn/images/og-image.860da0d8.png" />
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="Spotify" />
+      <meta property="og:site_name" content="Spotify-clone: Web Player by Reedemer" />
       <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
         rel="stylesheet"
